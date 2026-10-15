@@ -35,7 +35,7 @@ export const Route = createFileRoute("/")({
 function Index() {
   // The page's motion (halftone art, notch demo, carousel, word scroll) is plain DOM code that runs in the browser only.
   useEffect(() => {
-    void import("../site/main.js");
+    void import("../site/main.js").then((m) => m.startFocusSite());
   }, []);
 
   return <div className="focus-site" dangerouslySetInnerHTML={{ __html: bodyHtml }} />;
