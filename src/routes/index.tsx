@@ -17,8 +17,9 @@ export const Route = createFileRoute("/")({
       { property: "og:title", content: title },
       { property: "og:description", content: description },
       { property: "og:type", content: "website" },
-      { property: "og:image", content: "/media/app/icon.png" },
+      { property: "og:image", content: "https://focus-mac.lovable.app/media/app/icon.png" },
       { name: "twitter:card", content: "summary" },
+      { name: "twitter:image", content: "https://focus-mac.lovable.app/media/app/icon.png" },
     ],
     links: [
       { rel: "preconnect", href: "https://fonts.googleapis.com" },
