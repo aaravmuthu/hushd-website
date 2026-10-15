@@ -1,0 +1,14 @@
+{
+  "detector": {
+    "ignoreRules": [],
+    "ignoreFiles": [],
+    "ignoreValues": [
+      {
+        "rule": "overused-font",
+        "value": "inter",
+        "createdAt": "2026-10-15T00:35:38.560Z",
+        "reason": "Claude: Inter is only the non-Apple fallback; the stack leads with -apple-system / SF Pro to match Droppy's site, which the user asked to copy."
+      }
+    ]
+  }
+}

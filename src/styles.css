@@ -1,5 +1,7 @@
 @import "tailwindcss" source(none);
 @source "../src";
+/* The Focus page has its own CSS; its class names (ring, …) must not become Tailwind utilities. */
+@source not "./site";
 @import "tw-animate-css";
 
 @custom-variant dark (&:is(.dark *));
