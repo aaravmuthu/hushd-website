@@ -185,9 +185,9 @@ button { font: inherit; color: inherit; }
 .nav__card {
   position: absolute; inset: 0; padding: 0 28px 20px;
   display: grid; grid-template-columns: auto 1fr; align-items: end; gap: 16px;
-  opacity: 0; filter: blur(8px); transform: scale(0.96); transform-origin: 50% 0;
+  opacity: 0; transform: scale(0.98); transform-origin: 50% 0;
   pointer-events: none;
-  transition: opacity 150ms ease, filter 200ms ease, transform 240ms var(--ease-out);
+  transition: opacity 140ms ease, transform 220ms var(--ease-out);
 }
 .nav__card div { display: grid; gap: 2px; padding-bottom: 2px; }
 .nav__card strong { font-family: var(--font-display); font-size: 20px; font-weight: 650; letter-spacing: -0.02em; }
@@ -198,23 +198,24 @@ button { font: inherit; color: inherit; }
   width: min(500px, calc(100vw - 24px)); height: 128px;
   border-radius: 0 0 var(--open-radius) var(--open-radius);
 }
-.notch-arrive .nav__card { opacity: 1; filter: none; transform: none; }
+.notch-arrive .nav__card { opacity: 1; transform: none; }
 .notch-arrived .nav__pill { animation: none; transform: none; }
 .notch-arrive .nav__card .ring circle { animation: ring-draw 900ms var(--ease-out) 120ms both; }
 @keyframes ring-draw { from { stroke-dasharray: 0 50.27; } }
-.notch-arrive .nav__pill > :not(.nav__card) { opacity: 0; filter: blur(6px); }
+.notch-arrive .nav__pill > :not(.nav__card) { opacity: 0; }
 /* As the notch tucks away, its parts rise back in one after another. */
 .nav__pill[data-notch="closing"] > :not(.nav__card) {
-  transition: opacity 320ms ease, filter 380ms var(--ease-out);
-  transition-delay: calc(110ms + var(--i, 0) * 45ms);
+  transition: opacity 220ms ease;
+  transition-delay: calc(60ms + var(--i, 0) * 30ms);
 }
 
 /* Page to page --------------------------------------------------------------------------------------------------- */
 /* Same-origin page changes cross-fade through a little blur while the notch morphs between pages. */
 @view-transition { navigation: auto; }
 ::view-transition-group(notch) { animation-duration: 340ms; animation-timing-function: cubic-bezier(0.2, 0.9, 0.25, 1.05); }
-::view-transition-old(notch) { animation: vt-fade 110ms ease-out both reverse; }
-::view-transition-new(notch) { animation: vt-fade 180ms ease-out both; }
+::view-transition-old(notch) { animation: vt-fade 90ms linear both reverse; }
+::view-transition-new(notch) { animation: vt-fade 120ms linear both; }
+::view-transition-old(notch), ::view-transition-new(notch) { height: 100%; width: 100%; object-fit: none; object-position: 50% 0; }
 /* Apple-style push: both pages overlap, the old one recedes slightly while the new one settles in. No blur, no gap. */
 ::view-transition-old(root) { animation: vt-page-out 180ms cubic-bezier(0.4, 0, 1, 1) both; }
 ::view-transition-new(root) { animation: vt-page-in 300ms cubic-bezier(0.2, 0.9, 0.25, 1) both; }
