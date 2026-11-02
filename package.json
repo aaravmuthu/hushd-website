@@ -1,7 +1,9 @@
 {
   "name": "focus",
   "private": true,
-  "sideEffects": false,
+  "sideEffects": [
+    "./src/site/*.js"
+  ],
   "type": "module",
   "scripts": {
     "dev": "vite dev",

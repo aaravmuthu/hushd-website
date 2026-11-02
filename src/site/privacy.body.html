@@ -1,0 +1,249 @@
+<a class="skip" href="#main">Skip to content</a>
+
+<!-- The nav is the notch: black at the screen edge, glass at the bottom. It opens on the page name when you arrive. -->
+<header class="nav">
+  <span class="nav__edge" aria-hidden="true"></span>
+  <nav class="nav__pill" aria-label="Main">
+    <a class="nav__logo" href="/" aria-label="Hushd home" style="--i:0">
+      <img src="/media/app/icon.png" alt="" width="26" height="26">
+      <span>Hushd</span>
+    </a>
+    <div class="nav__links" id="nav-links" style="--i:1">
+      <span class="nav__thumb" aria-hidden="true"></span>
+      <a class="nav__link" href="/how-it-works">How it works</a>
+      <a class="nav__link" href="/features">Features</a>
+      <a class="nav__link" href="/privacy" aria-current="page">Privacy</a>
+      <a class="nav__link" href="/download#faq">FAQ</a>
+    </div>
+    <a class="btn btn--nav" href="/download" style="--i:2">Download</a>
+    <button class="nav__menu" type="button" aria-label="Menu" aria-expanded="false" aria-controls="nav-links" style="--i:2"><span></span><span></span></button>
+    <div class="nav__card" aria-hidden="true">
+      <svg class="ring ring--big" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8"/></svg>
+      <div><strong>Privacy</strong><span>What it reads, and what it leaves alone.</span></div>
+    </div>
+  </nav>
+</header>
+
+<main id="main">
+<!-- Hero ------------------------------------------------------------------------------------------------------- -->
+<section class="subhero sky" data-tone="sky">
+  <div class="sky__fog" data-loop aria-hidden="true"><i></i><i></i><i></i></div>
+  <canvas class="subhero__art" aria-hidden="true"></canvas>
+  <div class="subhero__inner">
+    <div class="subhero__copy">
+      <h1 class="reveal reveal--title" data-reveal-load style="--d:140ms">What Hushd reads, <span class="soft">and what it leaves alone.</span></h1>
+      <p class="reveal" data-reveal-load style="--d:300ms">No account. No cloud model. No analytics. Hushd judges with Apple’s on-device model, on your Mac.</p>
+    </div>
+    <!-- Three things read, one after another; everything else stays frosted. -->
+    <div class="lens glass reveal reveal--glass" data-reveal-load style="--d:440ms" data-lens aria-hidden="true">
+      <div class="lens__bar"><i></i><i></i><i></i><span class="lens__title" data-f="1">Integration by parts, worked examples</span></div>
+      <div class="lens__url"><span data-f="2">math.example.edu/calc/3</span></div>
+      <div class="lens__body">
+        <div class="lens__text"><div class="win-line" style="width:90%"></div><div class="win-line" style="width:74%"></div><div class="win-line" style="width:82%"></div><div class="win-line" style="width:48%"></div></div>
+        <div class="lens__img"><svg class="plot" viewBox="0 0 120 80" aria-hidden="true"><path class="plot__axis" d="M10 70h104M20 76V6"/><path class="plot__curve" d="M10 69.5C40 69 58 67 72 60s22-22 30-48"/><circle cx="72" cy="60" r="2.5"/><text x="76" y="64">x·eˣ</text></svg></div>
+      </div>
+      <div class="lens__app"><span data-f="0">Browser</span></div>
+      <div class="lens__tags"><span>App</span><span>Title</span><span>Address</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- Anatomy: what a session reads, with and without screen reading --------------------------------------------- -->
+<section class="anatomy paper bloomed" data-tone="paper">
+  <div class="bloom" data-loop aria-hidden="true">
+    <i style="--x:-10%;--y:6%;--s:42vw;--o:.55"></i>
+    <i style="--x:60%;--y:30%;--s:38vw;--c:#2a8a5b;--o:.22;--t:31s"></i>
+    <i style="--x:24%;--y:66%;--s:30vw;--c:#c9f2dc;--o:.8;--t:22s"></i>
+  </div>
+  <div class="wrap">
+    <div class="section-head section-head--stack">
+      <h2 class="section-title reveal">Only the window in front, <span class="soft">only during a session.</span></h2>
+      <p class="section-sub reveal" style="--d:80ms">The app, title and page address. Screen reading adds the words, if you turn it on.</p>
+    </div>
+    <div class="anat reveal reveal--glass" style="--d:120ms" data-anat data-ocr="false">
+      <div class="anat__win glass glass--light">
+        <div class="anat__chrome">
+          <i></i><i></i><i></i>
+          <span class="anat__part anat__part--app" data-part="app">Browser</span>
+          <span class="anat__part anat__part--title" data-part="title">Integration by parts, worked examples</span>
+        </div>
+        <div class="anat__url"><span class="anat__part" data-part="address">math.example.edu/calc/3</span></div>
+        <div class="anat__page">
+          <div class="anat__words">
+            <p><span class="ow">To</span> <span class="ow">integrate</span> <span class="ow">a</span> <span class="ow">product,</span> <span class="ow">choose</span> <span class="ow">u</span> <span class="ow">and</span> <span class="ow">dv,</span> <span class="ow">then</span> <span class="ow">apply</span> <span class="ow">∫ u dv = uv − ∫ v du.</span></p>
+            <p><span class="ow">Example</span> <span class="ow">3:</span> <span class="ow">x·eˣ,</span> <span class="ow">with</span> <span class="ow">u = x.</span></p>
+          </div>
+          <div class="anat__pic"><svg class="plot" viewBox="0 0 120 80" aria-hidden="true"><path class="plot__axis" d="M10 70h104M20 76V6"/><path class="plot__curve" d="M10 69.5C40 69 58 67 72 60s22-22 30-48"/><circle cx="72" cy="60" r="2.5"/><text x="76" y="64">x·eˣ</text></svg><span>Never the picture</span></div>
+        </div>
+      </div>
+      <ul class="anat__key">
+        <li data-key-part="app"><b>App</b><span>Which app is in front.</span></li>
+        <li data-key-part="title"><b>Title</b><span>The window or tab title.</span></li>
+        <li data-key-part="address"><b>Address</b><span>The page or file it shows.</span></li>
+        <li class="anat__key-ocr"><b>Words</b><span>Only with screen reading on. Dropped when the window changes.</span></li>
+      </ul>
+      <label class="switch switch--light anat__switch"><input type="checkbox" data-anat-switch><span class="switch__ui" aria-hidden="true"></span><span>Screen reading</span></label>
+    </div>
+  </div>
+</section>
+
+<!-- Never read, never judged ----------------------------------------------------------------------------------- -->
+<section class="never night" data-tone="night" data-never>
+  <div class="wrap never__inner">
+    <h2 class="section-title reveal">Some apps <span class="soft">are never read.</span></h2>
+    <p class="section-sub section-sub--sky reveal" style="--d:80ms">Messaging apps, music players and blank tabs are skipped by default. You can edit the list in Settings, and a project rule still wins.</p>
+    <div class="never__field" aria-label="Skipped by default">
+      <i class="never__beam" aria-hidden="true"></i>
+      <ul class="never__list">
+        <li class="nchip"><span class="app-dot app-dot--msg"></span>Messages</li>
+        <li class="nchip"><span class="app-dot app-dot--wa"></span>WhatsApp</li>
+        <li class="nchip"><span class="app-dot app-dot--tg"></span>Telegram</li>
+        <li class="nchip"><span class="app-dot app-dot--sig"></span>Signal</li>
+        <li class="nchip"><span class="app-dot app-dot--music"></span>Music</li>
+        <li class="nchip"><span class="app-dot app-dot--spot"></span>Spotify</li>
+        <li class="nchip"><span class="app-dot app-dot--pod"></span>Podcasts</li>
+        <li class="nchip"><span class="app-dot app-dot--tidal"></span>Tidal</li>
+        <li class="nchip"><span class="app-dot app-dot--pan"></span>Pandora</li>
+        <li class="nchip"><span class="app-dot app-dot--tab"></span>New tab</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- Memory, for seconds --------------------------------------------------------------------------------------- -->
+<section class="memory paper bloomed" data-tone="paper">
+  <div class="bloom" data-loop aria-hidden="true">
+    <i style="--x:56%;--y:-4%;--s:42vw;--o:.55"></i>
+    <i style="--x:-8%;--y:40%;--s:34vw;--c:#2a8a5b;--o:.22;--t:30s"></i>
+  </div>
+  <div class="wrap memory__grid">
+    <div>
+      <h2 class="section-title reveal">Memory, <span class="soft">for seconds.</span></h2>
+      <p class="section-sub reveal" style="--d:80ms">Pictures and screen words stay in memory and are dropped when the window changes. Sessions keep counts, never window text.</p>
+    </div>
+    <div class="mem glass glass--light reveal reveal--glass" style="--d:120ms" data-mem aria-hidden="true">
+      <div class="mem__win"><span class="mem__app" data-mem-app>Notes</span><span class="mem__title" data-mem-title>Calc homework</span></div>
+      <div class="mem__words" data-mem-words></div>
+      <div class="mem__foot"><span class="mem__life"><i data-mem-life></i></span><span data-mem-note>In memory</span></div>
+      <div class="mem__kept"><b>Kept after the session</b><span><em data-mem-count>0</em> minutes on task</span><span>No titles. No words.</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- A nudge never names where you went ------------------------------------------------------------------------- -->
+<section class="names sky" data-tone="sky">
+  <canvas class="names__art" aria-hidden="true"></canvas>
+  <div class="wrap names__inner">
+    <h2 class="section-title reveal">A nudge never says <span class="soft">where you went.</span></h2>
+    <p class="section-sub section-sub--sky reveal" style="--d:80ms">It talks about your task, so Hushd is safe on screen next to a colleague.</p>
+    <div class="names__pair">
+      <div class="nudgecard reveal reveal--glass" style="--d:120ms">
+        <svg class="ring ring--gapped" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="8"/></svg>
+        <div><b>Back to Calc homework?</b><span>You have been away from Calc homework for a while.</span></div>
+        <span class="ui-btn">Back to task</span>
+      </div>
+      <div class="nevercard glass reveal reveal--glass" style="--d:220ms" data-strike>
+        <span class="nevercard__label">Never</span>
+        <p><s>You spent 14 minutes on videos.</s></p>
+        <p><s>Close that tab and get back to work.</s></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Promises --------------------------------------------------------------------------------------------------- -->
+<section class="promises paper bloomed" id="promises" data-tone="paper">
+  <div class="bloom" data-loop aria-hidden="true">
+    <i style="--x:10%;--y:10%;--s:40vw;--o:.5"></i>
+    <i style="--x:60%;--y:30%;--s:36vw;--c:#c9f2dc;--o:.8;--t:24s"></i>
+  </div>
+  <div class="wrap">
+    <h2 class="section-title reveal">Calm by design, <span class="soft">private by default.</span></h2>
+  </div>
+  <div class="cards" data-cards>
+    <ul class="cards__track">
+      <li class="pcard glass glass--light reveal reveal--glass">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="12" rx="2"/><path d="M8 20h8"/></svg>
+        <p>Runs on your Mac.<br>No account. No cloud.</p>
+        <button class="pcard__more" type="button" aria-expanded="false" aria-label="More about running on your Mac"><i></i></button>
+        <div class="pcard__detail"><p>The judge is Apple’s on-device model. There is nothing to sign up for and no analytics.</p></div>
+      </li>
+      <li class="pcard glass glass--light reveal reveal--glass" style="--d:60ms">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12h16M12 4v16" transform="rotate(45 12 12)"/></svg>
+        <p>Never names<br>the distraction.</p>
+        <button class="pcard__more" type="button" aria-expanded="false" aria-label="More about nudges"><i></i></button>
+        <div class="pcard__detail"><p>A nudge talks about your task, not where you went. Safe on a shared screen.</p></div>
+      </li>
+      <li class="pcard glass glass--light reveal reveal--glass" style="--d:120ms">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 9v6h4l5 4V5L9 9z"/><path d="M18 9l4 6M22 9l-4 6"/></svg>
+        <p>No sound.<br>No mascot.</p>
+        <button class="pcard__more" type="button" aria-expanded="false" aria-label="More about quiet defaults"><i></i></button>
+        <div class="pcard__detail"><p>Quiet by default. The better you are doing, the less you see.</p></div>
+      </li>
+      <li class="pcard glass glass--light reveal reveal--glass" style="--d:180ms">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="8" stroke-dasharray="4 3"/></svg>
+        <p>Not sure?<br>It does nothing.</p>
+        <button class="pcard__more" type="button" aria-expanded="false" aria-label="More about uncertainty"><i></i></button>
+        <div class="pcard__detail"><p>A nudge needs two checks that agree and a drift that lasts.</p></div>
+      </li>
+      <li class="pcard glass glass--light reveal reveal--glass" style="--d:240ms">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 7h14M10 7V5h4v2M7 7l1 12h8l1-12"/></svg>
+        <p>See and delete<br>what it learned.</p>
+        <button class="pcard__more" type="button" aria-expanded="false" aria-label="More about your data"><i></i></button>
+        <div class="pcard__detail"><p>Reasons live in memory. Sessions keep counts, never window text.</p></div>
+      </li>
+      <li class="pcard glass glass--light reveal reveal--glass" style="--d:300ms">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 12s3.5-6 9-6 9 6 9 6-3.5 6-9 6-9-6-9-6z"/><circle cx="12" cy="12" r="2.5"/></svg>
+        <p>Screen reading<br>is opt-in.</p>
+        <button class="pcard__more" type="button" aria-expanded="false" aria-label="More about screen reading"><i></i></button>
+        <div class="pcard__detail"><p>Pictures never reach the model, and nothing is saved to disk.</p></div>
+      </li>
+    </ul>
+  </div>
+</section>
+
+<section class="outro paper" data-tone="paper">
+  <div class="wrap wrap--narrow">
+    <h2 class="reveal">Safe to keep on a shared screen.</h2>
+    <p class="reveal" style="--d:80ms">Quiet by default, and always showing that it is watching.</p>
+    <div class="hero__actions reveal" style="--d:160ms">
+      <a class="btn btn--accent" href="/download">Download for macOS</a>
+      <a class="btn btn--soft" href="/download#faq">Read the questions</a>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer class="footer" data-tone="sky">
+  <canvas class="footer__art" aria-hidden="true"></canvas>
+  <div class="footer__inner wrap">
+    <div class="footer__brand">
+      <a class="footer__logo" href="/"><img src="/media/app/icon.png" alt="" width="44" height="44"><span>Hushd</span></a>
+      <p class="footer__line">A calm colleague for focused work.</p>
+      <p class="footer__blurb">Projects, gentle nudges and a ring in the notch. The judging runs on your Mac.</p>
+      <a class="btn btn--white btn--sm" href="/download">Download for macOS</a>
+    </div>
+    <nav class="footer__col" aria-label="Pages">
+      <h3>Hushd</h3>
+      <a href="/">Home</a>
+      <a href="/how-it-works">How it works</a>
+      <a href="/features">Features</a>
+      <a href="/privacy">Privacy</a>
+      <a href="/download">Download</a>
+    </nav>
+    <nav class="footer__col" aria-label="Beta">
+      <h3>Beta</h3>
+      <a href="https://github.com/Aryan61056/focus-app/releases">Releases</a>
+      <a href="https://github.com/Aryan61056/focus-app/blob/main/docs/beta/TESTER-GUIDE.md">Tester guide</a>
+      <a href="https://github.com/Aryan61056/focus-app/issues/new/choose">Send feedback</a>
+      <a href="/download#faq">Questions</a>
+    </nav>
+    <div class="footer__col footer__credits">
+      <h3>Art</h3>
+      <p>Auguste Rodin, <i>The Thinker</i>. Photo by AndrewHorne, public domain, via Wikimedia Commons.</p>
+      <p>Albrecht Dürer, <i>Saint Jerome in His Study</i>, 1514. National Gallery of Art, CC0.</p>
+      <p>Caspar David Friedrich, <i>Wanderer above the Sea of Fog</i>, about 1818. Public domain.</p>
+    </div>
+  </div>
+</footer>

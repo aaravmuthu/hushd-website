@@ -1,0 +1,221 @@
+<a class="skip" href="#main">Skip to content</a>
+
+<!-- The nav is the notch: black at the screen edge, glass at the bottom. It opens on the page name when you arrive. -->
+<header class="nav">
+  <span class="nav__edge" aria-hidden="true"></span>
+  <nav class="nav__pill" aria-label="Main">
+    <a class="nav__logo" href="/" aria-label="Hushd home" style="--i:0">
+      <img src="/media/app/icon.png" alt="" width="26" height="26">
+      <span>Hushd</span>
+    </a>
+    <div class="nav__links" id="nav-links" style="--i:1">
+      <span class="nav__thumb" aria-hidden="true"></span>
+      <a class="nav__link" href="/how-it-works">How it works</a>
+      <a class="nav__link" href="/features">Features</a>
+      <a class="nav__link" href="/privacy">Privacy</a>
+      <a class="nav__link" href="/download#faq">FAQ</a>
+    </div>
+    <a class="btn btn--nav" href="/download" aria-current="page" style="--i:2">Download</a>
+    <button class="nav__menu" type="button" aria-label="Menu" aria-expanded="false" aria-controls="nav-links" style="--i:2"><span></span><span></span></button>
+    <div class="nav__card" aria-hidden="true">
+      <svg class="ring ring--big" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8"/></svg>
+      <div><strong>Download</strong><span>The public beta for Mac.</span></div>
+    </div>
+  </nav>
+</header>
+
+<main id="main">
+<!-- Hero: the download card, in glass, beside the Thinker --------------------------------------------------- -->
+<section class="subhero dlhero sky" data-tone="sky">
+  <div class="sky__fog" data-loop aria-hidden="true"><i></i><i></i><i></i></div>
+  <canvas class="subhero__art" aria-hidden="true"></canvas>
+  <div class="subhero__inner">
+    <div class="subhero__copy">
+      <h1 class="reveal reveal--title" data-reveal-load style="--d:140ms">Get the Hushd beta</h1>
+      <p class="reveal" data-reveal-load style="--d:300ms">For a Mac with Apple silicon and Apple Intelligence turned on. Built and tested on macOS 27.</p>
+    </div>
+    <div class="getcard getcard--glass glass reveal reveal--glass" data-reveal-load style="--d:420ms">
+      <div class="getcard__head">
+        <img src="/media/app/icon.png" alt="" width="56" height="56">
+        <div><h2>Hushd for Mac</h2><p>Public beta, Apple silicon</p></div>
+      </div>
+      <ul class="getcard__list">
+        <li style="--i:0">Apple’s on-device model, nothing to download</li>
+        <li style="--i:1">Projects, history, insights and review</li>
+        <li style="--i:2">Notch, menu bar and a one-key start</li>
+        <li style="--i:3">Open sessions, or set a timer</li>
+        <li style="--i:4">Nudges that never name the distraction</li>
+      </ul>
+      <!-- Beta builds are GitHub pre-releases (owner, 2026-10-19). Point this at a signed release page once there is one. -->
+      <a class="btn btn--white btn--block" href="https://github.com/Aryan61056/focus-app/releases" data-download>
+        <svg viewBox="0 0 20 20" aria-hidden="true"><path d="M10 3v9m0 0 3.5-3.5M10 12 6.5 8.5M4 15.5h12" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        Download the beta
+      </a>
+      <p class="getcard__fine">From the newest release on GitHub. No account.</p>
+    </div>
+  </div>
+</section>
+
+<!-- Install: five steps, each one acted out ---------------------------------------------------------------------- -->
+<section class="install paper bloomed" id="install" data-tone="paper">
+  <div class="bloom" data-loop aria-hidden="true">
+    <i style="--x:-10%;--y:6%;--s:40vw;--o:.55"></i>
+    <i style="--x:58%;--y:34%;--s:40vw;--c:#2a8a5b;--o:.22;--t:30s"></i>
+    <i style="--x:28%;--y:60%;--s:30vw;--c:#c9f2dc;--o:.8;--t:22s"></i>
+  </div>
+  <div class="wrap">
+    <h2 class="section-title reveal">Install in five steps</h2>
+    <p class="section-sub reveal" style="--d:80ms">A newer beta installs over the old one, and your sessions and settings stay.</p>
+    <div class="steps5" data-install>
+      <ol class="steps5__list" role="tablist" aria-label="Install steps">
+        <li><button type="button" role="tab" aria-selected="true"><b>Download</b><span>The .dmg from the newest release.</span><i class="steps5__fill"></i></button></li>
+        <li><button type="button" role="tab" aria-selected="false" tabindex="-1"><b>Install</b><span>Open it and drag Hushd onto Applications.</span><i class="steps5__fill"></i></button></li>
+        <li><button type="button" role="tab" aria-selected="false" tabindex="-1"><b>Open it once by hand</b><span>No developer signature yet, so choose Done, then Privacy &amp; Security, Open Anyway. Once per build.</span><i class="steps5__fill"></i></button></li>
+        <li><button type="button" role="tab" aria-selected="false" tabindex="-1"><b>Allow Accessibility</b><span>So Hushd can read window titles, not only app names.</span><i class="steps5__fill"></i></button></li>
+        <li><button type="button" role="tab" aria-selected="false" tabindex="-1"><b>Start a session</b><span>Say what you are working on, then work as usual.</span><i class="steps5__fill"></i></button></li>
+      </ol>
+      <div class="scene glass glass--light reveal reveal--glass" data-scene="0" aria-hidden="true">
+        <div class="scene__layer" data-s="0">
+          <div class="dmg"><span class="dmg__icon"></span><div class="dmg__meta"><b>Hushd.dmg</b><div class="bar bar--ink"><i></i></div></div></div>
+        </div>
+        <div class="scene__layer" data-s="1">
+          <div class="drag"><img class="drag__app" src="/media/app/icon.png" alt="" width="72" height="72"><span class="drag__arrow"></span><span class="drag__folder"><i></i>Applications</span></div>
+        </div>
+        <div class="scene__layer" data-s="2">
+          <div class="sysset"><b>Privacy &amp; Security</b><p>“Hushd” was blocked to protect your Mac.</p><span class="sysset__btn">Open Anyway</span><span class="cursor"></span></div>
+        </div>
+        <div class="scene__layer" data-s="3">
+          <div class="sysset"><b>Accessibility</b><div class="sysrow"><img src="/media/app/icon.png" alt="" width="28" height="28"><span>Hushd</span><span class="toggle"><i></i></span></div></div>
+        </div>
+        <div class="scene__layer" data-s="4">
+          <div class="startsheet"><b>What are you working on?</b><p class="startsheet__field"><span class="startsheet__typed">Calc homework</span><i class="caret"></i></p><span class="startsheet__go"><svg class="ring" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8"/></svg>Start</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- The Beta page --------------------------------------------------------------------------------------------- -->
+<section class="betapage night" data-tone="night">
+  <div class="wrap betapage__grid">
+    <div>
+      <h2 class="section-title reveal">Your Mac checks itself.</h2>
+      <p class="section-sub section-sub--sky reveal" style="--d:80ms">Your name at the bottom left of the Hushd window opens your profile. Its Beta page checks that your Mac is ready and lists seven things to try, which tick themselves as you go.</p>
+      <p class="section-sub section-sub--sky reveal" style="--d:140ms">Use it for real work on at least three days over about a week.</p>
+    </div>
+    <figure class="betapage__shot glass reveal reveal--glass" style="--d:120ms">
+      <img src="/media/app/beta-page.jpg" alt="The Beta page: days left in this build as a ring, three checks that this Mac is ready, and seven things to try." width="1000" height="992" loading="lazy">
+    </figure>
+  </div>
+</section>
+
+<!-- Feedback -------------------------------------------------------------------------------------------------- -->
+<section class="feedback paper bloomed" data-tone="paper">
+  <div class="bloom" data-loop aria-hidden="true">
+    <i style="--x:50%;--y:0%;--s:40vw;--o:.5"></i>
+    <i style="--x:-6%;--y:40%;--s:34vw;--c:#c9f2dc;--o:.8;--t:24s"></i>
+  </div>
+  <div class="wrap">
+    <h2 class="section-title reveal">Tell us what it got wrong.</h2>
+    <p class="section-sub reveal" style="--d:80ms">In Hushd, click your name, then Send feedback. It saves a report you read first, and opens a GitHub form for you to drag it into. Hushd never sends a report by itself.</p>
+    <div class="fbpick glass glass--light reveal reveal--glass" data-fb>
+      <div class="seg seg--light" role="tablist" aria-label="Kind of feedback" data-fb-seg>
+        <button type="button" role="tab" aria-selected="true">Something broke</button>
+        <button type="button" role="tab" aria-selected="false" tabindex="-1">Wrong call</button>
+        <button type="button" role="tab" aria-selected="false" tabindex="-1">An idea</button>
+      </div>
+      <div class="fbpick__body" aria-live="polite">
+        <svg class="fbpick__icon" viewBox="0 0 24 24" aria-hidden="true" data-fb-icon></svg>
+        <p data-fb-text>A crash, a hang, or a screen that looks wrong.</p>
+        <a class="btn btn--accent btn--sm" data-fb-link href="https://github.com/Aryan61056/focus-app/issues/new?template=beta-bug.yml">Open the form on GitHub</a>
+      </div>
+    </div>
+    <div class="holds">
+      <div class="holds__col reveal" data-holds>
+        <h3>A report holds</h3>
+        <ul><li>Your words</li><li>The build, your Mac’s model and macOS version</li><li>Whether permissions are on, and your settings switches</li><li>Counts, and when things happened</li><li>Hushd’s last calls: on, unsure or off</li></ul>
+      </div>
+      <div class="holds__col holds__col--never reveal" style="--d:100ms" data-holds>
+        <h3>It never holds</h3>
+        <ul><li>Task or project names</li><li>Window titles</li><li>Web addresses</li><li>Words from your screen</li><li>Pictures</li></ul>
+      </div>
+    </div>
+    <p class="fineprint reveal">Issues on GitHub are public.</p>
+  </div>
+</section>
+
+<!-- FAQ --------------------------------------------------------------------------------------------------------- -->
+<section class="faq paper" id="faq" data-tone="paper">
+  <div class="wrap wrap--narrow">
+    <h2 class="section-title reveal">Questions</h2>
+    <div class="qa">
+      <div class="q reveal">
+        <button type="button" aria-expanded="false"><span>What does Hushd look at?</span><i></i></button>
+        <div class="a"><div><p>The app, window title and page address of the window in front, only during a session. If you turn on screen reading, it also reads the words in that window. The model sees words, never the picture.</p></div></div>
+      </div>
+      <div class="q q--r reveal">
+        <button type="button" aria-expanded="false"><span>Does anything leave my Mac?</span><i></i></button>
+        <div class="a"><div><p>Hushd judges with Apple’s on-device model. There is no account, no cloud service of ours and no analytics. Pictures and screen words stay in memory and are dropped when the window changes. Two optional features use iCloud, and both stay off until you turn them on: Friends shares your name, avatar and daily totals with friends you invite, and iPhone sync keeps your numbers and task names in your own iCloud.</p></div></div>
+      </div>
+      <div class="q reveal">
+        <button type="button" aria-expanded="false"><span>What if it gets it wrong?</span><i></i></button>
+        <div class="a"><div><p>It will, sometimes. That is why a nudge needs two checks that agree and a drift that lasts, and why not sure does nothing. In Review, “That was fine” teaches it.</p></div></div>
+      </div>
+      <div class="q q--r reveal">
+        <button type="button" aria-expanded="false"><span>Will it say what I was looking at?</span><i></i></button>
+        <div class="a"><div><p>No. Nudges talk about your task, never the distraction, so Hushd is safe to have on screen next to a colleague.</p></div></div>
+      </div>
+      <div class="q reveal">
+        <button type="button" aria-expanded="false"><span>Does it read my messages?</span><i></i></button>
+        <div class="a"><div><p>No. Messaging apps, music players and blank tabs are on a never-judged list by default. You can edit that list in Settings.</p></div></div>
+      </div>
+      <div class="q q--r reveal">
+        <button type="button" aria-expanded="false"><span>Why does macOS stop it the first time?</span><i></i></button>
+        <div class="a"><div><p>This beta has no Apple developer signature yet. Choose Done, then System Settings, Privacy &amp; Security, Open Anyway. You do this once per build.</p></div></div>
+      </div>
+      <div class="q reveal">
+        <button type="button" aria-expanded="false"><span>Is there an iPhone app?</span><i></i></button>
+        <div class="a"><div><p>A companion is in testing. It follows your Mac session over your local network and can shield apps you pick while you work. You can lift it any time.</p></div></div>
+      </div>
+      <div class="q q--r reveal">
+        <button type="button" aria-expanded="false"><span>Can I work without a timer?</span><i></i></button>
+        <div class="a"><div><p>Yes. Open sessions run until you end them. Timed sessions end on their own.</p></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer class="footer" data-tone="sky">
+  <canvas class="footer__art" aria-hidden="true"></canvas>
+  <div class="footer__inner wrap">
+    <div class="footer__brand">
+      <a class="footer__logo" href="/"><img src="/media/app/icon.png" alt="" width="44" height="44"><span>Hushd</span></a>
+      <p class="footer__line">A calm colleague for focused work.</p>
+      <p class="footer__blurb">Projects, gentle nudges and a ring in the notch. The judging runs on your Mac.</p>
+      <a class="btn btn--white btn--sm" href="/download">Download for macOS</a>
+    </div>
+    <nav class="footer__col" aria-label="Pages">
+      <h3>Hushd</h3>
+      <a href="/">Home</a>
+      <a href="/how-it-works">How it works</a>
+      <a href="/features">Features</a>
+      <a href="/privacy">Privacy</a>
+      <a href="/download">Download</a>
+    </nav>
+    <nav class="footer__col" aria-label="Beta">
+      <h3>Beta</h3>
+      <a href="https://github.com/Aryan61056/focus-app/releases">Releases</a>
+      <a href="https://github.com/Aryan61056/focus-app/blob/main/docs/beta/TESTER-GUIDE.md">Tester guide</a>
+      <a href="https://github.com/Aryan61056/focus-app/issues/new/choose">Send feedback</a>
+      <a href="/download#faq">Questions</a>
+    </nav>
+    <div class="footer__col footer__credits">
+      <h3>Art</h3>
+      <p>Auguste Rodin, <i>The Thinker</i>. Photo by AndrewHorne, public domain, via Wikimedia Commons.</p>
+      <p>Albrecht Dürer, <i>Saint Jerome in His Study</i>, 1514. National Gallery of Art, CC0.</p>
+      <p>Caspar David Friedrich, <i>Wanderer above the Sea of Fog</i>, about 1818. Public domain.</p>
+    </div>
+  </div>
+</footer>

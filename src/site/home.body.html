@@ -1,0 +1,259 @@
+<a class="skip" href="#main">Skip to content</a>
+
+<!-- The nav is the notch: black at the screen edge, glass at the bottom. It opens on the page name when you arrive. -->
+<header class="nav">
+  <span class="nav__edge" aria-hidden="true"></span>
+  <nav class="nav__pill" aria-label="Main">
+    <a class="nav__logo" href="/" aria-label="Hushd home" style="--i:0">
+      <img src="/media/app/icon.png" alt="" width="26" height="26">
+      <span>Hushd</span>
+    </a>
+    <div class="nav__links" id="nav-links" style="--i:1">
+      <span class="nav__thumb" aria-hidden="true"></span>
+      <a class="nav__link" href="/how-it-works">How it works</a>
+      <a class="nav__link" href="/features">Features</a>
+      <a class="nav__link" href="/privacy">Privacy</a>
+      <a class="nav__link" href="/download#faq">FAQ</a>
+    </div>
+    <a class="btn btn--nav" href="/download" style="--i:2">Download</a>
+    <button class="nav__menu" type="button" aria-label="Menu" aria-expanded="false" aria-controls="nav-links" style="--i:2"><span></span><span></span></button>
+    <div class="nav__card" aria-hidden="true">
+      <svg class="ring ring--big" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8"/></svg>
+      <div><strong>Hushd</strong><span>Notice the drift. Come back gently.</span></div>
+    </div>
+  </nav>
+</header>
+
+<main id="main">
+<!-- Hero ------------------------------------------------------------------------------------------------------- -->
+<section class="hero sky" id="top" data-tone="sky">
+  <div class="sky__fog" data-loop aria-hidden="true"><i></i><i></i><i></i><i></i></div>
+  <canvas class="hero__art" aria-hidden="true"></canvas>
+  <div class="hero__icon-wrap">
+    <img class="hero__icon" src="/media/app/icon.png" alt="Hushd app icon" width="148" height="148">
+  </div>
+  <div class="hero__inner">
+    <h1 class="hero__title reveal" data-reveal-load style="--d:200ms"><span class="soft">Notice the drift.</span> Come back gently.</h1>
+    <p class="hero__sub reveal" data-reveal-load style="--d:300ms">Tell Hushd what you are working on. An on-device AI compares the window in front with it, and nudges you softly when you wander.</p>
+    <div class="hero__actions reveal" data-reveal-load style="--d:400ms">
+      <a class="btn btn--white" href="/download">
+        <svg viewBox="0 0 20 20" aria-hidden="true"><path d="M10 3v9m0 0 3.5-3.5M10 12 6.5 8.5M4 15.5h12" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        Download for macOS
+      </a>
+      <a class="btn btn--glass" href="/how-it-works">See how it decides</a>
+    </div>
+    <p class="hero__note reveal" data-reveal-load style="--d:480ms">Runs on your Mac. No account, nothing to sign up for.</p>
+  </div>
+
+  <div class="showcase">
+    <figure class="showcase__frame">
+      <img src="/media/app/workspace-today.jpg" alt="Hushd during a session: the window it is reading and its three checks, its call (On task), the session so far, and on the right what Hushd did and Ask Hushd." width="1720" height="1109" loading="eager">
+    </figure>
+  </div>
+</section>
+
+<!-- Interactive notch ------------------------------------------------------------------------------------------ -->
+<section class="island" id="island" data-tone="night">
+  <div class="island__head">
+    <h2 class="reveal">Your notch keeps watch. Quietly.</h2>
+    <p class="reveal" style="--d:80ms">A ring, your task and the time. It only opens when you have drifted for a while.</p>
+  </div>
+
+  <div class="island__stage reveal" style="--d:140ms">
+    <div class="mac" data-step="0">
+      <div class="mac__bar" aria-hidden="true">
+        <span class="mac__bar-left"><b>Notes</b><i>File</i><i>Edit</i><i>View</i></span>
+        <span class="mac__bar-right"><i>Wed 14 Oct</i><i>9:41</i></span>
+      </div>
+      <!-- The notch: the hardware cut-out in the middle, Hushd's wings around it. Sized by a spring in main.js. -->
+      <div class="notch" role="status" aria-live="polite">
+        <div class="notch__rest">
+          <svg class="ring" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="8"/></svg>
+          <span class="notch__task">Calc homework</span>
+          <span class="notch__time" data-clock>24:10</span>
+        </div>
+        <div class="notch__open">
+          <svg class="ring ring--big" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="8"/></svg>
+          <div class="notch__copy">
+            <strong>Back to Calc homework?</strong>
+            <span>You have been away from Calc homework for a while.</span>
+          </div>
+          <button class="notch__back" type="button">Back to task</button>
+        </div>
+      </div>
+
+      <div class="mac__window" aria-hidden="true">
+        <div class="mac__win-bar"><i></i><i></i><i></i><span data-win-title>Calc homework</span></div>
+        <div class="mac__win-body" data-win-body></div>
+      </div>
+
+      <p class="mac__read" aria-live="polite"><span class="mac__read-label">Hushd read</span> <span data-read>Notes, “Calc homework”. Shares words with your task.</span> <b data-call>On task</b></p>
+    </div>
+
+    <div class="island__controls">
+      <ol class="steps" role="tablist" aria-label="Session story">
+        <li><button role="tab" data-go="0" aria-selected="true">On task</button></li>
+        <li><button role="tab" data-go="1">Not sure</button></li>
+        <li><button role="tab" data-go="2">Drifting</button></li>
+        <li><button role="tab" data-go="3">Nudge</button></li>
+        <li><button role="tab" data-go="4">Back</button></li>
+      </ol>
+      <button class="playpause" type="button" aria-label="Pause the story" data-playing="true">
+        <svg class="i-pause" viewBox="0 0 20 20" aria-hidden="true"><rect x="5" y="4" width="3.2" height="12" rx="1"/><rect x="11.8" y="4" width="3.2" height="12" rx="1"/></svg>
+        <svg class="i-play" viewBox="0 0 20 20" aria-hidden="true"><path d="M6 4.5v11l9.5-5.5z"/></svg>
+      </button>
+    </div>
+    <p class="island__caption" aria-live="polite" data-caption>The ring is closed. You are on task, so Hushd says nothing.</p>
+  </div>
+</section>
+
+<!-- Features: bento --------------------------------------------------------------------------------------------- -->
+<section class="features paper" id="features" data-tone="paper">
+  <div class="wrap">
+    <div class="section-head">
+      <h2 class="section-title reveal">Hushd is there <span class="soft">when you drift.</span></h2>
+      <a class="more reveal" style="--d:80ms" href="/features">Every feature <svg viewBox="0 0 20 20" aria-hidden="true"><path d="M7 4.5 12.5 10 7 15.5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+    </div>
+    <div class="bento">
+      <article class="tile tile--wide art art--fog reveal" data-art="wanderer" data-ay="0.2">
+        <div class="ui ui--notchrest" data-ui>
+          <svg class="ring" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="8"/></svg>
+          <span class="hw" aria-hidden="true"></span>
+          <span>24:10</span>
+        </div>
+        <div class="tile__cap"><h3>Never invisible</h3><p>While Hushd watches, a ring sits in the notch and the menu bar.</p></div>
+      </article>
+      <article class="tile tile--shot reveal" style="--d:70ms">
+        <img src="/media/app/projects.jpg" alt="The Projects page: a project called Calc homework with a box for what Hushd should know about it." loading="lazy" width="2480" height="1600">
+        <div class="tile__cap tile__cap--on-light"><h3>Projects remember</h3><p>A sentence about the work beats any list of rules.</p></div>
+      </article>
+      <article class="tile art reveal" data-art="jerome" data-ax="0.2" data-ay="0.3" style="--d:0ms">
+        <div class="ui ui--list" data-ui>
+          <div class="row"><span class="app-dot app-dot--msg"></span>Messages<em>Not read</em></div>
+          <div class="row"><span class="app-dot app-dot--music"></span>Music<em>Not read</em></div>
+          <div class="row"><span class="app-dot app-dot--tab"></span>New tab<em>Not read</em></div>
+        </div>
+        <div class="tile__cap"><h3>Some things stay private</h3><p>Messaging, music and blank tabs are never read or judged.</p></div>
+      </article>
+      <article class="tile art reveal" data-art="thinker" data-ax="0.5" data-ay="0.3" style="--d:70ms">
+        <div class="ui ui--keys" data-ui><kbd>⌃</kbd><kbd>⌥</kbd><kbd>F</kbd></div>
+        <div class="tile__cap"><h3>One keypress to start</h3><p>Control, Option, F starts a session, or pauses one.</p></div>
+      </article>
+      <article class="tile art reveal" data-art="wanderer" data-ax="0.5" data-ay="0.75" style="--d:140ms">
+        <div class="ui ui--tray" data-ui>
+          <div class="tray-file"><span class="file-ico"></span>chapter-3.pdf</div>
+          <div class="tray-file"><span class="file-ico file-ico--b"></span>notes.md</div>
+        </div>
+        <div class="tile__cap"><h3>A tray in the notch</h3><p>Drop files on the notch, drag them out when you need them.</p></div>
+      </article>
+      <article class="tile tile--wide art reveal" data-art="jerome" data-ax="0.6" data-ay="0.7">
+        <div class="ui ui--review" data-ui>
+          <div class="rv"><b>10:42</b><span>Read as drifting. Two checks agreed.</span><em>That was fine</em></div>
+          <div class="rv"><b>11:05</b><span>Read as on task. Shares words with your task.</span></div>
+        </div>
+        <div class="tile__cap"><h3>Review shows why</h3><p>See why each moment was flagged, and tell Hushd when it got one wrong.</p></div>
+      </article>
+      <article class="tile art reveal" data-art="thinker" data-ax="0.5" data-ay="0.15" style="--d:70ms">
+        <div class="ui ui--words" data-ui>
+          <span class="w">integral</span><span class="w">substitution</span><span class="w">dx</span>
+          <small>Words only. Never the picture.</small>
+        </div>
+        <div class="tile__cap"><h3>Screen reading, if you want it</h3><p>Off until you turn it on. Words stay in memory for seconds.</p></div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- Quiet room: big art section --------------------------------------------------------------------------------- -->
+<section class="room sky" data-tone="sky">
+  <canvas class="room__art" aria-hidden="true"></canvas>
+  <div class="room__inner">
+    <h2 class="reveal">A quiet room, <span class="soft">on a busy Mac.</span></h2>
+    <p class="reveal" style="--d:80ms">Hushd starts gentle. It notices when you wander and says so softly. Stricter steps are there if you ask for them.</p>
+    <ul class="levels glass reveal reveal--glass" style="--d:160ms" aria-label="Nudge styles">
+      <li><b>Gentle</b><span>A nudge in the notch, then it waits.</span></li>
+      <li><b>Standard</b><span>Asks once more, then a pause screen.</span></li>
+      <li><b>Strict</b><span>Sooner, and hides the app you drifted into.</span></li>
+    </ul>
+    <a class="btn btn--glass reveal" style="--d:220ms; margin-top: 28px" href="/how-it-works#strict">See each step</a>
+  </div>
+</section>
+
+<!-- Word scroll ------------------------------------------------------------------------------------------------- -->
+<section class="wordscroll paper" data-tone="paper">
+  <div class="wordscroll__stage">
+    <img class="wordscroll__icon" src="/media/app/icon.png" alt="" width="96" height="96">
+    <p class="wordscroll__text" data-wordsplit>Say what you are working on. Hushd reads the window in front, compares, and stays quiet unless it is sure.</p>
+    <p class="wordscroll__ask" data-wordsplit>What will you finish today?</p>
+  </div>
+</section>
+
+
+<!-- Keep going: the four pages, as one list of glass rows over a soft bloom ------------------------------------- -->
+<section class="explore paper bloomed" data-tone="paper">
+  <div class="bloom" data-loop aria-hidden="true">
+    <i style="--x:-12%;--y:4%;--s:46vw;--o:.55"></i>
+    <i style="--x:58%;--y:30%;--s:40vw;--c:#2a8a5b;--o:.3;--t:31s"></i>
+    <i style="--x:20%;--y:62%;--s:34vw;--c:#c9f2dc;--o:.7;--t:22s"></i>
+  </div>
+  <div class="wrap wrap--narrow">
+    <h2 class="section-title reveal">Ready to finish <span class="soft">what you started?</span></h2>
+    <ul class="xlist">
+      <li><a class="xrow glass glass--light reveal reveal--glass" href="/how-it-works">
+        <span class="xrow__glyph xrow__glyph--ring" aria-hidden="true"><svg class="ring" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8"/></svg></span>
+        <span class="xrow__text"><b>How it works</b><span>From reading a window to a gentle nudge, one step at a time.</span></span>
+        <span class="xrow__go" aria-hidden="true"><svg viewBox="0 0 20 20"><path d="M4 10h11m0 0-4.5-4.5M15 10l-4.5 4.5" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+      </a></li>
+      <li><a class="xrow glass glass--light reveal reveal--glass" style="--d:70ms" href="/features">
+        <span class="xrow__glyph xrow__glyph--notch" aria-hidden="true"><i></i></span>
+        <span class="xrow__text"><b>Features</b><span>The notch, projects, the tray and a one-key start.</span></span>
+        <span class="xrow__go" aria-hidden="true"><svg viewBox="0 0 20 20"><path d="M4 10h11m0 0-4.5-4.5M15 10l-4.5 4.5" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+      </a></li>
+      <li><a class="xrow glass glass--light reveal reveal--glass" style="--d:140ms" href="/privacy">
+        <span class="xrow__glyph xrow__glyph--eye" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M3 12s3.5-6 9-6 9 6 9 6-3.5 6-9 6-9-6-9-6z"/><circle cx="12" cy="12" r="2.5"/></svg></span>
+        <span class="xrow__text"><b>Privacy</b><span>What it reads, and what it leaves alone.</span></span>
+        <span class="xrow__go" aria-hidden="true"><svg viewBox="0 0 20 20"><path d="M4 10h11m0 0-4.5-4.5M15 10l-4.5 4.5" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+      </a></li>
+      <li><a class="xrow xrow--accent glass reveal reveal--glass" style="--d:210ms" href="/download">
+        <span class="xrow__glyph xrow__glyph--down" aria-hidden="true"><svg viewBox="0 0 20 20"><path d="M10 3v9m0 0 3.5-3.5M10 12 6.5 8.5M4 15.5h12" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+        <span class="xrow__text"><b>Download the beta</b><span>Public beta for Macs with Apple silicon. No account.</span></span>
+        <span class="xrow__go" aria-hidden="true"><svg viewBox="0 0 20 20"><path d="M4 10h11m0 0-4.5-4.5M15 10l-4.5 4.5" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+      </a></li>
+    </ul>
+  </div>
+</section>
+
+</main>
+
+<footer class="footer" data-tone="sky">
+  <canvas class="footer__art" aria-hidden="true"></canvas>
+  <div class="footer__inner wrap">
+    <div class="footer__brand">
+      <a class="footer__logo" href="/"><img src="/media/app/icon.png" alt="" width="44" height="44"><span>Hushd</span></a>
+      <p class="footer__line">A calm colleague for focused work.</p>
+      <p class="footer__blurb">Projects, gentle nudges and a ring in the notch. The judging runs on your Mac.</p>
+      <a class="btn btn--white btn--sm" href="/download">Download for macOS</a>
+    </div>
+    <nav class="footer__col" aria-label="Pages">
+      <h3>Hushd</h3>
+      <a href="/">Home</a>
+      <a href="/how-it-works">How it works</a>
+      <a href="/features">Features</a>
+      <a href="/privacy">Privacy</a>
+      <a href="/download">Download</a>
+    </nav>
+    <nav class="footer__col" aria-label="Beta">
+      <h3>Beta</h3>
+      <a href="https://github.com/Aryan61056/focus-app/releases">Releases</a>
+      <a href="https://github.com/Aryan61056/focus-app/blob/main/docs/beta/TESTER-GUIDE.md">Tester guide</a>
+      <a href="https://github.com/Aryan61056/focus-app/issues/new/choose">Send feedback</a>
+      <a href="/download#faq">Questions</a>
+    </nav>
+    <div class="footer__col footer__credits">
+      <h3>Art</h3>
+      <p>Auguste Rodin, <i>The Thinker</i>. Photo by AndrewHorne, public domain, via Wikimedia Commons.</p>
+      <p>Albrecht Dürer, <i>Saint Jerome in His Study</i>, 1514. National Gallery of Art, CC0.</p>
+      <p>Caspar David Friedrich, <i>Wanderer above the Sea of Fog</i>, about 1818. Public domain.</p>
+    </div>
+  </div>
+</footer>

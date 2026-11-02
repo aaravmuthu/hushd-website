@@ -1,43 +1,23 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useEffect } from "react";
 
-import bodyHtml from "../site/body.html?raw";
-import focusCss from "../site/focus.css?url";
-
-const title = "Focus. Gentle focus for your Mac";
-const description =
-  "Tell Focus what you are working on. An on-device AI compares the window in front with it, and nudges you gently when you drift. No account, no cloud.";
+import body from "../site/home.body.html?raw";
+import { pageHead } from "../site/head";
 
 export const Route = createFileRoute("/")({
-  head: () => ({
-    meta: [
-      { title },
-      { name: "description", content: description },
-      { name: "theme-color", content: "#135e3d" },
-      { property: "og:title", content: title },
-      { property: "og:description", content: description },
-      { property: "og:type", content: "website" },
-      { property: "og:image", content: "https://focus-mac.lovable.app/media/app/icon.png" },
-      { name: "twitter:card", content: "summary" },
-      { name: "twitter:image", content: "https://focus-mac.lovable.app/media/app/icon.png" },
-    ],
-    links: [
-      { rel: "preconnect", href: "https://fonts.googleapis.com" },
-      { rel: "preconnect", href: "https://fonts.gstatic.com", crossOrigin: "anonymous" },
-      { rel: "stylesheet", href: "https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" },
-      { rel: "stylesheet", href: focusCss },
-    ],
-    // Reveal styles hide content only once this class is set, so the page still reads without JavaScript.
-    scripts: [{ children: 'document.documentElement.classList.add("js")' }],
-  }),
-  component: Index,
+  head: () =>
+    pageHead({
+      title: "Hushd. Gentle focus for your Mac",
+      description: "Tell Hushd what you are working on. An on-device AI compares the window in front with it, and nudges you gently when you drift. No account, no cloud.",
+    }),
+  component: HomePage,
 });
 
-function Index() {
-  // The page's motion (halftone art, notch demo, carousel, word scroll) is plain DOM code that runs in the browser only.
+function HomePage() {
+  // The page's motion is plain DOM code that runs in the browser only, after the markup is in the document.
   useEffect(() => {
-    void import("../site/main.js").then((m) => m.startFocusSite());
+    void import("../site/home.js");
   }, []);
 
-  return <div className="focus-site" dangerouslySetInnerHTML={{ __html: bodyHtml }} />;
+  return <div className="hushd-site" dangerouslySetInnerHTML={{ __html: body }} />;
 }

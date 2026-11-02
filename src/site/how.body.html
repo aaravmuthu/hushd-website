@@ -1,0 +1,252 @@
+<a class="skip" href="#main">Skip to content</a>
+
+<!-- The nav is the notch: black at the screen edge, glass at the bottom. It opens on the page name when you arrive. -->
+<header class="nav">
+  <span class="nav__edge" aria-hidden="true"></span>
+  <nav class="nav__pill" aria-label="Main">
+    <a class="nav__logo" href="/" aria-label="Hushd home" style="--i:0">
+      <img src="/media/app/icon.png" alt="" width="26" height="26">
+      <span>Hushd</span>
+    </a>
+    <div class="nav__links" id="nav-links" style="--i:1">
+      <span class="nav__thumb" aria-hidden="true"></span>
+      <a class="nav__link" href="/how-it-works" aria-current="page">How it works</a>
+      <a class="nav__link" href="/features">Features</a>
+      <a class="nav__link" href="/privacy">Privacy</a>
+      <a class="nav__link" href="/download#faq">FAQ</a>
+    </div>
+    <a class="btn btn--nav" href="/download" style="--i:2">Download</a>
+    <button class="nav__menu" type="button" aria-label="Menu" aria-expanded="false" aria-controls="nav-links" style="--i:2"><span></span><span></span></button>
+    <div class="nav__card" aria-hidden="true">
+      <svg class="ring ring--big" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8"/></svg>
+      <div><strong>How it works</strong><span>Five steps, and it leans quiet.</span></div>
+    </div>
+  </nav>
+</header>
+
+<main id="main">
+<!-- Hero: the app's reading bar, live, cycling through three windows ------------------------------------------- -->
+<section class="subhero sky" data-tone="sky">
+  <div class="sky__fog" data-loop aria-hidden="true"><i></i><i></i><i></i></div>
+  <canvas class="subhero__art" aria-hidden="true"></canvas>
+  <div class="subhero__inner">
+    <div class="subhero__copy">
+      <h1 class="reveal reveal--title" data-reveal-load style="--d:140ms">How Hushd decides</h1>
+      <p class="reveal" data-reveal-load style="--d:300ms">Every call is shown to you. The model can be wrong, so Hushd leans quiet.</p>
+      <div class="hero__actions hero__actions--start reveal" data-reveal-load style="--d:400ms">
+        <a class="btn btn--white" href="#loop">Follow one drift</a>
+        <a class="btn btn--glass" href="/download">Download the beta</a>
+      </div>
+    </div>
+
+    <div class="reader glass reveal reveal--glass" data-reveal-load style="--d:460ms" data-reader data-state="on" role="img" aria-label="Hushd's reading panel, cycling through three windows: on task, not sure, and drifting.">
+      <div class="reader__bar">
+        <svg class="spark" viewBox="0 0 20 20" aria-hidden="true"><path d="M10 2.5c.5 3.6 1.9 5 5.5 5.5-3.6.5-5 1.9-5.5 5.5-.5-3.6-1.9-5-5.5-5.5 3.6-.5 5-1.9 5.5-5.5z"/></svg>
+        <b>Hushd</b><span>reading <em data-r-app>Notes</em></span>
+        <span class="reader__dots" aria-hidden="true"><i></i><i></i><i></i></span>
+      </div>
+      <div class="reader__call">
+        <svg class="ring ring--call" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="8"/></svg>
+        <div><strong data-r-call>On task</strong><span data-r-why>Shares words with your task</span></div>
+      </div>
+      <ol class="reader__checks">
+        <li><span class="tick"></span><span>Window <b data-r-win>Notes, “Calc homework”</b></span></li>
+        <li><span class="tick"></span><span>Compared with your task</span></li>
+        <li><span class="tick"></span><span data-r-agree>Two checks agree</span></li>
+      </ol>
+      <p class="reader__fine">Hushd can be wrong. When it isn’t sure, it does nothing.</p>
+    </div>
+  </div>
+</section>
+
+<!-- One drift, start to finish: a sticky stage that follows the beats as they scroll past -------------------- -->
+<section class="loop night" id="loop" data-tone="night">
+  <div class="wrap loop__head">
+    <h2 class="section-title reveal">One drift, <span class="soft">start to finish.</span></h2>
+    <p class="section-sub reveal" style="--d:80ms">Scroll, and follow Hushd through a single wander.</p>
+  </div>
+  <div class="loop__grid wrap">
+    <div class="loop__sticky">
+      <div class="stage glass glass--dark" data-stage data-beat="0" aria-hidden="true">
+        <div class="stage__screen">
+          <div class="stage__bar"><span>Browser</span><span>9:41</span></div>
+          <div class="sn" data-sn>
+            <div class="sn__rest">
+              <svg class="ring" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8"/></svg>
+              <span class="sn__task">Calc homework</span>
+              <span class="sn__time">24:10</span>
+            </div>
+            <div class="sn__open">
+              <svg class="ring ring--big" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8"/></svg>
+              <div><strong>Back to Calc homework?</strong><span>You have been away for a while.</span></div>
+              <span class="ui-btn">Back to task</span>
+            </div>
+          </div>
+          <div class="stage__win">
+            <div class="mac__win-bar"><i></i><i></i><i></i><span>Watch later</span></div>
+            <div class="stage__win-body"><div class="win-grid win-grid--thumbs"><span style="--h:150"><b>Lecture recap in 60 seconds</b></span><span style="--h:28"><b>Speedrun, part 3</b></span><span style="--h:200"><b>Desk setup tour</b></span><span style="--h:340"><b>Five-minute pasta</b></span><span style="--h:95"><b>Mountain bike, POV</b></span><span style="--h:260"><b>Why cats sit in boxes</b></span></div></div>
+            <i class="stage__scan"></i>
+          </div>
+        </div>
+        <div class="stage__panel">
+          <div class="layer" data-layer="0">
+            <div class="fields"><span class="field"><small>App</small>Browser</span><span class="field"><small>Title</small>Watch later</span><span class="field"><small>Address</small>a video page</span></div>
+            <p>Messages and music are never read.</p>
+          </div>
+          <div class="layer" data-layer="1">
+            <div class="versus"><span class="chip">Task: Calc homework</span><svg class="spark" viewBox="0 0 20 20"><path d="M10 2.5c.5 3.6 1.9 5 5.5 5.5-3.6.5-5 1.9-5.5 5.5-.5-3.6-1.9-5-5.5-5.5 3.6-.5 5-1.9 5.5-5.5z"/></svg><span class="chip">Window: Watch later</span></div>
+            <p>Judged by Apple’s model, on this Mac.</p>
+          </div>
+          <div class="layer" data-layer="2">
+            <div class="check"><span class="tick"></span>First check: away from your task</div>
+            <div class="check"><span class="tick"></span>Second check agrees</div>
+          </div>
+          <div class="layer" data-layer="3">
+            <div class="lasts"><span>Drift lasts</span><div class="bar"><i></i></div></div>
+            <p>A quick look away is fine. Hushd waits.</p>
+          </div>
+          <div class="layer" data-layer="4">
+            <div class="sent"><svg viewBox="0 0 24 24"><path d="M5 9v6h4l5 4V5L9 9z"/><path d="M18 9l4 6M22 9l-4 6"/></svg>A nudge, without sound.</div>
+            <p>It asks about your task, never about where you went.</p>
+          </div>
+        </div>
+      </div>
+      <div class="loop__progress" aria-hidden="true"><i data-loop-progress></i></div>
+    </div>
+
+    <ol class="loop__beats">
+      <li class="beat" data-beat="0"><h3>It reads the window in front.</h3><p>The app, title and page address, only during a session. Messages and music are never read.</p></li>
+      <li class="beat" data-beat="1"><h3>It compares with your task.</h3><p>Your task and project notes, judged by Apple’s on-device model. No cloud model.</p></li>
+      <li class="beat" data-beat="2"><h3>Two checks have to agree.</h3><p>One reading is never enough. A second check has to land the same way.</p></li>
+      <li class="beat" data-beat="3"><h3>The drift has to last.</h3><p>A quick look away is fine. Hushd waits to see if you come back on your own.</p></li>
+      <li class="beat" data-beat="4"><h3>Then, a gentle nudge.</h3><p>In the notch, without sound, and never naming the distraction.</p></li>
+    </ol>
+  </div>
+</section>
+
+<!-- The ring speaks in shapes ---------------------------------------------------------------------------------- -->
+<section class="rings paper bloomed" data-tone="paper">
+  <div class="bloom" data-loop aria-hidden="true">
+    <i style="--x:52%;--y:-6%;--s:44vw;--o:.6"></i>
+    <i style="--x:70%;--y:46%;--s:30vw;--c:#2a8a5b;--o:.26;--t:29s"></i>
+    <i style="--x:-8%;--y:40%;--s:30vw;--c:#c9f2dc;--o:.8;--t:21s"></i>
+  </div>
+  <div class="wrap rings__grid">
+    <div class="rings__copy">
+      <h2 class="section-title reveal">The ring speaks <span class="soft">in shapes.</span></h2>
+      <p class="section-sub reveal" style="--d:80ms">Shape first, color second, so a state never rests on color alone.</p>
+      <div class="seg seg--light reveal" style="--d:140ms" role="tablist" aria-label="Ring states" data-ring-seg>
+        <button type="button" role="tab" aria-selected="true">On task</button>
+        <button type="button" role="tab" aria-selected="false" tabindex="-1">Not sure</button>
+        <button type="button" role="tab" aria-selected="false" tabindex="-1">Drifting</button>
+        <button type="button" role="tab" aria-selected="false" tabindex="-1">Paused</button>
+      </div>
+      <p class="rings__caption" aria-live="polite" data-ring-caption>Closed. You are on task, so Hushd says nothing.</p>
+    </div>
+    <div class="rings__stage glass glass--light reveal reveal--glass" style="--d:120ms" data-ring-stage data-ring="on" aria-hidden="true">
+      <svg class="bigring" viewBox="0 0 120 120"><circle class="bigring__track" cx="60" cy="60" r="44"/><circle class="bigring__arc" cx="60" cy="60" r="44"/></svg>
+      <span class="bigring__pause"><i></i><i></i></span>
+      <span class="bigring__label" data-ring-label>On task</span>
+    </div>
+  </div>
+</section>
+
+<!-- How firm it gets: a timeline that replays for each nudge style ---------------------------------------------- -->
+<section class="strict sky" id="strict" data-tone="sky">
+  <canvas class="strict__art" aria-hidden="true"></canvas>
+  <div class="wrap strict__inner">
+    <h2 class="section-title reveal">How firm it gets <span class="soft">is up to you.</span></h2>
+    <p class="section-sub section-sub--sky reveal" style="--d:80ms">Hushd starts gentle. Stricter steps are there if you ask for them.</p>
+    <div class="seg reveal" style="--d:140ms" role="tablist" aria-label="Nudge style" data-strict-seg>
+      <button type="button" role="tab" aria-selected="true">Gentle</button>
+      <button type="button" role="tab" aria-selected="false" tabindex="-1">Standard</button>
+      <button type="button" role="tab" aria-selected="false" tabindex="-1">Strict</button>
+    </div>
+    <div class="track glass reveal reveal--glass" style="--d:200ms" data-track>
+      <div class="track__rail" aria-hidden="true"><i class="track__fill" data-track-fill></i></div>
+      <ol class="track__events" data-track-events aria-live="polite"></ol>
+    </div>
+  </div>
+</section>
+
+<!-- When it gets one wrong ------------------------------------------------------------------------------------- -->
+<section class="wrong paper bloomed" data-tone="paper">
+  <div class="bloom" data-loop aria-hidden="true">
+    <i style="--x:-10%;--y:10%;--s:40vw;--o:.5"></i>
+    <i style="--x:64%;--y:20%;--s:34vw;--c:#2a8a5b;--o:.22;--t:33s"></i>
+  </div>
+  <div class="wrap wrong__grid">
+    <div class="wrong__copy">
+      <h2 class="section-title reveal">When it gets one wrong, <span class="soft">say so.</span></h2>
+      <p class="section-sub reveal" style="--d:80ms">Review shows why each moment was flagged. “That was fine” teaches Hushd.</p>
+      <p class="fineprint reveal" style="--d:140ms"><svg class="ring ring--dashed" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="8"/></svg>Hushd can be wrong. When it isn’t sure, it does nothing.</p>
+    </div>
+    <div class="review glass glass--light reveal reveal--glass" style="--d:120ms">
+      <div class="review__head"><b>Review</b><span>Today</span></div>
+      <div class="rvx" data-rv>
+        <b>10:42</b>
+        <div><strong>Read as drifting</strong><span>Two checks agreed, and it lasted.</span></div>
+        <div class="rvx__act"><button class="rvx__btn" type="button" data-fine>That was fine</button><button class="rvx__btn rvx__btn--quiet" type="button" data-right>Right call</button></div>
+        <span class="rvx__done" aria-live="polite"></span>
+      </div>
+      <div class="rvx" data-rv>
+        <b>11:18</b>
+        <div><strong>Read as drifting</strong><span>Away from Calc homework for a while.</span></div>
+        <div class="rvx__act"><button class="rvx__btn" type="button" data-fine>That was fine</button><button class="rvx__btn rvx__btn--quiet" type="button" data-right>Right call</button></div>
+        <span class="rvx__done" aria-live="polite"></span>
+      </div>
+      <div class="rvx is-done is-static">
+        <b>11:05</b>
+        <div><strong>Read as on task</strong><span>Shares words with your task.</span></div>
+        <span class="rvx__done"><svg class="ring" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="8"/></svg>Nothing to ask</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Outro -->
+<section class="outro paper" data-tone="paper">
+  <div class="wrap wrap--narrow">
+    <h2 class="reveal">Quiet unless it is sure.</h2>
+    <p class="reveal" style="--d:80ms">That is the whole idea. The rest is in the details.</p>
+    <div class="hero__actions reveal" style="--d:160ms">
+      <a class="btn btn--accent" href="/download">Download for macOS</a>
+      <a class="btn btn--soft" href="/features">See the features</a>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer class="footer" data-tone="sky">
+  <canvas class="footer__art" aria-hidden="true"></canvas>
+  <div class="footer__inner wrap">
+    <div class="footer__brand">
+      <a class="footer__logo" href="/"><img src="/media/app/icon.png" alt="" width="44" height="44"><span>Hushd</span></a>
+      <p class="footer__line">A calm colleague for focused work.</p>
+      <p class="footer__blurb">Projects, gentle nudges and a ring in the notch. The judging runs on your Mac.</p>
+      <a class="btn btn--white btn--sm" href="/download">Download for macOS</a>
+    </div>
+    <nav class="footer__col" aria-label="Pages">
+      <h3>Hushd</h3>
+      <a href="/">Home</a>
+      <a href="/how-it-works">How it works</a>
+      <a href="/features">Features</a>
+      <a href="/privacy">Privacy</a>
+      <a href="/download">Download</a>
+    </nav>
+    <nav class="footer__col" aria-label="Beta">
+      <h3>Beta</h3>
+      <a href="https://github.com/Aryan61056/focus-app/releases">Releases</a>
+      <a href="https://github.com/Aryan61056/focus-app/blob/main/docs/beta/TESTER-GUIDE.md">Tester guide</a>
+      <a href="https://github.com/Aryan61056/focus-app/issues/new/choose">Send feedback</a>
+      <a href="/download#faq">Questions</a>
+    </nav>
+    <div class="footer__col footer__credits">
+      <h3>Art</h3>
+      <p>Auguste Rodin, <i>The Thinker</i>. Photo by AndrewHorne, public domain, via Wikimedia Commons.</p>
+      <p>Albrecht Dürer, <i>Saint Jerome in His Study</i>, 1514. National Gallery of Art, CC0.</p>
+      <p>Caspar David Friedrich, <i>Wanderer above the Sea of Fog</i>, about 1818. Public domain.</p>
+    </div>
+  </div>
+</footer>
