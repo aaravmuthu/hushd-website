@@ -184,7 +184,7 @@ if (pill) {
   if (root.classList.contains("notch-arrive")) {
     // With a cross-document view transition the notch is still morphing from the last page; the head script's promise
     // settles once it has landed, then the notch holds a beat and tucks.
-    (window.__hushdShown || Promise.resolve()).then(() => setTimeout(tuck, 420));
+    (window.__hushdShown || Promise.resolve()).then(() => setTimeout(tuck, 160));
   }
   // Back/forward cache restores the page as it was left; never leave the notch stuck open.
   addEventListener("pageshow", (e) => {
