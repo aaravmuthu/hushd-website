@@ -212,14 +212,16 @@ button { font: inherit; color: inherit; }
 /* Page to page --------------------------------------------------------------------------------------------------- */
 /* Same-origin page changes cross-fade through a little blur while the notch morphs between pages. */
 @view-transition { navigation: auto; }
-::view-transition-group(notch) { animation-duration: 460ms; animation-timing-function: var(--ease-pop); }
-::view-transition-old(notch) { animation: vt-fade 140ms ease both reverse; }
-::view-transition-new(notch) { animation: vt-fade 240ms ease 60ms both; }
-::view-transition-old(root) { animation: vt-page-out 240ms var(--ease-out) both; }
-::view-transition-new(root) { animation: vt-page-in 560ms var(--ease-out) 40ms both; }
+::view-transition-group(notch) { animation-duration: 340ms; animation-timing-function: cubic-bezier(0.2, 0.9, 0.25, 1.05); }
+::view-transition-old(notch) { animation: vt-fade 110ms ease-out both reverse; }
+::view-transition-new(notch) { animation: vt-fade 180ms ease-out both; }
+/* Apple-style push: both pages overlap, the old one recedes slightly while the new one settles in. No blur, no gap. */
+::view-transition-old(root) { animation: vt-page-out 180ms cubic-bezier(0.4, 0, 1, 1) both; }
+::view-transition-new(root) { animation: vt-page-in 300ms cubic-bezier(0.2, 0.9, 0.25, 1) both; }
+::view-transition-old(root), ::view-transition-new(root) { mix-blend-mode: normal; will-change: opacity, transform; }
 @keyframes vt-fade { from { opacity: 0; } }
-@keyframes vt-page-out { to { opacity: 0; filter: blur(10px); transform: scale(0.985); } }
-@keyframes vt-page-in { from { opacity: 0; filter: blur(12px); transform: translateY(16px); } }
+@keyframes vt-page-out { to { opacity: 0; transform: scale(0.99); } }
+@keyframes vt-page-in { from { opacity: 0; transform: scale(1.01) translateY(6px); } }
 
 /* Glass ---------------------------------------------------------------------------------------------------------- */
 /* A real material: blurred and brightened backdrop, a rim that catches light at the top edge, and a soft highlight

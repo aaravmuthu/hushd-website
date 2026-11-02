@@ -121,6 +121,28 @@ if (pill) {
   pill.addEventListener("pointerdown", (e) => { if (e.target.closest("a")) pill.classList.add("is-pressing"); });
   addEventListener("pointerup", () => pill.classList.remove("is-pressing"));
 
+  // Preload other pages as soon as the pointer or finger heads toward a link, so the switch has nothing to wait on.
+  const prefetched = new Set([location.pathname]);
+  const prefetch = (e) => {
+    const a = e.target.closest?.("a[href]");
+    if (!a) return;
+    const url = new URL(a.href, location.href);
+    if (url.origin !== location.origin || prefetched.has(url.pathname)) return;
+    prefetched.add(url.pathname);
+    const l = document.createElement("link");
+    l.rel = "prefetch"; l.href = url.pathname; l.as = "document";
+    document.head.appendChild(l);
+  };
+  document.addEventListener("pointerover", prefetch, { passive: true });
+  document.addEventListener("touchstart", prefetch, { passive: true });
+  document.addEventListener("focusin", prefetch);
+  if (HTMLScriptElement.supports?.("speculationrules")) {
+    const s = document.createElement("script");
+    s.type = "speculationrules";
+    s.textContent = JSON.stringify({ prerender: [{ where: { href_matches: "/*" }, eagerness: "moderate" }] });
+    document.head.appendChild(s);
+  }
+
   // Leaving for another page: note it, so the next page can arrive out of the notch. Navigation is never held back.
   document.addEventListener("click", (e) => {
     const a = e.target.closest?.("a[href]");
@@ -162,7 +184,7 @@ if (pill) {
   if (root.classList.contains("notch-arrive")) {
     // With a cross-document view transition the notch is still morphing from the last page; the head script's promise
     // settles once it has landed, then the notch holds a beat and tucks.
-    (window.__hushdShown || Promise.resolve()).then(() => setTimeout(tuck, 420));
+    (window.__hushdShown || Promise.resolve()).then(() => setTimeout(tuck, 160));
   }
   // Back/forward cache restores the page as it was left; never leave the notch stuck open.
   addEventListener("pageshow", (e) => {
