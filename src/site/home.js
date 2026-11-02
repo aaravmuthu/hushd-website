@@ -143,7 +143,7 @@ function swapText(el, text) {
   if (el.textContent === text) return;
   if (reduceMotion) { el.textContent = text; return; }
   el.classList.add("is-swapping");
-  setTimeout(() => { el.textContent = text; el.classList.remove("is-swapping"); }, 200);
+  setTimeout(() => { el.textContent = text; el.classList.remove("is-swapping"); }, 110);
 }
 
 const thumb = document.createElement("span");

@@ -276,7 +276,7 @@ export function swapText(el, text) {
   if (!el || el.textContent === text) return;
   if (reduceMotion) { el.textContent = text; return; }
   el.classList.add("is-swapping");
-  setTimeout(() => { el.textContent = text; el.classList.remove("is-swapping"); }, 200);
+  setTimeout(() => { el.textContent = text; el.classList.remove("is-swapping"); }, 110);
 }
 
 // Segmented controls with a sliding thumb (used on several pages). Returns a setter.
