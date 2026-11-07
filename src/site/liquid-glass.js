@@ -182,12 +182,14 @@ function render(el) {
 }
 
 let ro, io;
-const queue = new Set();
-let queued = 0;
+// A one-off size change (a label swap) rebuilds at once, so the map never lags it. A size that keeps changing
+// (a thumb gliding to a wider button) rebuilds once more after it rests, not every frame.
 function schedule(el) {
-  queue.add(el);
-  clearTimeout(queued);
-  queued = setTimeout(() => { for (const e of queue) render(e); queue.clear(); }, 120);
+  const st = glasses.get(el);
+  const now = performance.now();
+  if (now - (st.lastBuild || 0) > 250) { st.lastBuild = now; render(el); }
+  clearTimeout(st.timer);
+  st.timer = setTimeout(() => { st.lastBuild = performance.now(); render(el); }, 140);
 }
 
 // Turns an element into liquid glass. Safe to call more than once; does nothing outside Chromium.
@@ -205,8 +207,9 @@ export function liquify(el) {
 }
 
 // Every element on the page that already has a backdrop blur becomes liquid glass, plus anything marked data-lg.
-// Elements whose size animates every frame (the nav notch) or that sit under a solid fill are left alone.
-const SKIP = ".nav, .nav *, [data-lg=off]";
+// Notches whose size springs every frame (the nav, and the replicas in the page demos) are left alone: a map can
+// only be built for one size, and they are black on top, so there is little to bend anyway.
+const SKIP = ".nav, .nav *, .notch, [data-pn], [data-sn], .nudgecard, .places__nudge, .trayplay__shelf, [data-lg=off]";
 function liquifyCandidate(el) {
   if (glasses.has(el) || el.matches(SKIP)) return;
   if (el.hasAttribute("data-lg")) { liquify(el); return; }
