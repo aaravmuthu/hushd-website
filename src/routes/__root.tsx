@@ -8,10 +8,19 @@ import {
   Scripts,
   type ErrorComponentProps,
 } from "@tanstack/react-router";
-import { useEffect, type ReactNode } from "react";
+import { memo, useEffect, useState, type ReactNode } from "react";
 
 import appCss from "../styles.css?url";
 import { reportLovableError } from "../lib/lovable-error-reporting";
+import { navHtml } from "../site/nav.js";
+import { PAGES } from "../site/pages";
+
+declare global {
+  interface Window {
+    __hushdGo?: (to: string, hash?: string) => void;
+    __hushdPreload?: (to: string) => void;
+  }
+}
 
 function NotFoundComponent() {
   return (
@@ -102,6 +111,7 @@ function RootShell({ children }: { children: ReactNode }) {
         <HeadContent />
       </head>
       <body>
+        <HushdNav />
         {children}
         <Scripts />
       </body>
@@ -109,8 +119,33 @@ function RootShell({ children }: { children: ReactNode }) {
   );
 }
 
+// The Hushd nav (the notch) lives in the shell, which stays mounted while routes change, so it is never re-rendered:
+// it is drawn once for the first page, and site.js keeps its current link and card in step after that.
+const HushdNav = memo(function HushdNav() {
+  // Read once, without subscribing: a subscription would re-render this on every route change.
+  const router = useRouter();
+  const [nav] = useState(() => navHtml(router.state.location.pathname));
+  return <div className="hushd-site hushd-nav" dangerouslySetInnerHTML={{ __html: nav }} />;
+}, () => true);
+
 function RootComponent() {
   const { queryClient } = Route.useRouteContext();
+  const router = useRouter();
+
+  // site.js navigates through the router, so a page change swaps the content instead of loading a new document.
+  useEffect(() => {
+    window.__hushdGo = (to, hash) => {
+      void router.navigate(hash ? { to, hash } : { to });
+    };
+    window.__hushdPreload = (to) => {
+      void router.preloadRoute({ to }).catch(() => {});
+      void PAGES[to]?.().catch(() => {});
+    };
+    return () => {
+      delete window.__hushdGo;
+      delete window.__hushdPreload;
+    };
+  }, [router]);
 
   return (
     <QueryClientProvider client={queryClient}>

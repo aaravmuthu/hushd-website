@@ -6,7 +6,7 @@
 const SVG_NS = "http://www.w3.org/2000/svg";
 const N = 1.5; // index of refraction of the glass
 const STEPS = 128; // samples along one bezel radius (the map is 8-bit, so more would not show)
-const MAX_MAP_PX = 200_000; // larger elements get a downscaled map; it is smooth, so the stretch does not show
+const MAX_MAP_PX = 60_000; // larger elements get a downscaled map; it is smooth, so the stretch does not show
 const LIGHT = [Math.cos((-60 * Math.PI) / 180), Math.sin((-60 * Math.PI) / 180)]; // rim light from the upper right
 
 export const supported = (() => {
@@ -101,11 +101,13 @@ function buildMaps(w, h, o) {
       sd[k] = 255; sd[k + 1] = 255; sd[k + 2] = 255; sd[k + 3] = a;
     }
   }
-  const c = document.createElement("canvas"); c.width = mw; c.height = mh;
-  const ctx = c.getContext("2d");
-  ctx.putImageData(disp, 0, 0); const dispUrl = c.toDataURL();
-  ctx.putImageData(spec, 0, 0); const specUrl = c.toDataURL();
-  return { dispUrl, specUrl, scale: max * bezel };
+  // PNG encoding happens off the main thread (toBlob), and the maps are handed over as blob URLs.
+  const enc = (img) => new Promise((done) => {
+    const c = document.createElement("canvas"); c.width = mw; c.height = mh;
+    c.getContext("2d").putImageData(img, 0, 0);
+    c.toBlob((b) => done(b ? URL.createObjectURL(b) : c.toDataURL()));
+  });
+  return Promise.all([enc(disp), enc(spec)]).then(([dispUrl, specUrl]) => ({ dispUrl, specUrl, scale: max * bezel }));
 }
 
 let defs, uid = 0;
@@ -157,7 +159,11 @@ function render(el) {
       num(el, "lgBezel", Math.min(40, Math.max(9, minSide * 0.3))))),
     thickness: num(el, "lgThickness", 1),
   };
-  const { dispUrl, specUrl, scale } = buildMaps(w, h, o);
+  const token = (st.token = (st.token || 0) + 1);
+  buildMaps(w, h, o).then((maps) => { if (st.token === token && glasses.get(el) === st) apply(el, st, w, h, maps); });
+}
+
+function apply(el, st, w, h, { dispUrl, specUrl, scale }) {
   const id = st.id || (st.id = `lg-${++uid}`);
   const look = st.look;
   const blur = num(el, "lgBlur", Math.min(look.blur, Math.max(2, look.blur * 0.3)));
@@ -175,13 +181,28 @@ function render(el) {
     node("feComposite", { in: "rimA", in2: "rich", operator: "over" }),
   );
   filter.querySelector("feComponentTransfer").append(node("feFuncA", { type: "linear", slope: shine }));
-  if (st.filter) st.filter.replaceWith(filter); else host().appendChild(filter);
+  if (st.filter) { st.filter.replaceWith(filter); st.urls?.forEach((u) => u.startsWith("blob:") && URL.revokeObjectURL(u)); } else host().appendChild(filter);
+  st.urls = [dispUrl, specUrl];
   st.filter = filter;
   el.style.setProperty("--lg-filter", `url(#${id})`);
   el.classList.add("lg-on");
 }
 
 let ro, io;
+// First builds wait for idle time, a few per idle slice, so a page arriving under the notch never waits on them.
+const pending = new Set();
+const ric = window.requestIdleCallback || ((f) => setTimeout(() => f({ timeRemaining: () => 8 }), 50));
+function later(el) {
+  if (!pending.size) ric(function work(deadline) {
+    for (const e of pending) {
+      if (deadline.timeRemaining() < 4) break;
+      pending.delete(e);
+      if (e.isConnected) render(e);
+    }
+    if (pending.size) ric(work, { timeout: 500 });
+  }, { timeout: 500 });
+  pending.add(el);
+}
 // A one-off size change (a label swap) rebuilds at once, so the map never lags it. A size that keeps changing
 // (a thumb gliding to a wider button) rebuilds once more after it rests, not every frame.
 function schedule(el) {
@@ -200,10 +221,23 @@ export function liquify(el) {
   io ||= new IntersectionObserver((entries) => {
     for (const e of entries) {
       const st = glasses.get(e.target);
-      if (e.isIntersecting && st && !st.seen) { st.seen = true; render(e.target); }
+      if (e.isIntersecting && st && !st.seen) { st.seen = true; later(e.target); }
     }
   }, { rootMargin: "300px 0px" });
   ro.observe(el); io.observe(el);
+}
+
+// Pages swap in place: forget glass that has left the document, and its filter.
+export function prune() {
+  for (const [el, st] of glasses) {
+    if (el.isConnected) continue;
+    st.filter?.remove();
+    st.urls?.forEach((u) => u.startsWith("blob:") && URL.revokeObjectURL(u));
+    clearTimeout(st.timer);
+    ro?.unobserve(el);
+    io?.unobserve(el);
+    glasses.delete(el);
+  }
 }
 
 // Every element on the page that already has a backdrop blur becomes liquid glass, plus anything marked data-lg.

@@ -229,6 +229,14 @@ button { font: inherit; color: inherit; }
 @keyframes vt-page-out { to { opacity: 0; transform: scale(0.99); } }
 @keyframes vt-page-in { from { opacity: 0; transform: scale(1.01) translateY(6px); } }
 
+/* Pages swap in place under the nav (the router renders the next one): it settles in as the notch tucks. */
+.page-in { animation: page-in 260ms cubic-bezier(0.2, 0.9, 0.25, 1) backwards; }
+@keyframes page-in { from { opacity: 0; translate: 0 10px; } }
+@media (prefers-reduced-motion: reduce) { .page-in { animation-duration: 120ms; } @keyframes page-in { from { opacity: 0; } } }
+
+/* Sections below the first one skip style, layout and paint until they come near the screen. */
+.hushd-site main > section ~ section, .hushd-site > .footer { content-visibility: auto; contain-intrinsic-size: auto 900px; }
+
 /* Arriving from another page of the site: the intro is a quick settle, not the full first-visit show. */
 .from-site [data-reveal-load] { transition-delay: calc(var(--d, 0ms) * 0.3) !important; }
 .from-site .hero__icon { animation-delay: 120ms, 1.2s; }
@@ -715,6 +723,10 @@ kbd {
 
 /* Outro */
 .outro { padding: 0 0 clamp(120px, 14vw, 200px); text-align: center; }
+/* The drift field: the ring in dots (drift.js). A quick sweep scatters it; it settles home when you are still. */
+.drift { position: absolute; inset: 0; width: 100%; height: 100%; z-index: -1; pointer-events: none; color: #2a8a5b; opacity: .42; }
+.outro--drift { position: relative; isolation: isolate; overflow: clip; padding-top: clamp(90px, 10vw, 150px); }
+.outro--drift .drift { opacity: .3; }
 .outro h2 { font-family: var(--font-display); font-weight: 600; font-size: clamp(2.2rem, 5vw, 4rem); letter-spacing: -0.04em; line-height: 1.04; max-width: 14ch; margin: 0 auto; text-wrap: balance; }
 .outro p { margin: 18px auto 34px; max-width: 40ch; color: var(--ink-2); font-size: clamp(1.02rem, 1.4vw, 1.2rem); }
 

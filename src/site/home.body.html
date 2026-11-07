@@ -1,36 +1,10 @@
-<a class="skip" href="#main">Skip to content</a>
-
-<!-- The nav is the notch: black at the screen edge, glass at the bottom. It opens on the page name when you arrive. -->
-<header class="nav">
-  <span class="nav__edge" aria-hidden="true"></span>
-  <nav class="nav__pill" aria-label="Main">
-    <a class="nav__logo" href="/" aria-label="Hushd home" style="--i:0">
-      <img src="/media/app/icon.png" alt="" width="26" height="26">
-      <span>Hushd</span>
-    </a>
-    <div class="nav__links" id="nav-links" style="--i:1">
-      <span class="nav__thumb" aria-hidden="true"></span>
-      <a class="nav__link" href="/how-it-works">How it works</a>
-      <a class="nav__link" href="/features">Features</a>
-      <a class="nav__link" href="/privacy">Privacy</a>
-      <a class="nav__link" href="/download#faq">FAQ</a>
-    </div>
-    <a class="btn btn--nav" href="/download" style="--i:2">Download</a>
-    <button class="nav__menu" type="button" aria-label="Menu" aria-expanded="false" aria-controls="nav-links" style="--i:2"><span></span><span></span></button>
-    <div class="nav__card" aria-hidden="true">
-      <svg class="ring ring--big" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8"/></svg>
-      <div><strong>Hushd</strong><span>Notice the drift. Come back gently.</span></div>
-    </div>
-  </nav>
-</header>
-
 <main id="main">
 <!-- Hero ------------------------------------------------------------------------------------------------------- -->
 <section class="hero sky" id="top" data-tone="sky">
   <div class="sky__fog" data-loop aria-hidden="true"><i></i><i></i><i></i><i></i></div>
   <canvas class="hero__art" aria-hidden="true"></canvas>
   <div class="hero__icon-wrap">
-    <img class="hero__icon" src="/media/app/icon.png" alt="Hushd app icon" width="148" height="148">
+    <img class="hero__icon" decoding="async" src="/media/app/icon.png" alt="Hushd app icon" width="148" height="148">
   </div>
   <div class="hero__inner">
     <h1 class="hero__title reveal" data-reveal-load style="--d:200ms"><span class="soft">Notice the drift.</span> Come back gently.</h1>
@@ -47,7 +21,7 @@
 
   <div class="showcase">
     <figure class="showcase__frame">
-      <img src="/media/app/workspace-today.jpg" alt="Hushd during a session: the window it is reading and its three checks, its call (On task), the session so far, and on the right what Hushd did and Ask Hushd." width="1720" height="1109" loading="eager">
+      <img decoding="async" src="/media/app/workspace-today.jpg" alt="Hushd during a session: the window it is reading and its three checks, its call (On task), the session so far, and on the right what Hushd did and Ask Hushd." width="1720" height="1109" loading="eager">
     </figure>
   </div>
 </section>
@@ -124,7 +98,7 @@
         <div class="tile__cap"><h3>Never invisible</h3><p>While Hushd watches, a ring sits in the notch and the menu bar.</p></div>
       </article>
       <article class="tile tile--shot reveal" style="--d:70ms">
-        <img src="/media/app/projects.jpg" alt="The Projects page: a project called Calc homework with a box for what Hushd should know about it." loading="lazy" width="2480" height="1600">
+        <img decoding="async" src="/media/app/projects.jpg" alt="The Projects page: a project called Calc homework with a box for what Hushd should know about it." loading="lazy" width="2480" height="1600">
         <div class="tile__cap tile__cap--on-light"><h3>Projects remember</h3><p>A sentence about the work beats any list of rules.</p></div>
       </article>
       <article class="tile art reveal" data-art="jerome" data-ax="0.2" data-ay="0.3" style="--d:0ms">
@@ -182,7 +156,7 @@
 <!-- Word scroll ------------------------------------------------------------------------------------------------- -->
 <section class="wordscroll paper" data-tone="paper">
   <div class="wordscroll__stage">
-    <img class="wordscroll__icon" src="/media/app/icon.png" alt="" width="96" height="96">
+    <img class="wordscroll__icon" decoding="async" src="/media/app/icon.png" alt="" width="96" height="96">
     <p class="wordscroll__text" data-wordsplit>Say what you are working on. Hushd reads the window in front, compares, and stays quiet unless it is sure.</p>
     <p class="wordscroll__ask" data-wordsplit>What will you finish today?</p>
   </div>
@@ -196,6 +170,8 @@
     <i style="--x:58%;--y:30%;--s:40vw;--c:#2a8a5b;--o:.3;--t:31s"></i>
     <i style="--x:20%;--y:62%;--s:34vw;--c:#c9f2dc;--o:.7;--t:22s"></i>
   </div>
+  <canvas class="drift" aria-hidden="true"></canvas>
+  <p class="drift__hint" aria-hidden="true">Sweep through the ring. It finds its way back.</p>
   <div class="wrap wrap--narrow">
     <h2 class="section-title reveal">Ready to finish <span class="soft">what you started?</span></h2>
     <ul class="xlist">
@@ -229,7 +205,7 @@
   <canvas class="footer__art" aria-hidden="true"></canvas>
   <div class="footer__inner wrap">
     <div class="footer__brand">
-      <a class="footer__logo" href="/"><img src="/media/app/icon.png" alt="" width="44" height="44"><span>Hushd</span></a>
+      <a class="footer__logo" href="/"><img decoding="async" src="/media/app/icon.png" alt="" width="44" height="44"><span>Hushd</span></a>
       <p class="footer__line">A calm colleague for focused work.</p>
       <p class="footer__blurb">Projects, gentle nudges and a ring in the notch. The judging runs on your Mac.</p>
       <a class="btn btn--white btn--sm" href="/download">Download for macOS</a>
