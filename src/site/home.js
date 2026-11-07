@@ -1,5 +1,5 @@
 // Home page: the hero art, the interactive notch story and the word scroll. Shared pieces live in site.js.
-import { $, $$, clamp, reduceMotion, Spring, OPEN, CLOSE, PEEK, ART, Halftone, loadImage, fit, smooth, thinkerValue, fogValue, engravingValue, quiet } from "./site.js";
+import { $, $$, clamp, reduceMotion, Spring, OPEN, CLOSE, PEEK, LENS_THUMB, glide, ART, Halftone, loadImage, fit, smooth, thinkerValue, fogValue, engravingValue, quiet } from "./site.js";
 
 /* Halftone art ----------------------------------------------------------------------------------------------------- */
 async function heroArt() {
@@ -55,6 +55,7 @@ async function roomArt() {
 }
 
 heroArt().catch(quiet);
+
 roomArt().catch(quiet);
 
 /* Island: the notch demo ------------------------------------------------------------------------------------------- */
@@ -149,11 +150,14 @@ function swapText(el, text) {
 const thumb = document.createElement("span");
 thumb.className = "steps__thumb";
 thumb.setAttribute("aria-hidden", "true");
+Object.assign(thumb.dataset, LENS_THUMB);
 $(".steps", island).prepend(thumb);
 function placeThumb(btn) {
   const li = btn.parentElement;
+  const t = `translateX(${li.offsetLeft}px)`;
+  if (thumb.style.transform && thumb.style.transform !== t) glide(thumb);
   thumb.style.width = `${btn.offsetWidth}px`;
-  thumb.style.transform = `translateX(${li.offsetLeft}px)`;
+  thumb.style.transform = t;
 }
 
 let step = 0;

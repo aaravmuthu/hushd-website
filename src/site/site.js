@@ -2,6 +2,8 @@
 import { Halftone, loadImage, fit, smooth, thinkerValue, fogValue, engravingValue } from "./halftone.js";
 
 // The inline head script hides reveals only while this flag shows up in time; see the failsafe there.
+import "./liquid-glass.js";
+
 window.__hushd = true;
 
 export const reduceMotion = matchMedia("(prefers-reduced-motion: reduce)").matches;
@@ -301,16 +303,63 @@ export function swapText(el, text) {
   setTimeout(() => { el.textContent = text; el.classList.remove("is-swapping"); }, 60);
 }
 
+// While a thumb slides it lifts into clear liquid glass and bends the labels it passes, then settles back to mint.
+export const LENS_THUMB = { lg: "", lgBlur: "0", lgThickness: "1.6", lgRefract: "1.5", lgShine: "0.9" };
+export function glide(thumb) {
+  if (reduceMotion) return;
+  thumb.classList.add("is-gliding");
+  clearTimeout(thumb._glide);
+  thumb._glide = setTimeout(() => thumb.classList.remove("is-gliding"), 260);
+}
+
+/* Glass ring ------------------------------------------------------------------------------------------------------ */
+// A ring of liquid glass, the app's own mark, rests on the halftone art of a hero and trails the pointer through it,
+// bending the dots and the headline beneath. Rest spot: data-rx / data-ry, fractions of the hero's art box
+// (data-mrx / data-mry below 700 px wide).
+const RING = { response: 0.62, damping: 0.78 };
+function glassRing(ring) {
+  const hero = ring.closest("section"), art = hero && $("canvas", hero);
+  if (!art) return;
+  const d = ring.dataset;
+  const rest = () => {
+    const W = art.clientWidth, H = art.clientHeight, narrow = W < 700;
+    return { x: W * +(narrow && d.mrx ? d.mrx : d.rx), y: H * +(narrow && d.mry ? d.mry : d.ry) };
+  };
+  let r = rest();
+  const sx = new Spring(r.x, SETTLE, 0.2), sy = new Spring(r.y, SETTLE, 0.2);
+  const paint = () => {
+    // A little stretch along the way it moves, like a drop of water.
+    const sp = Math.min(1, Math.hypot(sx.v, sy.v) / 2600), a = Math.atan2(sy.v, sx.v);
+    ring.style.transform = `translate3d(${sx.x.toFixed(1)}px, ${sy.x.toFixed(1)}px, 0) rotate(${a}rad) scale(${1 + sp * 0.07}, ${1 - sp * 0.05}) rotate(${-a}rad)`;
+  };
+  const loop = springLoop([sx, sy], paint);
+  const home = () => { r = rest(); sx.set(r.x, SETTLE); sy.set(r.y, SETTLE); loop.kick(); };
+  addEventListener("resize", () => { r = rest(); sx.jump(r.x); sy.jump(r.y); paint(); });
+  paint();
+  if (reduceMotion || !finePointer) return;
+  hero.addEventListener("pointermove", (e) => {
+    const b = hero.getBoundingClientRect();
+    const x = e.clientX - b.left, y = e.clientY - b.top;
+    if (y > Math.min(b.height, art.clientHeight + 120) - 30) return home();
+    sx.set(x, RING); sy.set(y, RING); loop.kick();
+  });
+  hero.addEventListener("pointerleave", home);
+}
+$$(".glassring").forEach(glassRing);
+
 // Segmented controls with a sliding thumb (used on several pages). Returns a setter.
 export function segmented(list, onPick) {
   const btns = $$("button", list);
   const thumb = document.createElement("span");
   thumb.className = "seg__thumb";
   thumb.setAttribute("aria-hidden", "true");
+  Object.assign(thumb.dataset, LENS_THUMB);
   list.prepend(thumb);
   const place = (b) => {
+    const t = `translateX(${b.offsetLeft - 5}px)`;
+    if (thumb.style.transform && thumb.style.transform !== t) glide(thumb);
     thumb.style.width = `${b.offsetWidth}px`;
-    thumb.style.transform = `translateX(${b.offsetLeft - 5}px)`;
+    thumb.style.transform = t;
   };
   let i = 0;
   const pick = (n, fromUser) => {

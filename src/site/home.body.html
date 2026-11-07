@@ -29,6 +29,7 @@
 <section class="hero sky" id="top" data-tone="sky">
   <div class="sky__fog" data-loop aria-hidden="true"><i></i><i></i><i></i><i></i></div>
   <canvas class="hero__art" aria-hidden="true"></canvas>
+  <div class="glassring" data-rx="0.275" data-ry="0.36" data-mrx="0.24" data-mry="0.2" aria-hidden="true"><div class="glassring__glass" data-lg data-lg-shape="ring" data-lg-inner="0.5" data-lg-thickness="1.35" data-lg-refract="1.35" data-lg-blur="0.6" data-lg-shine="0.85"></div></div>
   <div class="hero__icon-wrap">
     <img class="hero__icon" src="/media/app/icon.png" alt="Hushd app icon" width="148" height="148">
   </div>
@@ -91,14 +92,14 @@
     </div>
 
     <div class="island__controls">
-      <ol class="steps" role="tablist" aria-label="Session story">
+      <ol class="steps" data-lg role="tablist" aria-label="Session story">
         <li><button role="tab" data-go="0" aria-selected="true">On task</button></li>
         <li><button role="tab" data-go="1">Not sure</button></li>
         <li><button role="tab" data-go="2">Drifting</button></li>
         <li><button role="tab" data-go="3">Nudge</button></li>
         <li><button role="tab" data-go="4">Back</button></li>
       </ol>
-      <button class="playpause" type="button" aria-label="Pause the story" data-playing="true">
+      <button class="playpause" data-lg type="button" aria-label="Pause the story" data-playing="true">
         <svg class="i-pause" viewBox="0 0 20 20" aria-hidden="true"><rect x="5" y="4" width="3.2" height="12" rx="1"/><rect x="11.8" y="4" width="3.2" height="12" rx="1"/></svg>
         <svg class="i-play" viewBox="0 0 20 20" aria-hidden="true"><path d="M6 4.5v11l9.5-5.5z"/></svg>
       </button>

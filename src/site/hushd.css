@@ -808,3 +808,54 @@ kbd {
   .glass::after { background: rgb(255 255 255 / 0.7); }
   .glass--light::after { background: rgb(14 53 35 / 0.6); }
 }
+
+/* Liquid glass --------------------------------------------------------------------------------------------------- */
+/* liquid-glass.js gives every glass surface a refracting SVG backdrop filter in Chromium (html.lg, .lg-on).
+   Other browsers keep the blur above. The SVG filter draws its own rim light, so the CSS rims step back. */
+.lg .lg-on { -webkit-backdrop-filter: var(--lg-filter) !important; backdrop-filter: var(--lg-filter) !important; }
+.lg .glass.lg-on::after { opacity: 0.5; }
+.steps { -webkit-backdrop-filter: blur(16px) saturate(160%); backdrop-filter: blur(16px) saturate(160%); box-shadow: inset 0 1px 0 rgb(255 255 255 / 0.12); }
+
+/* Sliding thumbs lift into clear glass while they move, magnifying the labels they pass, then settle to mint. */
+.seg__thumb, .steps__thumb {
+  transition: transform 220ms cubic-bezier(0.32, 0.72, 0, 1), width 220ms cubic-bezier(0.32, 0.72, 0, 1),
+    background-color 200ms ease, scale 320ms var(--ease-pop), box-shadow 220ms ease;
+}
+.lg .seg__thumb.is-gliding, .lg .steps__thumb.is-gliding {
+  z-index: 2; pointer-events: none;
+  background-color: rgb(158 235 196 / 0.1);
+  scale: 1.1 1.24;
+  box-shadow: 0 10px 26px rgb(0 0 0 / 0.22), inset 0 0 0 1px rgb(255 255 255 / 0.18);
+  transition-duration: 220ms, 220ms, 90ms, 200ms, 120ms;
+}
+
+/* The hero's glass ring lens. Its wrapper moves and casts the shadow; the glass inside is masked to a ring. */
+.glassring {
+  --size: clamp(150px, 15vw, 230px);
+  position: absolute; left: 0; top: 0; z-index: 3;
+  width: var(--size); height: var(--size); margin: calc(var(--size) / -2) 0 0 calc(var(--size) / -2);
+  pointer-events: none; will-change: transform;
+  opacity: 0; animation: glassring-in 1100ms var(--ease-pop) 900ms forwards;
+}
+/* Its shadow falls only outside the band (and in the hole): glass over its own shadow would refract it grey. */
+.glassring::before {
+  content: ""; position: absolute; inset: -25%; pointer-events: none;
+  background: radial-gradient(circle closest-side at 50% calc(50% + 16px), transparent 30%, rgb(2 18 10 / 0.34) 50%, transparent 72%);
+  filter: blur(8px);
+  -webkit-mask: radial-gradient(circle closest-side, #000 calc(33.3% - 1px), transparent 33.3%, transparent 66.7%, #000 calc(66.7% + 1px));
+  mask: radial-gradient(circle closest-side, #000 calc(33.3% - 1px), transparent 33.3%, transparent 66.7%, #000 calc(66.7% + 1px));
+}
+.glassring__glass {
+  position: absolute; inset: 0; border-radius: 50%;
+  -webkit-mask: radial-gradient(circle closest-side, transparent calc(50% - 0.5px), #000 50%);
+  mask: radial-gradient(circle closest-side, transparent calc(50% - 0.5px), #000 50%);
+  background: radial-gradient(circle closest-side, transparent 50%, rgb(255 255 255 / 0.4) 51.5%, rgb(255 255 255 / 0.07) 58%,
+    rgb(255 255 255 / 0.04) 88%, rgb(255 255 255 / 0.45) 99%);
+  -webkit-backdrop-filter: blur(1.5px) saturate(170%) brightness(1.08); backdrop-filter: blur(1.5px) saturate(170%) brightness(1.08);
+}
+.lg .glassring__glass.lg-on { background: radial-gradient(circle closest-side, transparent 50%, rgb(255 255 255 / 0.06) 56%, rgb(255 255 255 / 0.02) 90%); }
+@keyframes glassring-in { from { opacity: 0; scale: 0.6; } to { opacity: 1; scale: 1; } }
+@media (prefers-reduced-motion: reduce) { .glassring { animation: none; opacity: 1; } }
+@media (prefers-reduced-transparency: reduce) { .glassring { display: none; } }
+.glassring--sub { --size: clamp(120px, 12vw, 190px); }
+@media (max-width: 699px) { .glassring--sub { display: none; } }
