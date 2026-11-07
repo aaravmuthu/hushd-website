@@ -187,9 +187,8 @@ if (pill) {
 
   // Pressing a link to another page opens the notch on that page at once; the page loads underneath and arrives
   // with the notch already open, then it tucks. Navigation itself is never held back.
-  let leaving = null, cancel = 0;
+  let leaving = null;
   const leave = (path) => {
-    clearTimeout(cancel);
     if (leaving === path) return;
     leaving = path;
     setCard(CARDS[path] || own);
@@ -212,15 +211,35 @@ if (pill) {
     const url = new URL(a.href, location.href);
     return url.origin === location.origin && url.pathname !== location.pathname ? url : null;
   };
-  // Mouse and pen respond on press. A finger might be starting a scroll, so touch waits for the tap.
-  document.addEventListener("pointerdown", (e) => { if (e.pointerType !== "touch") { const u = internal(e); if (u) leave(u.pathname); } });
-  addEventListener("pointerup", () => { if (leaving) { clearTimeout(cancel); cancel = setTimeout(stay, 450); } });
+  const note = () => { try { sessionStorage.setItem("hushd-nav", String(Date.now())); } catch {} };
+  // Mouse and pen respond on press. Opening the notch moves the links, so the release would no longer land on the
+  // one that was pressed: the press itself carries the navigation, sent on release unless the pointer was dragged
+  // away. A finger might be starting a scroll, so touch (and the keyboard) go through the normal click.
+  let press = null, swallow = 0;
+  document.addEventListener("pointerdown", (e) => {
+    if (e.pointerType === "touch") return;
+    const u = internal(e);
+    if (!u) return;
+    press = { u, x: e.clientX, y: e.clientY };
+    leave(u.pathname);
+  });
+  addEventListener("pointerup", (e) => {
+    if (!press) return;
+    const { u, x, y } = press;
+    press = null;
+    if (Math.hypot(e.clientX - x, e.clientY - y) > 14) { stay(); return; }
+    note();
+    swallow = performance.now();
+    location.assign(u.href);
+  });
+  addEventListener("pointercancel", () => { if (press) { press = null; stay(); } });
   document.addEventListener("click", (e) => {
+    // The click that follows a press already handled above.
+    if (performance.now() - swallow < 600) { if (e.target.closest?.("a[href]")) e.preventDefault(); return; }
     const u = !e.defaultPrevented && internal(e);
     if (!u) return;
-    try { sessionStorage.setItem("hushd-nav", String(Date.now())); } catch {}
+    note();
     leave(u.pathname);
-    clearTimeout(cancel);
   });
 
   // Arriving from another page, the head script tucks the notch as soon as the page is on screen (see head.ts).
@@ -229,7 +248,6 @@ if (pill) {
   addEventListener("pageshow", (e) => {
     if (!e.persisted) return;
     leaving = null;
-    clearTimeout(cancel);
     root.classList.remove("notch-arrive", "notch-leave");
     clearSize();
     setCard(own);
