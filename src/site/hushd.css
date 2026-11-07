@@ -829,33 +829,3 @@ kbd {
   transition-duration: 220ms, 220ms, 90ms, 200ms, 120ms;
 }
 
-/* The hero's glass ring lens. Its wrapper moves and casts the shadow; the glass inside is masked to a ring. */
-.glassring {
-  --size: clamp(118px, 15vw, 230px);
-  position: absolute; left: 0; top: 0; z-index: 3;
-  width: var(--size); height: var(--size); margin: calc(var(--size) / -2) 0 0 calc(var(--size) / -2);
-  pointer-events: none; will-change: transform;
-  opacity: 0; animation: glassring-in 1100ms var(--ease-pop) 900ms forwards;
-}
-/* Its shadow falls only outside the band (and in the hole): glass over its own shadow would refract it grey. */
-.glassring::before {
-  content: ""; position: absolute; inset: -25%; pointer-events: none;
-  background: radial-gradient(circle closest-side at 50% calc(50% + 16px), transparent 30%, rgb(2 18 10 / 0.34) 50%, transparent 72%);
-  filter: blur(8px);
-  -webkit-mask: radial-gradient(circle closest-side, #000 calc(33.3% - 1px), transparent 33.3%, transparent 66.7%, #000 calc(66.7% + 1px));
-  mask: radial-gradient(circle closest-side, #000 calc(33.3% - 1px), transparent 33.3%, transparent 66.7%, #000 calc(66.7% + 1px));
-}
-.glassring__glass {
-  position: absolute; inset: 0; border-radius: 50%;
-  -webkit-mask: radial-gradient(circle closest-side, transparent calc(50% - 0.5px), #000 50%);
-  mask: radial-gradient(circle closest-side, transparent calc(50% - 0.5px), #000 50%);
-  background: radial-gradient(circle closest-side, transparent 50%, rgb(255 255 255 / 0.4) 51.5%, rgb(255 255 255 / 0.07) 58%,
-    rgb(255 255 255 / 0.04) 88%, rgb(255 255 255 / 0.45) 99%);
-  -webkit-backdrop-filter: blur(1.5px) saturate(170%) brightness(1.08); backdrop-filter: blur(1.5px) saturate(170%) brightness(1.08);
-}
-.lg .glassring__glass.lg-on { background: radial-gradient(circle closest-side, transparent 50%, rgb(255 255 255 / 0.06) 56%, rgb(255 255 255 / 0.02) 90%); }
-@keyframes glassring-in { from { opacity: 0; scale: 0.6; } to { opacity: 1; scale: 1; } }
-@media (prefers-reduced-motion: reduce) { .glassring { animation: none; opacity: 1; } }
-@media (prefers-reduced-transparency: reduce) { .glassring { display: none; } }
-.glassring--sub { --size: clamp(120px, 12vw, 190px); }
-@media (max-width: 699px) { .glassring--sub { display: none; } }
