@@ -145,54 +145,94 @@ if (pill) {
     document.head.appendChild(s);
   }
 
-  // Leaving for another page: note it, so the next page can arrive out of the notch. Navigation is never held back.
-  document.addEventListener("click", (e) => {
+  // The notch's size runs on springs between its resting shape and the open card. Each move starts from wherever
+  // the notch is right now, so a press mid-motion just retargets it, like the Dynamic Island.
+  const LEAVE = { response: 0.34, damping: 0.78 };
+  const TUCK = { response: 0.3, damping: 0.88 };
+  let springs = null, loop = null, onRest = null;
+  const clearSize = () => { pill.style.width = pill.style.height = pill.style.borderBottomLeftRadius = pill.style.borderBottomRightRadius = ""; };
+  const radius = () => parseFloat(getComputedStyle(pill).borderBottomLeftRadius) || 24;
+  const paintNotch = () => {
+    const [w, h, r] = springs;
+    pill.style.width = `${w.x.toFixed(2)}px`;
+    pill.style.height = `${h.x.toFixed(2)}px`;
+    pill.style.borderBottomLeftRadius = pill.style.borderBottomRightRadius = `${r.x.toFixed(2)}px`;
+  };
+  function morph(change, cfg, done) {
+    const a = pill.getBoundingClientRect(), ar = radius();
+    clearSize();
+    change();
+    const b = pill.getBoundingClientRect(), br = radius();
+    if (!loop?.running) {
+      springs = [new Spring(a.width, cfg), new Spring(a.height, cfg), new Spring(ar, cfg)];
+      loop = springLoop(springs, paintNotch, () => { clearSize(); const f = onRest; onRest = null; f?.(); });
+    }
+    onRest = done;
+    springs[0].set(b.width, cfg); springs[1].set(b.height, cfg); springs[2].set(br, cfg);
+    paintNotch();
+    loop.kick();
+  }
+
+  // Each page's card, so the notch can open on where you are going before that page has loaded.
+  const CARDS = {
+    "/": ["Hushd", "Notice the drift. Come back gently."],
+    "/how-it-works": ["How it works", "Five steps, and it leans quiet."],
+    "/features": ["Features", "Everything it does, quietly."],
+    "/privacy": ["Privacy", "What it reads, and what it leaves alone."],
+    "/download": ["Download", "The public beta for Mac."],
+  };
+  const cardName = $(".nav__card strong", pill), cardLine = $(".nav__card div span", pill);
+  const own = [cardName?.textContent, cardLine?.textContent];
+  const setCard = ([n, l]) => { if (cardName) cardName.textContent = n; if (cardLine) cardLine.textContent = l; };
+
+  // Pressing a link to another page opens the notch on that page at once; the page loads underneath and arrives
+  // with the notch already open, then it tucks. Navigation itself is never held back.
+  let leaving = null, cancel = 0;
+  const leave = (path) => {
+    clearTimeout(cancel);
+    if (leaving === path) return;
+    leaving = path;
+    setCard(CARDS[path] || own);
+    pill.classList.remove("is-open", "is-hover", "is-pressing");
+    pill.dataset.notch = "opening";
+    if (reduceMotion) { root.classList.add("notch-leave"); return; }
+    morph(() => { root.classList.remove("notch-arrive"); root.classList.add("notch-leave"); }, LEAVE);
+  };
+  // Pressed but never clicked (dragged off the link): settle back.
+  const stay = () => {
+    if (!leaving) return;
+    leaving = null;
+    const back = () => { setCard(own); delete pill.dataset.notch; };
+    if (reduceMotion) { root.classList.remove("notch-leave"); back(); return; }
+    morph(() => root.classList.remove("notch-leave"), TUCK, back);
+  };
+  const internal = (e) => {
     const a = e.target.closest?.("a[href]");
-    if (!a || e.defaultPrevented || e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey || a.target === "_blank") return;
+    if (!a || e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey || a.target === "_blank" || a.hasAttribute("download")) return null;
     const url = new URL(a.href, location.href);
-    if (url.origin !== location.origin || url.pathname === location.pathname) return;
+    return url.origin === location.origin && url.pathname !== location.pathname ? url : null;
+  };
+  // Mouse and pen respond on press. A finger might be starting a scroll, so touch waits for the tap.
+  document.addEventListener("pointerdown", (e) => { if (e.pointerType !== "touch") { const u = internal(e); if (u) leave(u.pathname); } });
+  addEventListener("pointerup", () => { if (leaving) { clearTimeout(cancel); cancel = setTimeout(stay, 450); } });
+  document.addEventListener("click", (e) => {
+    const u = !e.defaultPrevented && internal(e);
+    if (!u) return;
     try { sessionStorage.setItem("hushd-nav", String(Date.now())); } catch {}
-    pill.classList.remove("is-open");
+    leave(u.pathname);
+    clearTimeout(cancel);
   });
 
-  // Arriving from another page: the notch starts open on this page's name (set by the head script before first paint),
-  // holds a beat, then tucks back to its resting size on the close spring while the nav fades up out of a blur.
-  const tuck = () => {
-    if (!root.classList.contains("notch-arrive")) return;
-    const open = pill.getBoundingClientRect();
-    // The first-visit drop must not replay once the arrival styles come off.
-    root.classList.add("notch-arrived");
-    root.classList.remove("notch-arrive");
-    const rest = pill.getBoundingClientRect();
-    const r0 = parseFloat(getComputedStyle(pill).getPropertyValue("--open-radius")) || 34;
-    const r1 = parseFloat(getComputedStyle(pill).borderBottomLeftRadius) || 24;
-    const w = new Spring(open.width, CLOSE);
-    const h = new Spring(open.height, CLOSE);
-    const r = new Spring(r0, CLOSE);
-    pill.dataset.notch = "closing";
-    const paint = () => {
-      pill.style.width = `${w.x.toFixed(2)}px`;
-      pill.style.height = `${h.x.toFixed(2)}px`;
-      pill.style.borderBottomLeftRadius = pill.style.borderBottomRightRadius = `${r.x.toFixed(2)}px`;
-    };
-    paint();
-    w.set(rest.width); h.set(rest.height); r.set(r1);
-    springLoop([w, h, r], paint, () => {
-      pill.style.width = pill.style.height = pill.style.borderBottomLeftRadius = pill.style.borderBottomRightRadius = "";
-      setTimeout(() => delete pill.dataset.notch, 400);
-      if (thumb) placeThumb(current);
-    }).kick();
-  };
-  if (root.classList.contains("notch-arrive")) {
-    // With a cross-document view transition the notch is still morphing from the last page; the head script's promise
-    // settles once it has landed, then the notch holds a beat and tucks.
-    (window.__hushdShown || Promise.resolve()).then(() => setTimeout(tuck, 160));
-  }
+  // Arriving from another page, the head script tucks the notch as soon as the page is on screen (see head.ts).
+  addEventListener("hushd:tucked", () => { if (thumb) placeThumb(current); });
   // Back/forward cache restores the page as it was left; never leave the notch stuck open.
   addEventListener("pageshow", (e) => {
     if (!e.persisted) return;
-    root.classList.remove("notch-arrive");
-    pill.style.width = pill.style.height = pill.style.borderBottomLeftRadius = pill.style.borderBottomRightRadius = "";
+    leaving = null;
+    clearTimeout(cancel);
+    root.classList.remove("notch-arrive", "notch-leave");
+    clearSize();
+    setCard(own);
     delete pill.dataset.notch;
     pill.classList.remove("is-open", "is-pressing", "is-hover");
   });

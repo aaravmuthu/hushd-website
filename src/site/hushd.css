@@ -74,21 +74,21 @@ button { font: inherit; color: inherit; }
 .js .reveal {
   opacity: 0;
   transform: translateY(18px);
-  transition: opacity 620ms var(--ease-out), transform 620ms var(--ease-out);
+  transition: opacity 440ms var(--ease-out), transform 480ms var(--ease-out);
   transition-delay: var(--d, 0ms);
 }
 .js .reveal.is-in { opacity: 1; transform: none; }
 /* Glass materializes: it arrives out of a blur, the way a material condenses, rather than sliding in. */
 .js .reveal--glass {
-  opacity: 0; filter: blur(14px); transform: translateY(14px) scale(0.965);
-  transition: opacity 700ms var(--ease-out), filter 800ms var(--ease-out), transform 900ms var(--ease-pop);
+  opacity: 0; transform: translateY(12px) scale(0.97);
+  transition: opacity 420ms var(--ease-out), transform 560ms var(--ease-pop);
   transition-delay: var(--d, 0ms);
 }
-.js .reveal--glass.is-in { filter: none; }
+.js .reveal--glass.is-in { transform: none; }
 /* Big headlines rise out of a mask, line by line in feel if not in fact. */
 .js .reveal--title {
   opacity: 1; clip-path: inset(0 0 100% 0); transform: translateY(0.35em);
-  transition: clip-path 900ms var(--ease-out), transform 900ms var(--ease-out);
+  transition: clip-path 620ms var(--ease-out), transform 620ms var(--ease-out);
   transition-delay: var(--d, 0ms);
 }
 .js .reveal--title.is-in { clip-path: inset(-10% -5% -25% -5%); }
@@ -193,12 +193,16 @@ button { font: inherit; color: inherit; }
 .nav__card strong { font-family: var(--font-display); font-size: 20px; font-weight: 650; letter-spacing: -0.02em; }
 .nav__card span { font-size: 14px; color: rgb(255 255 255 / 0.72); }
 .nav__card .ring { width: 40px; height: 40px; margin-bottom: 2px; }
-.notch-arrive .nav__pill {
+.notch-arrive .nav__pill, .notch-leave .nav__pill {
   animation: none; transform: none;
   width: min(500px, calc(100vw - 24px)); height: 128px;
   border-radius: 0 0 var(--open-radius) var(--open-radius);
 }
-.notch-arrive .nav__card { opacity: 1; transform: none; }
+.notch-arrive .nav__card, .notch-leave .nav__card { opacity: 1; transform: none; }
+/* Leaving: the parts fade out fast and the card fades in a beat behind them, as the notch opens. */
+.notch-leave .nav__card { transition-delay: 50ms; }
+.notch-leave .nav__card .ring circle { animation: ring-draw 700ms var(--ease-out) 60ms both; }
+.notch-leave .nav__pill > :not(.nav__card) { opacity: 0; transition: opacity 90ms ease; }
 .notch-arrived .nav__pill { animation: none; transform: none; }
 .notch-arrive .nav__card .ring circle { animation: ring-draw 900ms var(--ease-out) 120ms both; }
 @keyframes ring-draw { from { stroke-dasharray: 0 50.27; } }
@@ -212,17 +216,22 @@ button { font: inherit; color: inherit; }
 /* Page to page --------------------------------------------------------------------------------------------------- */
 /* Same-origin page changes cross-fade through a little blur while the notch morphs between pages. */
 @view-transition { navigation: auto; }
-::view-transition-group(notch) { animation-duration: 340ms; animation-timing-function: cubic-bezier(0.2, 0.9, 0.25, 1.05); }
+/* The notch is already open when the page swaps, so it only settles; on a spring curve, not a bezier. */
+::view-transition-group(notch) { animation-duration: 260ms; animation-timing-function: linear(0, 0.05, 0.164, 0.304, 0.446, 0.576, 0.688, 0.779, 0.851, 0.905, 0.944, 0.971, 0.989, 1, 1.007, 1.01, 1.01, 1.01, 1.009, 1.007, 1.006, 1.005, 1.003, 1.002, 1); }
 ::view-transition-old(notch) { animation: vt-fade 90ms linear both reverse; }
 ::view-transition-new(notch) { animation: vt-fade 120ms linear both; }
 ::view-transition-old(notch), ::view-transition-new(notch) { height: 100%; width: 100%; object-fit: none; object-position: 50% 0; }
 /* Apple-style push: both pages overlap, the old one recedes slightly while the new one settles in. No blur, no gap. */
-::view-transition-old(root) { animation: vt-page-out 180ms cubic-bezier(0.4, 0, 1, 1) both; }
-::view-transition-new(root) { animation: vt-page-in 300ms cubic-bezier(0.2, 0.9, 0.25, 1) both; }
+::view-transition-old(root) { animation: vt-page-out 140ms cubic-bezier(0.4, 0, 1, 1) both; }
+::view-transition-new(root) { animation: vt-page-in 240ms cubic-bezier(0.2, 0.9, 0.25, 1) both; }
 ::view-transition-old(root), ::view-transition-new(root) { mix-blend-mode: normal; will-change: opacity, transform; }
 @keyframes vt-fade { from { opacity: 0; } }
 @keyframes vt-page-out { to { opacity: 0; transform: scale(0.99); } }
 @keyframes vt-page-in { from { opacity: 0; transform: scale(1.01) translateY(6px); } }
+
+/* Arriving from another page of the site: the intro is a quick settle, not the full first-visit show. */
+.from-site [data-reveal-load] { transition-delay: calc(var(--d, 0ms) * 0.3) !important; }
+.from-site .hero__icon { animation-delay: 120ms, 1.2s; }
 
 /* Glass ---------------------------------------------------------------------------------------------------------- */
 /* A real material: blurred and brightened backdrop, a rim that catches light at the top edge, and a soft highlight

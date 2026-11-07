@@ -118,6 +118,10 @@ export class Halftone {
   }
 
   play() {
+    // Arriving from another page of the site, the dots grow in quicker: a settle, not the first-visit show.
+    const quick = document.documentElement.classList.contains("from-site");
+    this.grow = quick ? 420 : 700;
+    this.rippleMs = quick ? this.o.ripple * 0.5 : this.o.ripple;
     this.started = true;
     this.start = performance.now();
     this.kick();
@@ -147,7 +151,7 @@ export class Halftone {
     p.sx += (p.x - p.sx) * 0.16;
     p.sy += (p.y - p.sy) * 0.16;
     p.power += ((p.inside ? 1 : 0) - p.power) * 0.1;
-    const rippling = !reduceMotion && now - this.start < this.o.ripple + 900;
+    const rippling = !reduceMotion && now - this.start < (this.rippleMs ?? this.o.ripple) + (this.grow ?? 700) + 200;
     const settling = p.power > 0.004 || (p.inside && Math.hypot(p.x - p.sx, p.y - p.sy) > 0.5);
     this.paint(now);
     if (this.visible && (rippling || settling)) this.kick();
@@ -161,7 +165,7 @@ export class Halftone {
     const p = this.pointer;
     const sigma2 = 2 * Math.pow(this.o.reach || 110, 2);
     const elapsed = reduceMotion || !this.started ? (this.started ? 1e9 : 0) : now - this.start;
-    const ripple = this.o.ripple;
+    const ripple = this.rippleMs ?? this.o.ripple, grow = this.grow ?? 700;
     ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
     for (let j = 0; j < rows; j++) {
       const y = j * cell;
@@ -171,7 +175,7 @@ export class Halftone {
         const x = i * cell;
         // The ripple: each dot waits for a wave that leaves the origin, then grows in over 700 ms.
         const d = Math.hypot(x - origin.x, y - origin.y) / farthest;
-        const t = clamp((elapsed - d * ripple) / 700);
+        const t = clamp((elapsed - d * ripple) / grow);
         if (t <= 0) continue;
         let s = Math.sqrt(v) * easeOut(t);
         if (p.power > 0.004) {
