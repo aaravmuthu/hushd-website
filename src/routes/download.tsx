@@ -8,7 +8,7 @@ export const Route = createFileRoute("/download")({
   head: () =>
     pageHead({
       title: "Download the Hushd beta",
-      description: "Hushd for Mac is in public beta. Needs Apple silicon and Apple Intelligence. Install in five steps, then tell us what it got wrong.",
+      description: "Hushd for Mac is in an invite-only beta. Needs Apple silicon and Apple Intelligence. Install in five steps, then tell us what it got wrong.",
     }),
   component: DownloadPage,
 });

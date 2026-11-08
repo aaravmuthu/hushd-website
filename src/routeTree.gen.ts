@@ -10,15 +10,22 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as BetaRouteImport } from './routes/beta'
 import { Route as DownloadRouteImport } from './routes/download'
 import { Route as FeaturesRouteImport } from './routes/features'
 import { Route as HowItWorksRouteImport } from './routes/how-it-works'
 import { Route as PrivacyRouteImport } from './routes/privacy'
+import { Route as ApiBetaRedeemRouteImport } from './routes/api.beta.redeem'
 import { Route as ApiLicenseActionRouteImport } from './routes/api.license.$action'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const BetaRoute = BetaRouteImport.update({
+  id: '/beta',
+  path: '/beta',
   getParentRoute: () => rootRouteImport,
 } as any)
 const DownloadRoute = DownloadRouteImport.update({
@@ -41,6 +48,11 @@ const PrivacyRoute = PrivacyRouteImport.update({
   path: '/privacy',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ApiBetaRedeemRoute = ApiBetaRedeemRouteImport.update({
+  id: '/api/beta/redeem',
+  path: '/api/beta/redeem',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ApiLicenseActionRoute = ApiLicenseActionRouteImport.update({
   id: '/api/license/$action',
   path: '/api/license/$action',
@@ -49,62 +61,76 @@ const ApiLicenseActionRoute = ApiLicenseActionRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/beta': typeof BetaRoute
   '/download': typeof DownloadRoute
   '/features': typeof FeaturesRoute
   '/how-it-works': typeof HowItWorksRoute
   '/privacy': typeof PrivacyRoute
+  '/api/beta/redeem': typeof ApiBetaRedeemRoute
   '/api/license/$action': typeof ApiLicenseActionRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/beta': typeof BetaRoute
   '/download': typeof DownloadRoute
   '/features': typeof FeaturesRoute
   '/how-it-works': typeof HowItWorksRoute
   '/privacy': typeof PrivacyRoute
+  '/api/beta/redeem': typeof ApiBetaRedeemRoute
   '/api/license/$action': typeof ApiLicenseActionRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/beta': typeof BetaRoute
   '/download': typeof DownloadRoute
   '/features': typeof FeaturesRoute
   '/how-it-works': typeof HowItWorksRoute
   '/privacy': typeof PrivacyRoute
+  '/api/beta/redeem': typeof ApiBetaRedeemRoute
   '/api/license/$action': typeof ApiLicenseActionRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
+    | '/beta'
     | '/download'
     | '/features'
     | '/how-it-works'
     | '/privacy'
+    | '/api/beta/redeem'
     | '/api/license/$action'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
+    | '/beta'
     | '/download'
     | '/features'
     | '/how-it-works'
     | '/privacy'
+    | '/api/beta/redeem'
     | '/api/license/$action'
   id:
     | '__root__'
     | '/'
+    | '/beta'
     | '/download'
     | '/features'
     | '/how-it-works'
     | '/privacy'
+    | '/api/beta/redeem'
     | '/api/license/$action'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  BetaRoute: typeof BetaRoute
   DownloadRoute: typeof DownloadRoute
   FeaturesRoute: typeof FeaturesRoute
   HowItWorksRoute: typeof HowItWorksRoute
   PrivacyRoute: typeof PrivacyRoute
+  ApiBetaRedeemRoute: typeof ApiBetaRedeemRoute
   ApiLicenseActionRoute: typeof ApiLicenseActionRoute
 }
 
@@ -115,6 +141,13 @@ declare module '@tanstack/react-router' {
       path: '/'
       fullPath: '/'
       preLoaderRoute: typeof IndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/beta': {
+      id: '/beta'
+      path: '/beta'
+      fullPath: '/beta'
+      preLoaderRoute: typeof BetaRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/download': {
@@ -145,6 +178,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof PrivacyRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/api/beta/redeem': {
+      id: '/api/beta/redeem'
+      path: '/api/beta/redeem'
+      fullPath: '/api/beta/redeem'
+      preLoaderRoute: typeof ApiBetaRedeemRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/api/license/$action': {
       id: '/api/license/$action'
       path: '/api/license/$action'
@@ -157,10 +197,12 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  BetaRoute: BetaRoute,
   DownloadRoute: DownloadRoute,
   FeaturesRoute: FeaturesRoute,
   HowItWorksRoute: HowItWorksRoute,
   PrivacyRoute: PrivacyRoute,
+  ApiBetaRedeemRoute: ApiBetaRedeemRoute,
   ApiLicenseActionRoute: ApiLicenseActionRoute,
 }
 export const routeTree = rootRouteImport

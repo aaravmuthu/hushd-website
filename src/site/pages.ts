@@ -6,4 +6,5 @@ export const PAGES: Record<string, () => Promise<PageModule>> = {
   "/features": () => import("./features.js"),
   "/privacy": () => import("./privacy.js"),
   "/download": () => import("./download.js"),
+  "/beta": () => import("./beta.js"),
 };

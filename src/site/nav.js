@@ -7,7 +7,8 @@ export const CARDS = {
   "/how-it-works": ["How it works", "Five steps, and it leans quiet."],
   "/features": ["Features", "Everything it does, quietly."],
   "/privacy": ["Privacy", "What it reads, and what it leaves alone."],
-  "/download": ["Download", "The public beta for Mac."],
+  "/download": ["Download", "The beta for Mac."],
+  "/beta": ["Beta", "Unlock it with your invite code."],
 };
 
 const LINKS = [

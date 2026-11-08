@@ -131,6 +131,7 @@ const HEAVY = {
   "/how-it-works": ["/media/art/wanderer.jpg", "/media/art/jerome.jpg"],
   "/privacy": ["/media/art/jerome.jpg"],
   "/download": ["/media/art/thinker.jpg"],
+  "/beta": ["/media/art/wanderer.jpg"],
 };
 
 /* Nav: the notch --------------------------------------------------------------------------------------------------- */
