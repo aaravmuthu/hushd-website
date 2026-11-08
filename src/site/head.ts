@@ -1,6 +1,7 @@
 // Head shared by every Hushd page: metadata, the two stylesheets, and the script that runs before first paint.
 import hushdCss from "./hushd.css?url";
 import pagesCss from "./pages.css?url";
+import mobileCss from "./mobile.css?url";
 
 const ICON = "https://focus-mac.lovable.app/media/app/icon.png";
 
@@ -87,6 +88,7 @@ export function pageHead({ title, description }: { title: string; description: s
       { rel: "stylesheet", href: "https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" },
       { rel: "stylesheet", href: hushdCss },
       { rel: "stylesheet", href: pagesCss },
+      { rel: "stylesheet", href: mobileCss },
     ],
     scripts: [{ children: PRE_PAINT }],
   };

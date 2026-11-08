@@ -142,11 +142,25 @@ if (pill) {
   const thumb = $(".nav__thumb", pill);
   let current = links.find((a) => a.getAttribute("aria-current") === "page") || null;
 
-  menu?.addEventListener("click", () => {
-    const open = !pill.classList.contains("is-open");
+  const mobileNav = matchMedia("(max-width: 860px)");
+  const setMenu = (open) => {
     pill.classList.toggle("is-open", open);
-    menu.setAttribute("aria-expanded", String(open));
+    menu?.setAttribute("aria-expanded", String(open));
+    const list = $(".nav__links", pill);
+    if (list) list.inert = mobileNav.matches && !open;
+  };
+  setMenu(false);
+  menu?.addEventListener("click", () => {
+    setMenu(!pill.classList.contains("is-open"));
   });
+  mobileNav.addEventListener("change", () => setMenu(false));
+  document.addEventListener("pointerdown", (e) => {
+    if (pill.classList.contains("is-open") && !pill.contains(e.target)) setMenu(false);
+  });
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape" && pill.classList.contains("is-open")) { setMenu(false); menu?.focus(); }
+  });
+  links.forEach((link) => link.addEventListener("click", () => setMenu(false)));
 
   // A glass lozenge sits under the current page and glides to whichever link the pointer is on.
   const placeThumb = (a) => {
@@ -249,6 +263,7 @@ if (pill) {
     if (leaving === path) return;
     leaving = path;
     setCard(CARDS[path] || own);
+    setMenu(false);
     pill.classList.remove("is-open", "is-hover", "is-pressing");
     pill.dataset.notch = "opening";
     if (reduceMotion) { root.classList.add("notch-leave"); return; }
@@ -336,6 +351,7 @@ if (pill) {
     if (!e.persisted) return;
     leaving = null;
     root.classList.remove("notch-arrive", "notch-leave");
+    setMenu(false);
     clearSize();
     setCard(own);
     delete pill.dataset.notch;

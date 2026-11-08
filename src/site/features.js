@@ -62,8 +62,8 @@ export function mount(page) {
   const tabs = $("[data-pn-tabs]");
   const tabBtns = $$("[data-pn-tab]", tabs);
   const SIZE = {
-    rest: { w: 259, h: 32, r: 8.5, sh: 6 },
-    hover: { w: 285, h: 35, r: 9, sh: 7 },
+    rest: { w: 259, h: 48, r: 8.5, sh: 6 },
+    hover: { w: 285, h: 48, r: 9, sh: 7 },
     open: { w: 485, h: 196, r: 35, sh: 27.5 },
   };
   const SPRING = {
@@ -85,7 +85,7 @@ export function mount(page) {
   function sized(mode) {
     const s = SIZE[mode];
     const k = Math.min(1, (desk.clientWidth - 24) / SIZE.open.w);
-    if (mode === "open") return { w: s.w * k, h: Math.max(176, s.h * k), r: s.r, sh: s.sh * Math.max(0.6, k) };
+    if (mode === "open") return { w: s.w * k, h: Math.max(196, s.h * k), r: s.r, sh: s.sh * Math.max(0.6, k) };
     return { w: Math.min(s.w, desk.clientWidth * 0.62), h: s.h, r: s.r, sh: s.sh };
   }
   function toSize(mode, cfg) {

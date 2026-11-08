@@ -10,3 +10,4 @@
 <!-- LOVABLE:END -->
 
 - Keep the Vite-powered TanStack Start bootstrap and render the single page at `/`; this preserves compatibility with the Lovable preview.
+- Keep shared responsive safeguards in the final site stylesheet so every content page uses the same mobile layout and touch-target rules.
