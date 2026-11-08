@@ -74,21 +74,21 @@ button { font: inherit; color: inherit; }
 .js .reveal {
   opacity: 0;
   transform: translateY(18px);
-  transition: opacity 620ms var(--ease-out), transform 620ms var(--ease-out);
+  transition: opacity 440ms var(--ease-out), transform 480ms var(--ease-out);
   transition-delay: var(--d, 0ms);
 }
 .js .reveal.is-in { opacity: 1; transform: none; }
 /* Glass materializes: it arrives out of a blur, the way a material condenses, rather than sliding in. */
 .js .reveal--glass {
-  opacity: 0; filter: blur(14px); transform: translateY(14px) scale(0.965);
-  transition: opacity 700ms var(--ease-out), filter 800ms var(--ease-out), transform 900ms var(--ease-pop);
+  opacity: 0; transform: translateY(12px) scale(0.97);
+  transition: opacity 420ms var(--ease-out), transform 560ms var(--ease-pop);
   transition-delay: var(--d, 0ms);
 }
-.js .reveal--glass.is-in { filter: none; }
+.js .reveal--glass.is-in { transform: none; }
 /* Big headlines rise out of a mask, line by line in feel if not in fact. */
 .js .reveal--title {
   opacity: 1; clip-path: inset(0 0 100% 0); transform: translateY(0.35em);
-  transition: clip-path 900ms var(--ease-out), transform 900ms var(--ease-out);
+  transition: clip-path 620ms var(--ease-out), transform 620ms var(--ease-out);
   transition-delay: var(--d, 0ms);
 }
 .js .reveal--title.is-in { clip-path: inset(-10% -5% -25% -5%); }
@@ -193,12 +193,16 @@ button { font: inherit; color: inherit; }
 .nav__card strong { font-family: var(--font-display); font-size: 20px; font-weight: 650; letter-spacing: -0.02em; }
 .nav__card span { font-size: 14px; color: rgb(255 255 255 / 0.72); }
 .nav__card .ring { width: 40px; height: 40px; margin-bottom: 2px; }
-.notch-arrive .nav__pill {
+.notch-arrive .nav__pill, .notch-leave .nav__pill {
   animation: none; transform: none;
   width: min(500px, calc(100vw - 24px)); height: 128px;
   border-radius: 0 0 var(--open-radius) var(--open-radius);
 }
-.notch-arrive .nav__card { opacity: 1; transform: none; }
+.notch-arrive .nav__card, .notch-leave .nav__card { opacity: 1; transform: none; }
+/* Leaving: the parts fade out fast and the card fades in a beat behind them, as the notch opens. */
+.notch-leave .nav__card { transition-delay: 50ms; }
+.notch-leave .nav__card .ring circle { animation: ring-draw 700ms var(--ease-out) 60ms both; }
+.notch-leave .nav__pill > :not(.nav__card) { opacity: 0; transition: opacity 90ms ease; }
 .notch-arrived .nav__pill { animation: none; transform: none; }
 .notch-arrive .nav__card .ring circle { animation: ring-draw 900ms var(--ease-out) 120ms both; }
 @keyframes ring-draw { from { stroke-dasharray: 0 50.27; } }
@@ -212,17 +216,30 @@ button { font: inherit; color: inherit; }
 /* Page to page --------------------------------------------------------------------------------------------------- */
 /* Same-origin page changes cross-fade through a little blur while the notch morphs between pages. */
 @view-transition { navigation: auto; }
-::view-transition-group(notch) { animation-duration: 340ms; animation-timing-function: cubic-bezier(0.2, 0.9, 0.25, 1.05); }
+/* The notch is already open when the page swaps, so it only settles; on a spring curve, not a bezier. */
+::view-transition-group(notch) { animation-duration: 260ms; animation-timing-function: linear(0, 0.05, 0.164, 0.304, 0.446, 0.576, 0.688, 0.779, 0.851, 0.905, 0.944, 0.971, 0.989, 1, 1.007, 1.01, 1.01, 1.01, 1.009, 1.007, 1.006, 1.005, 1.003, 1.002, 1); }
 ::view-transition-old(notch) { animation: vt-fade 90ms linear both reverse; }
 ::view-transition-new(notch) { animation: vt-fade 120ms linear both; }
 ::view-transition-old(notch), ::view-transition-new(notch) { height: 100%; width: 100%; object-fit: none; object-position: 50% 0; }
 /* Apple-style push: both pages overlap, the old one recedes slightly while the new one settles in. No blur, no gap. */
-::view-transition-old(root) { animation: vt-page-out 180ms cubic-bezier(0.4, 0, 1, 1) both; }
-::view-transition-new(root) { animation: vt-page-in 300ms cubic-bezier(0.2, 0.9, 0.25, 1) both; }
+::view-transition-old(root) { animation: vt-page-out 140ms cubic-bezier(0.4, 0, 1, 1) both; }
+::view-transition-new(root) { animation: vt-page-in 240ms cubic-bezier(0.2, 0.9, 0.25, 1) both; }
 ::view-transition-old(root), ::view-transition-new(root) { mix-blend-mode: normal; will-change: opacity, transform; }
 @keyframes vt-fade { from { opacity: 0; } }
 @keyframes vt-page-out { to { opacity: 0; transform: scale(0.99); } }
 @keyframes vt-page-in { from { opacity: 0; transform: scale(1.01) translateY(6px); } }
+
+/* Pages swap in place under the nav (the router renders the next one): it settles in as the notch tucks. */
+.page-in { animation: page-in 260ms cubic-bezier(0.2, 0.9, 0.25, 1) backwards; }
+@keyframes page-in { from { opacity: 0; translate: 0 10px; } }
+@media (prefers-reduced-motion: reduce) { .page-in { animation-duration: 120ms; } @keyframes page-in { from { opacity: 0; } } }
+
+/* Sections below the first one skip style, layout and paint until they come near the screen. */
+.hushd-site main > section ~ section, .hushd-site > .footer { content-visibility: auto; contain-intrinsic-size: auto 900px; }
+
+/* Arriving from another page of the site: the intro is a quick settle, not the full first-visit show. */
+.from-site [data-reveal-load] { transition-delay: calc(var(--d, 0ms) * 0.3) !important; }
+.from-site .hero__icon { animation-delay: 120ms, 1.2s; }
 
 /* Glass ---------------------------------------------------------------------------------------------------------- */
 /* A real material: blurred and brightened backdrop, a rim that catches light at the top edge, and a soft highlight
@@ -260,8 +277,14 @@ button { font: inherit; color: inherit; }
 .bloom { position: absolute; inset: 0; z-index: -1; pointer-events: none; }
 .bloom i {
   position: absolute; left: var(--x); top: var(--y); width: var(--s); aspect-ratio: 1; border-radius: 50%;
-  background: var(--c, #9eebc4); opacity: var(--o, 0.5); filter: blur(70px);
+  opacity: var(--o, 0.5);
   animation: drift var(--t, 26s) var(--ease-in-out) infinite alternate;
+}
+/* The soft edge is painted into a gradient once, not blurred every frame: a 70px blur on a drifting blob made the
+   GPU redo the blob and every frosted panel above it on every frame, which is what made scrolling stall. */
+.bloom i, .sky__fog i {
+  background: radial-gradient(closest-side, var(--c, #9eebc4) 0 34%, color-mix(in srgb, var(--c, #9eebc4) 62%, transparent) 58%, color-mix(in srgb, var(--c, #9eebc4) 22%, transparent) 80%, transparent);
+  scale: 1.3; will-change: transform;
 }
 .is-paused, .is-paused * { animation-play-state: paused !important; }
 
@@ -270,13 +293,13 @@ button { font: inherit; color: inherit; }
 /* Soft drifting fog behind the art, like Droppy's clouded ultramarine. */
 .sky__fog { position: absolute; inset: 0; z-index: -1; pointer-events: none; }
 .sky__fog i {
-  position: absolute; border-radius: 50%; filter: blur(70px);
+  position: absolute; border-radius: 50%;
   animation: drift 26s var(--ease-in-out) infinite alternate;
 }
-.sky__fog i:nth-child(1) { width: 60vw; height: 50vw; left: -14vw; top: 8vh; background: var(--sky-lift); opacity: 0.55; }
-.sky__fog i:nth-child(2) { width: 50vw; height: 46vw; right: -12vw; top: 30vh; background: var(--sky-deep); opacity: 0.8; animation-duration: 31s; }
-.sky__fog i:nth-child(3) { width: 44vw; height: 36vw; left: 28vw; top: 70vh; background: #1d7a4e; opacity: 0.6; animation-duration: 23s; }
-.sky__fog i:nth-child(4) { width: 70vw; height: 50vw; left: 10vw; top: 150vh; background: var(--sky-shade); opacity: 0.45; animation-duration: 35s; }
+.sky__fog i:nth-child(1) { width: 60vw; height: 50vw; left: -14vw; top: 8vh; --c: var(--sky-lift); opacity: 0.55; }
+.sky__fog i:nth-child(2) { width: 50vw; height: 46vw; right: -12vw; top: 30vh; --c: var(--sky-deep); opacity: 0.8; animation-duration: 31s; }
+.sky__fog i:nth-child(3) { width: 44vw; height: 36vw; left: 28vw; top: 70vh; --c: #1d7a4e; opacity: 0.6; animation-duration: 23s; }
+.sky__fog i:nth-child(4) { width: 70vw; height: 50vw; left: 10vw; top: 150vh; --c: var(--sky-shade); opacity: 0.45; animation-duration: 35s; }
 @keyframes drift { to { transform: translate3d(6vw, -4vh, 0) scale(1.08); } }
 
 /* Hero ---------------------------------------------------------------------------------------------------------- */
@@ -706,6 +729,10 @@ kbd {
 
 /* Outro */
 .outro { padding: 0 0 clamp(120px, 14vw, 200px); text-align: center; }
+/* The drift field: the ring in dots (drift.js). A quick sweep scatters it; it settles home when you are still. */
+.drift { position: absolute; inset: 0; width: 100%; height: 100%; z-index: -1; pointer-events: none; color: #2a8a5b; opacity: .42; }
+.outro--drift { position: relative; isolation: isolate; overflow: clip; padding-top: clamp(90px, 10vw, 150px); }
+.outro--drift .drift { opacity: .3; }
 .outro h2 { font-family: var(--font-display); font-weight: 600; font-size: clamp(2.2rem, 5vw, 4rem); letter-spacing: -0.04em; line-height: 1.04; max-width: 14ch; margin: 0 auto; text-wrap: balance; }
 .outro p { margin: 18px auto 34px; max-width: 40ch; color: var(--ink-2); font-size: clamp(1.02rem, 1.4vw, 1.2rem); }
 
@@ -808,3 +835,24 @@ kbd {
   .glass::after { background: rgb(255 255 255 / 0.7); }
   .glass--light::after { background: rgb(14 53 35 / 0.6); }
 }
+
+/* Liquid glass --------------------------------------------------------------------------------------------------- */
+/* liquid-glass.js gives every glass surface a refracting SVG backdrop filter in Chromium (html.lg, .lg-on).
+   Other browsers keep the blur above. The SVG filter draws its own rim light, so the CSS rims step back. */
+.lg .lg-on { -webkit-backdrop-filter: var(--lg-filter) !important; backdrop-filter: var(--lg-filter) !important; }
+.lg .glass.lg-on::after { opacity: 0.5; }
+.steps { -webkit-backdrop-filter: blur(16px) saturate(160%); backdrop-filter: blur(16px) saturate(160%); box-shadow: inset 0 1px 0 rgb(255 255 255 / 0.12); }
+
+/* Sliding thumbs lift into clear glass while they move, magnifying the labels they pass, then settle to mint. */
+.seg .seg__thumb, .steps__thumb {
+  transition: transform 220ms cubic-bezier(0.32, 0.72, 0, 1), width 220ms cubic-bezier(0.32, 0.72, 0, 1),
+    background-color 200ms ease, scale 320ms var(--ease-pop), box-shadow 220ms ease;
+}
+.lg .seg .seg__thumb.is-gliding, .lg .steps__thumb.is-gliding {
+  z-index: 2; pointer-events: none;
+  background-color: rgb(158 235 196 / 0.1);
+  scale: 1.1 1.24;
+  box-shadow: 0 10px 26px rgb(0 0 0 / 0.22), inset 0 0 0 1px rgb(255 255 255 / 0.18);
+  transition-duration: 220ms, 220ms, 90ms, 200ms, 120ms;
+}
+

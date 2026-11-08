@@ -88,6 +88,9 @@ button.ui-btn:active { transform: scale(0.95); }
 .levels.glass li { background: rgb(255 255 255 / 0.06); -webkit-backdrop-filter: none; backdrop-filter: none; }
 .explore { padding: clamp(110px, 13vw, 180px) 0 clamp(120px, 14vw, 200px); }
 .explore .section-title { text-align: center; max-width: 16ch; margin: 0 auto; }
+/* The drift field behind the last section: the ring in dots, scattered by a quick sweep, home again when still. */
+.explore .drift__hint { position: absolute; left: 0; right: 0; bottom: clamp(28px, 4vw, 44px); margin: 0; text-align: center; font-size: 13px; letter-spacing: .01em; color: color-mix(in srgb, currentColor 45%, transparent); }
+@media (hover: none), (prefers-reduced-motion: reduce) { .explore .drift__hint { display: none; } }
 .xlist { list-style: none; margin: clamp(36px, 5vw, 56px) 0 0; padding: 0; display: grid; gap: 12px; }
 .xrow {
   display: grid; grid-template-columns: auto 1fr auto; align-items: center; gap: 20px;

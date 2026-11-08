@@ -1,2 +1,2 @@
-// Runs the page's motion when imported in the browser.
-export {};
+// The page script: mount() starts its motion once the markup is in the document.
+export function mount(page: unknown): void;

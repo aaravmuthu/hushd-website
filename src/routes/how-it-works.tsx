@@ -1,8 +1,8 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { useEffect } from "react";
 
 import body from "../site/how.body.html?raw";
 import { pageHead } from "../site/head";
+import { usePage } from "../site/use-page";
 
 export const Route = createFileRoute("/how-it-works")({
   head: () =>
@@ -14,10 +14,8 @@ export const Route = createFileRoute("/how-it-works")({
 });
 
 function HowPage() {
-  // The page's motion is plain DOM code that runs in the browser only, after the markup is in the document.
-  useEffect(() => {
-    void import("../site/how.js");
-  }, []);
+  // The page's motion is plain DOM code; it runs in the browser once the markup is in, and stops when the page leaves.
+  const ref = usePage("/how-it-works", body);
 
-  return <div className="hushd-site" dangerouslySetInnerHTML={{ __html: body }} />;
+  return <div ref={ref} className="hushd-site" dangerouslySetInnerHTML={{ __html: body }} />;
 }
