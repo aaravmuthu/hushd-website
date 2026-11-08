@@ -20,7 +20,33 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
-      [_ in never]: never
+      activate_license: {
+        Args: {
+          p_app_version?: string | null
+          p_device_id: string
+          p_device_name?: string | null
+          p_key: string
+        }
+        Returns: Json
+      }
+      deactivate_license: {
+        Args: { p_device_id: string; p_key: string }
+        Returns: Json
+      }
+      issue_license: {
+        Args: {
+          p_email?: string | null
+          p_expires_at?: string | null
+          p_max_activations?: number
+          p_note?: string | null
+          p_plan?: string
+        }
+        Returns: { license_id: string; license_key: string }[]
+      }
+      validate_license: {
+        Args: { p_app_version?: string | null; p_device_id: string; p_key: string }
+        Returns: Json
+      }
     }
     Enums: {
       [_ in never]: never

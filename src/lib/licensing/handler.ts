@@ -11,7 +11,7 @@ export type LicenseAction = "activate" | "validate" | "deactivate";
 export type LicenseRpc = (
   fn: "activate_license" | "validate_license" | "deactivate_license",
   args: Record<string, string | null>,
-) => Promise<{ data: unknown; error: { message: string } | null }>;
+) => PromiseLike<{ data: unknown; error: { message: string } | null }>;
 
 const text = (max: number) => z.string().trim().min(1).max(max);
 
@@ -46,7 +46,7 @@ const STATUS: Record<string, number> = {
   expired: 403,
 };
 
-const MESSAGES: Record<string, string> = {
+const MESSAGES = {
   bad_request: "Send JSON with key and device_id.",
   missing_device: "This Mac didn't send an id.",
   invalid_key: "That license key doesn't exist. Check it for typos.",
@@ -56,7 +56,7 @@ const MESSAGES: Record<string, string> = {
   expired: "That license key has expired.",
   server_error: "Licensing is unavailable right now. Try again in a minute.",
   not_found: "Unknown license action.",
-};
+} as Record<string, string> & Record<"bad_request" | "server_error" | "not_found", string>;
 
 function reply(status: number, body: Record<string, unknown>): Response {
   return new Response(JSON.stringify(body), {
@@ -69,7 +69,12 @@ function reply(status: number, body: Record<string, unknown>): Response {
 }
 
 function refuse(error: string, extra: Record<string, unknown> = {}): Response {
-  return reply(STATUS[error] ?? 400, { ok: false, error, message: MESSAGES[error] ?? error, ...extra });
+  return reply(STATUS[error] ?? 400, {
+    ok: false,
+    error,
+    message: MESSAGES[error] ?? error,
+    ...extra,
+  });
 }
 
 export function isLicenseAction(value: string): value is LicenseAction {
@@ -81,7 +86,8 @@ export async function handleLicenseRequest(
   request: Request,
   rpc: LicenseRpc,
 ): Promise<Response> {
-  if (!isLicenseAction(action)) return reply(404, { ok: false, error: "not_found", message: MESSAGES.not_found });
+  if (!isLicenseAction(action))
+    return reply(404, { ok: false, error: "not_found", message: MESSAGES.not_found });
 
   let json: unknown;
   try {
@@ -90,10 +96,11 @@ export async function handleLicenseRequest(
     return reply(400, { ok: false, error: "bad_request", message: MESSAGES.bad_request });
   }
   const parsed = bodySchema.safeParse(json);
-  if (!parsed.success) return reply(400, { ok: false, error: "bad_request", message: MESSAGES.bad_request });
+  if (!parsed.success)
+    return reply(400, { ok: false, error: "bad_request", message: MESSAGES.bad_request });
   const { key, device_id, device_name, app_version } = parsed.data;
 
-  const call =
+  const call = () =>
     action === "activate"
       ? rpc("activate_license", {
           p_key: key,
@@ -102,12 +109,16 @@ export async function handleLicenseRequest(
           p_app_version: app_version ?? null,
         })
       : action === "validate"
-        ? rpc("validate_license", { p_key: key, p_device_id: device_id, p_app_version: app_version ?? null })
+        ? rpc("validate_license", {
+            p_key: key,
+            p_device_id: device_id,
+            p_app_version: app_version ?? null,
+          })
         : rpc("deactivate_license", { p_key: key, p_device_id: device_id });
 
   let result: z.infer<typeof resultSchema>;
   try {
-    const { data, error } = await call;
+    const { data, error } = await call();
     if (error) throw new Error(error.message);
     result = resultSchema.parse(data);
   } catch (err) {
@@ -115,6 +126,7 @@ export async function handleLicenseRequest(
     return reply(500, { ok: false, error: "server_error", message: MESSAGES.server_error });
   }
 
-  if (!result.ok) return refuse(result.error ?? "invalid_key", result.license ? { license: result.license } : {});
+  if (!result.ok)
+    return refuse(result.error ?? "invalid_key", result.license ? { license: result.license } : {});
   return reply(200, { ok: true, license: result.license });
 }
