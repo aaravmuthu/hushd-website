@@ -73,7 +73,7 @@ export function pageHead({ title, description }: { title: string; description: s
     meta: [
       { title },
       { name: "description", content: description },
-      { name: "theme-color", content: "#135e3d" },
+      { name: "theme-color", content: "#000000" },
       { property: "og:title", content: title },
       { property: "og:description", content: description },
       { property: "og:type", content: "website" },

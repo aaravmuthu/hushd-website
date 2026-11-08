@@ -151,3 +151,5 @@
   .wordscroll { height: auto; }
   .wordscroll__stage { position: relative; height: auto; min-height: 100svh; }
 }
+/* The phone's status-bar area takes the page's outer color, so it matches the black notch edge. */
+html { background: #000; }
