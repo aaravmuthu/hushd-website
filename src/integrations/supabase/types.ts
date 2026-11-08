@@ -29,6 +29,15 @@ export type Database = {
         }
         Returns: Json
       }
+      create_beta_code: {
+        Args: {
+          p_code?: string | null
+          p_expires_at?: string | null
+          p_label?: string | null
+          p_max_redemptions?: number
+        }
+        Returns: { code: string; code_id: string }[]
+      }
       deactivate_license: {
         Args: { p_device_id: string; p_key: string }
         Returns: Json
@@ -42,6 +51,10 @@ export type Database = {
           p_plan?: string
         }
         Returns: { license_id: string; license_key: string }[]
+      }
+      redeem_beta_code: {
+        Args: { p_code: string; p_ip: string }
+        Returns: Json
       }
       validate_license: {
         Args: { p_app_version?: string | null; p_device_id: string; p_key: string }

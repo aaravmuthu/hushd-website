@@ -1,0 +1,118 @@
+<main id="main">
+<!-- Unlock: an invite code goes into a glass printer, and a beta pass with the license key prints out of its slot. -->
+<section class="subhero subhero--stack betahero sky" data-tone="sky">
+  <div class="sky__fog" data-loop aria-hidden="true"><i></i><i></i><i></i></div>
+  <canvas class="subhero__art" aria-hidden="true"></canvas>
+  <div class="subhero__inner subhero__inner--center">
+    <h1 class="reveal reveal--title" data-reveal-load style="--d:140ms" data-beta-title>Unlock the beta</h1>
+    <p class="reveal" data-reveal-load style="--d:300ms" data-beta-sub>Hushd is invite only while it’s in beta. Type the code you were given and your beta pass prints right here.</p>
+
+    <div class="printer reveal reveal--glass" data-reveal-load style="--d:420ms" data-printer data-state="idle">
+      <div class="printer__body">
+        <div class="printer__top">
+          <img src="/media/app/icon.png" alt="" width="26" height="26" decoding="async">
+          <span class="printer__brand">Hushd</span>
+          <span class="printer__pill">Beta</span>
+        </div>
+
+        <div class="printer__panel">
+          <div class="printer__row">
+            <div><b>Beta pass</b><span>Hushd for Mac</span></div>
+            <div class="printer__price"><span>Price</span><b>Free</b></div>
+          </div>
+
+          <form class="printer__form" data-form novalidate>
+            <label class="sr-only" for="beta-code">Invite code</label>
+            <input id="beta-code" name="code" class="printer__input" type="text" inputmode="text" autocomplete="off"
+              autocapitalize="characters" spellcheck="false" maxlength="64" placeholder="Invite code" required data-code>
+            <button class="printer__go" type="submit" data-go>Unlock</button>
+          </form>
+          <p class="printer__hint" data-hint-line>Capitals and dashes don’t matter.</p>
+
+          <p class="printer__status" role="status" aria-live="polite" data-status>
+            <span class="printer__icon" aria-hidden="true">
+              <svg class="printer__spin" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8"/></svg>
+              <svg class="printer__check" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="m7.6 12.3 3 3 5.8-6.4"/></svg>
+            </span>
+            <span data-status-text>Checking your code</span>
+          </p>
+        </div>
+
+        <div class="printer__slot" aria-hidden="true"><i></i></div>
+        <div class="printer__burst" aria-hidden="true" data-burst></div>
+      </div>
+
+      <div class="printer__paper" data-paper>
+        <article class="receipt" data-lg="off" data-receipt aria-label="Your Hushd beta pass" tabindex="-1">
+          <header class="receipt__head">
+            <img src="/media/app/icon.png" alt="" width="44" height="44" decoding="async">
+            <b>HUSHD</b>
+            <span>BETA PASS</span>
+          </header>
+          <hr>
+          <dl class="receipt__lines">
+            <div><dt>HUSHD FOR MAC</dt><dd>FREE</dd></div>
+            <div class="receipt__sub"><dt>Invite-only beta, Apple silicon</dt><dd></dd></div>
+            <div><dt>Macs</dt><dd>2</dd></div>
+            <div><dt>Good for</dt><dd>The whole beta</dd></div>
+          </dl>
+          <hr>
+          <div class="receipt__key">
+            <span>LICENSE KEY</span>
+            <code data-key>HUSHD-·····-·····-·····-·····-·····</code>
+            <button class="receipt__copy" type="button" data-copy>
+              <svg viewBox="0 0 20 20" aria-hidden="true"><rect x="6.5" y="6.5" width="9" height="9" rx="2.2"/><path d="M13.5 4.5h-7a2 2 0 0 0-2 2v7"/></svg>
+              <span data-copy-label>Copy key</span>
+            </button>
+          </div>
+          <hr>
+          <dl class="receipt__lines receipt__lines--meta">
+            <div><dt>Pass</dt><dd data-hint>#····</dd></div>
+            <div><dt>Printed</dt><dd data-date>—</dd></div>
+          </dl>
+          <svg class="receipt__barcode" data-barcode viewBox="0 0 200 38" preserveAspectRatio="none" aria-hidden="true"></svg>
+          <p class="receipt__fine">Keep this key. Hushd asks for it when you open the app.</p>
+          <a class="btn btn--accent btn--block receipt__get" href="https://github.com/Aryan61056/focus-app/releases">
+            <svg viewBox="0 0 20 20" aria-hidden="true"><path d="M10 3v9m0 0 3.5-3.5M10 12 6.5 8.5M4 15.5h12" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            Download the beta
+          </a>
+        </article>
+      </div>
+
+      <button class="printer__again" type="button" data-again hidden>Print it again</button>
+    </div>
+  </div>
+</section>
+</main>
+<footer class="footer" data-tone="sky">
+  <canvas class="footer__art" aria-hidden="true"></canvas>
+  <div class="footer__inner wrap">
+    <div class="footer__brand">
+      <a class="footer__logo" href="/"><img decoding="async" src="/media/app/icon.png" alt="" width="44" height="44"><span>Hushd</span></a>
+      <p class="footer__line">A calm colleague for focused work.</p>
+      <p class="footer__blurb">Projects, gentle nudges and a ring in the notch. The judging runs on your Mac.</p>
+      <a class="btn btn--white btn--sm" href="/download">Download for macOS</a>
+    </div>
+    <nav class="footer__col" aria-label="Pages">
+      <h3>Hushd</h3>
+      <a href="/">Home</a>
+      <a href="/how-it-works">How it works</a>
+      <a href="/features">Features</a>
+      <a href="/privacy">Privacy</a>
+      <a href="/download">Download</a>
+    </nav>
+    <nav class="footer__col" aria-label="Beta">
+      <h3>Beta</h3>
+      <a href="/beta">Unlock the beta</a>
+      <a href="https://github.com/Aryan61056/focus-app/blob/main/docs/beta/TESTER-GUIDE.md">Tester guide</a>
+      <a href="https://github.com/Aryan61056/focus-app/issues/new/choose">Send feedback</a>
+      <a href="/download#faq">Questions</a>
+    </nav>
+    <div class="footer__col footer__credits">
+      <h3>Art</h3>
+      <p>Auguste Rodin, <i>The Thinker</i>. Photo by AndrewHorne, public domain, via Wikimedia Commons.</p>
+      <p>Albrecht Dürer, <i>Saint Jerome in His Study</i>, 1514. National Gallery of Art, CC0.</p>
+      <p>Caspar David Friedrich, <i>Wanderer above the Sea of Fog</i>, about 1818. Public domain.</p>
+    </div>
+  </div>
+</footer>
