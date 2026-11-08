@@ -51,6 +51,7 @@
 
 @media (max-width: 860px) {
   .nav__pill { max-width: calc(100% - 32px); }
+  .nav__pill.is-open { max-width: 100%; width: 100%; }
   /* Open menu is a full-height sheet: it reaches the bottom edge instead of floating over the page. */
   .nav__links { visibility: hidden; height: calc(100svh - 100% - var(--nav-bar, 0px)); overflow-y: auto; overscroll-behavior: contain; align-content: flex-start; }
   .nav__pill.is-open .nav__links { visibility: visible; border-radius: 0; padding-bottom: calc(24px + env(safe-area-inset-bottom)); background: #000; -webkit-backdrop-filter: none; backdrop-filter: none; }
