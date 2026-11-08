@@ -62,8 +62,8 @@ export function mount(page) {
   const tabs = $("[data-pn-tabs]");
   const tabBtns = $$("[data-pn-tab]", tabs);
   const SIZE = {
-    rest: { w: 259, h: 44, r: 8.5, sh: 6 },
-    hover: { w: 285, h: 44, r: 9, sh: 7 },
+    rest: { w: 259, h: 48, r: 8.5, sh: 6 },
+    hover: { w: 285, h: 48, r: 9, sh: 7 },
     open: { w: 485, h: 196, r: 35, sh: 27.5 },
   };
   const SPRING = {

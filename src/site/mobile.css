@@ -3,20 +3,21 @@
 .hushd-site :where(main, section, article, nav, form, figure, div, li) { min-width: 0; }
 .hushd-site :where(h1, h2, h3, h4, p, strong, b, code, dd, a, button) { overflow-wrap: anywhere; }
 .hushd-site :where(button, a, input, label.switch) { touch-action: manipulation; }
-.btn { min-height: 44px; max-width: 100%; height: auto; padding-block: 12px; white-space: normal; text-align: center; }
+.btn { min-height: 48px; max-width: 100%; height: auto; padding-block: 12px; white-space: normal; text-align: center; }
 .btn--sm, .btn--nav { padding-block: 8px; }
 .nav__logo, .nav__link, .footer__col a { min-height: 44px; min-width: 44px; display: flex; align-items: center; }
 .nav__logo img, .nav__menu, .nav__card .ring, .xrow__glyph, .xrow__go { flex-shrink: 0; }
 .nav__card { grid-template-columns: auto minmax(0, 1fr); }
 .nav__card div { min-width: 0; }
-.pcard__more { width: 44px; height: 44px; }
+.pcard__more { width: 48px; height: 48px; }
 .seg button, .steps button { height: 48px; min-width: 44px; }
 .seg__thumb, .steps__thumb { height: 48px; pointer-events: none; }
 .switch { min-height: 48px; }
 .pn-tabs { height: 54px; padding: 5px; }
-.pn-tabs button { width: 44px; height: 44px; }
-.pn { min-height: 44px; }
-.phone__lift, .notch__back, button.ui-btn, .rvx__btn, .receipt__copy, .printer__again { min-height: 44px; min-width: 44px; }
+.pn-tabs button { width: 48px; height: 48px; }
+.pn-tabs { height: 58px; }
+.pn { min-height: 48px; }
+.phone__lift, .notch__back, button.ui-btn, .rvx__btn, .receipt__copy, .printer__again { min-height: 48px; min-width: 48px; }
 .notch__back { white-space: nowrap; flex-shrink: 0; }
 .notch__open { grid-template-columns: auto minmax(0, 1fr) auto; }
 .notch__copy { min-width: 0; }
@@ -85,7 +86,8 @@
   .getcard, .getcard--glass { padding: 24px 20px; }
   .getcard__head h2 { font-size: 22px; }
   .seg { display: flex; width: fit-content; max-width: 100%; }
-  .seg button { flex: 1 1 0; min-width: 44px; padding-inline: 8px; font-size: 14px; line-height: 1.2; }
+  .seg button { flex: 1 1 0; min-width: 44px; padding-inline: 8px; font-size: 14px; line-height: 1.2; overflow-wrap: normal; }
+  .fbpick .seg button:first-of-type { flex-grow: 1.5; }
   .seg { min-height: 58px; }
   .steps { width: 100%; }
   .steps li { flex: 1 1 0; }
@@ -106,6 +108,8 @@
   .pn__figs { gap: 6px; }
   .pn__figs span { min-width: 0; padding-inline: 8px; }
   .mem__words { min-height: 150px; }
+  .rings__caption { min-height: 6em; }
+  .fbpick__body p { min-height: 4.5em; }
   .rvx { gap: 6px 10px; padding: 14px 12px; }
   .rvx__act, .rvx__done { grid-area: 3 / 1 / 4 / -1; min-height: 48px; }
   .rvx__act { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); }
