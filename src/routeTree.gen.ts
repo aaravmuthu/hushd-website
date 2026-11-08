@@ -14,6 +14,7 @@ import { Route as DownloadRouteImport } from './routes/download'
 import { Route as FeaturesRouteImport } from './routes/features'
 import { Route as HowItWorksRouteImport } from './routes/how-it-works'
 import { Route as PrivacyRouteImport } from './routes/privacy'
+import { Route as ApiLicenseActionRouteImport } from './routes/api.license.$action'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -40,6 +41,11 @@ const PrivacyRoute = PrivacyRouteImport.update({
   path: '/privacy',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ApiLicenseActionRoute = ApiLicenseActionRouteImport.update({
+  id: '/api/license/$action',
+  path: '/api/license/$action',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -47,6 +53,7 @@ export interface FileRoutesByFullPath {
   '/features': typeof FeaturesRoute
   '/how-it-works': typeof HowItWorksRoute
   '/privacy': typeof PrivacyRoute
+  '/api/license/$action': typeof ApiLicenseActionRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -54,6 +61,7 @@ export interface FileRoutesByTo {
   '/features': typeof FeaturesRoute
   '/how-it-works': typeof HowItWorksRoute
   '/privacy': typeof PrivacyRoute
+  '/api/license/$action': typeof ApiLicenseActionRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -62,14 +70,33 @@ export interface FileRoutesById {
   '/features': typeof FeaturesRoute
   '/how-it-works': typeof HowItWorksRoute
   '/privacy': typeof PrivacyRoute
+  '/api/license/$action': typeof ApiLicenseActionRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/download' | '/features' | '/how-it-works' | '/privacy'
+  fullPaths:
+    | '/'
+    | '/download'
+    | '/features'
+    | '/how-it-works'
+    | '/privacy'
+    | '/api/license/$action'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/download' | '/features' | '/how-it-works' | '/privacy'
+  to:
+    | '/'
+    | '/download'
+    | '/features'
+    | '/how-it-works'
+    | '/privacy'
+    | '/api/license/$action'
   id:
-    '__root__' | '/' | '/download' | '/features' | '/how-it-works' | '/privacy'
+    | '__root__'
+    | '/'
+    | '/download'
+    | '/features'
+    | '/how-it-works'
+    | '/privacy'
+    | '/api/license/$action'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -78,6 +105,7 @@ export interface RootRouteChildren {
   FeaturesRoute: typeof FeaturesRoute
   HowItWorksRoute: typeof HowItWorksRoute
   PrivacyRoute: typeof PrivacyRoute
+  ApiLicenseActionRoute: typeof ApiLicenseActionRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -117,6 +145,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof PrivacyRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/api/license/$action': {
+      id: '/api/license/$action'
+      path: '/api/license/$action'
+      fullPath: '/api/license/$action'
+      preLoaderRoute: typeof ApiLicenseActionRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
@@ -126,6 +161,7 @@ const rootRouteChildren: RootRouteChildren = {
   FeaturesRoute: FeaturesRoute,
   HowItWorksRoute: HowItWorksRoute,
   PrivacyRoute: PrivacyRoute,
+  ApiLicenseActionRoute: ApiLicenseActionRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
