@@ -14,7 +14,148 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      beta_codes: {
+        Row: {
+          active: boolean
+          code_hash: string
+          created_at: string
+          expires_at: string | null
+          id: string
+          label: string | null
+          max_redemptions: number
+          redemptions: number
+        }
+        Insert: {
+          active?: boolean
+          code_hash: string
+          created_at?: string
+          expires_at?: string | null
+          id?: string
+          label?: string | null
+          max_redemptions?: number
+          redemptions?: number
+        }
+        Update: {
+          active?: boolean
+          code_hash?: string
+          created_at?: string
+          expires_at?: string | null
+          id?: string
+          label?: string | null
+          max_redemptions?: number
+          redemptions?: number
+        }
+        Relationships: []
+      }
+      beta_redeem_failures: {
+        Row: {
+          failed_at: string
+          id: number
+          ip_hash: string
+        }
+        Insert: {
+          failed_at?: string
+          id?: never
+          ip_hash: string
+        }
+        Update: {
+          failed_at?: string
+          id?: never
+          ip_hash?: string
+        }
+        Relationships: []
+      }
+      license_activations: {
+        Row: {
+          activated_at: string
+          app_version: string | null
+          device_hash: string
+          device_name: string | null
+          id: string
+          last_seen_at: string
+          license_id: string
+        }
+        Insert: {
+          activated_at?: string
+          app_version?: string | null
+          device_hash: string
+          device_name?: string | null
+          id?: string
+          last_seen_at?: string
+          license_id: string
+        }
+        Update: {
+          activated_at?: string
+          app_version?: string | null
+          device_hash?: string
+          device_name?: string | null
+          id?: string
+          last_seen_at?: string
+          license_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "license_activations_license_id_fkey"
+            columns: ["license_id"]
+            isOneToOne: false
+            referencedRelation: "licenses"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      licenses: {
+        Row: {
+          beta_code_id: string | null
+          created_at: string
+          email: string | null
+          expires_at: string | null
+          id: string
+          key_hash: string
+          key_hint: string
+          max_activations: number
+          note: string | null
+          plan: string
+          status: string
+          updated_at: string
+        }
+        Insert: {
+          beta_code_id?: string | null
+          created_at?: string
+          email?: string | null
+          expires_at?: string | null
+          id?: string
+          key_hash: string
+          key_hint: string
+          max_activations?: number
+          note?: string | null
+          plan?: string
+          status?: string
+          updated_at?: string
+        }
+        Update: {
+          beta_code_id?: string | null
+          created_at?: string
+          email?: string | null
+          expires_at?: string | null
+          id?: string
+          key_hash?: string
+          key_hint?: string
+          max_activations?: number
+          note?: string | null
+          plan?: string
+          status?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "licenses_beta_code_id_fkey"
+            columns: ["beta_code_id"]
+            isOneToOne: false
+            referencedRelation: "beta_codes"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
     }
     Views: {
       [_ in never]: never
@@ -22,21 +163,25 @@ export type Database = {
     Functions: {
       activate_license: {
         Args: {
-          p_app_version?: string | null
+          p_app_version?: string
           p_device_id: string
-          p_device_name?: string | null
+          p_device_name?: string
           p_key: string
         }
         Returns: Json
       }
+      beta_normalize_code: { Args: { p_code: string }; Returns: string }
       create_beta_code: {
         Args: {
-          p_code?: string | null
-          p_expires_at?: string | null
-          p_label?: string | null
+          p_code?: string
+          p_expires_at?: string
+          p_label?: string
           p_max_redemptions?: number
         }
-        Returns: { code: string; code_id: string }[]
+        Returns: {
+          code: string
+          code_id: string
+        }[]
       }
       deactivate_license: {
         Args: { p_device_id: string; p_key: string }
@@ -44,20 +189,29 @@ export type Database = {
       }
       issue_license: {
         Args: {
-          p_email?: string | null
-          p_expires_at?: string | null
+          p_email?: string
+          p_expires_at?: string
           p_max_activations?: number
-          p_note?: string | null
+          p_note?: string
           p_plan?: string
         }
-        Returns: { license_id: string; license_key: string }[]
+        Returns: {
+          license_id: string
+          license_key: string
+        }[]
+      }
+      license_normalize_key: { Args: { p_key: string }; Returns: string }
+      license_sha256: { Args: { p_value: string }; Returns: string }
+      license_summary: {
+        Args: { p_license: Database["public"]["Tables"]["licenses"]["Row"] }
+        Returns: Json
       }
       redeem_beta_code: {
         Args: { p_code: string; p_ip: string }
         Returns: Json
       }
       validate_license: {
-        Args: { p_app_version?: string | null; p_device_id: string; p_key: string }
+        Args: { p_app_version?: string; p_device_id: string; p_key: string }
         Returns: Json
       }
     }
