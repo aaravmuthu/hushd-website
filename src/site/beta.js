@@ -3,6 +3,7 @@
 // Motion, in order: the code is checked (spinner, at least ~0.9 s so it reads), the ring turns into a check and a
 // burst of halftone dots and a ring ring out from it, the slot lights, and the pass feeds out line by line with the
 // printer humming, then it tears off and settles with a small tilt. All of it is transform and opacity.
+import { applyRelease } from "./release.js";
 import { $, reduceMotion, skyArt, smooth, quiet, fit, swapText } from "./site.js";
 
 const STORE = "hushd.betaPass";
@@ -50,6 +51,7 @@ function barcode(svg, key) {
 
 export function mount(page) {
   const { setTimeout } = page.api;
+  applyRelease(document);
 
   skyArt($(".subhero__art"), "wanderer", {
     place: (img, W, H) => fit(img, { x: 0, y: -H * 0.06, w: W, h: H * 1.12 }, "cover", 0.42, 0.4),
