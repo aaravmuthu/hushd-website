@@ -104,7 +104,8 @@ function buildMaps(w, h, o) {
   // PNG encoding happens off the main thread (toBlob), and the maps are handed over as blob URLs.
   const enc = (img) => new Promise((done) => {
     const c = document.createElement("canvas"); c.width = mw; c.height = mh;
-    c.getContext("2d").putImageData(img, 0, 0);
+    // A CPU-backed canvas: encoding a GPU canvas would first read it back and wait for the GPU.
+    c.getContext("2d", { willReadFrequently: true }).putImageData(img, 0, 0);
     c.toBlob((b) => done(b ? URL.createObjectURL(b) : c.toDataURL()));
   });
   return Promise.all([enc(disp), enc(spec)]).then(([dispUrl, specUrl]) => ({ dispUrl, specUrl, scale: max * bezel }));
