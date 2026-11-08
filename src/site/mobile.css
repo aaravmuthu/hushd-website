@@ -51,12 +51,12 @@
 
 @media (max-width: 860px) {
   .nav__pill { max-width: calc(100% - 32px); }
-  /* Open menu stays a dynamic-notch card that fades into a green glow at its bottom. */
+  /* Open menu is one seamless dark notch card with a single subtle green glow at its bottom. */
+  .nav__pill.is-open { background: #000; box-shadow: 0 calc(-1 * var(--nav-bar)) 0 0 #000, 0 16px 36px rgb(2 16 9 / 0.26); }
   .nav__pill.is-open .nav__links {
-    background:
-      radial-gradient(120% 70% at 50% 100%, rgb(52 199 120 / 0.55), rgb(30 140 85 / 0.22) 45%, transparent 75%),
-      rgb(0 0 0 / 0.94);
-    padding-bottom: calc(28px + env(safe-area-inset-bottom, 0px) * 0);
+    margin-top: -1px;
+    background: radial-gradient(90% 38% at 50% 100%, rgb(52 199 120 / 0.28), transparent 100%), #000;
+    -webkit-backdrop-filter: none; backdrop-filter: none;
   }
   .nav__link { min-height: 48px; }
   .btn--nav { height: 44px; }
