@@ -248,7 +248,8 @@ export function mount(page) {
       const p = clamp(-r.top / (r.height - innerHeight));
       const t = p * (words.length + 3) - 1;
       words.forEach((w, i) => {
-        const o = Math.round((0.16 + 0.84 * clamp(t - i)) * 100) / 100;
+        // Words not yet reached start at 55% ink (3.3:1 on the paper, enough for large text); they were 16% (1.3:1) and could not be read.
+        const o = Math.round((0.55 + 0.45 * clamp(t - i)) * 100) / 100;
         if (o !== lit[i]) { lit[i] = o; w.style.setProperty("--o", o); }
       });
     };
