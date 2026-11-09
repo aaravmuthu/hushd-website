@@ -1,9 +1,11 @@
-// Download: the Thinker behind the glass download card, and five install steps acted out one at a time.
+// Download: the Thinker behind the glass download card, six install steps acted out one at a time, and how Hushd updates itself.
+import { applyRelease } from "./release.js";
 import { $, $$, reduceMotion, watchVisible, skyArt, smooth, quiet, fit, segmented, swapText } from "./site.js";
 
 // Runs when the page is on screen; everything it starts stops when the page leaves (see scope.js).
 export function mount(page) {
   const { setTimeout, setInterval, requestAnimationFrame, addEventListener } = page.api;
+  applyRelease(document);
 
   skyArt($(".subhero__art"), "thinker", {
     place: (img, W, H) => (W < 980
