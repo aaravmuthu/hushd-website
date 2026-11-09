@@ -230,12 +230,16 @@ button { font: inherit; color: inherit; }
 @keyframes vt-page-in { from { opacity: 0; transform: scale(1.01) translateY(6px); } }
 
 /* Pages swap in place under the nav (the router renders the next one): it settles in as the notch tucks. */
-.page-in { animation: page-in 260ms cubic-bezier(0.2, 0.9, 0.25, 1) backwards; }
-@keyframes page-in { from { opacity: 0; translate: 0 10px; } }
+.page-in { animation: page-in 640ms cubic-bezier(0.16, 1, 0.3, 1) backwards; }
+@keyframes page-in { from { opacity: 0; translate: 0 18px; } }
+/* The page you are leaving eases away instead of being cut (200 ms, then the router swaps in the next one). */
+html.page-leaving .hushd-site:not(.hushd-nav) { opacity: 0; translate: 0 -8px; transition: opacity 200ms cubic-bezier(0.4, 0, 1, 1), translate 200ms cubic-bezier(0.4, 0, 1, 1); }
 @media (prefers-reduced-motion: reduce) { .page-in { animation-duration: 120ms; } @keyframes page-in { from { opacity: 0; } } }
 
 /* Sections below the first one skip style, layout and paint until they come near the screen. */
 .hushd-site main > section ~ section, .hushd-site > .footer { content-visibility: auto; contain-intrinsic-size: auto 900px; }
+/* Drawn at their real height once something has jumped to an anchor (see jumpToHash in site.js). */
+html.measured .hushd-site main > section ~ section, html.measured .hushd-site > .footer { content-visibility: visible; }
 
 /* Arriving from another page of the site: the intro is a quick settle, not the full first-visit show. */
 .from-site [data-reveal-load] { transition-delay: calc(var(--d, 0ms) * 0.3) !important; }
