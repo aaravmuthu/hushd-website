@@ -15,6 +15,7 @@ import { Route as DownloadRouteImport } from './routes/download'
 import { Route as FeaturesRouteImport } from './routes/features'
 import { Route as HowItWorksRouteImport } from './routes/how-it-works'
 import { Route as PrivacyRouteImport } from './routes/privacy'
+import { Route as TermsRouteImport } from './routes/terms'
 import { Route as ApiBetaRedeemRouteImport } from './routes/api.beta.redeem'
 import { Route as ApiLicenseActionRouteImport } from './routes/api.license.$action'
 
@@ -48,6 +49,11 @@ const PrivacyRoute = PrivacyRouteImport.update({
   path: '/privacy',
   getParentRoute: () => rootRouteImport,
 } as any)
+const TermsRoute = TermsRouteImport.update({
+  id: '/terms',
+  path: '/terms',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ApiBetaRedeemRoute = ApiBetaRedeemRouteImport.update({
   id: '/api/beta/redeem',
   path: '/api/beta/redeem',
@@ -66,6 +72,7 @@ export interface FileRoutesByFullPath {
   '/features': typeof FeaturesRoute
   '/how-it-works': typeof HowItWorksRoute
   '/privacy': typeof PrivacyRoute
+  '/terms': typeof TermsRoute
   '/api/beta/redeem': typeof ApiBetaRedeemRoute
   '/api/license/$action': typeof ApiLicenseActionRoute
 }
@@ -76,6 +83,7 @@ export interface FileRoutesByTo {
   '/features': typeof FeaturesRoute
   '/how-it-works': typeof HowItWorksRoute
   '/privacy': typeof PrivacyRoute
+  '/terms': typeof TermsRoute
   '/api/beta/redeem': typeof ApiBetaRedeemRoute
   '/api/license/$action': typeof ApiLicenseActionRoute
 }
@@ -87,6 +95,7 @@ export interface FileRoutesById {
   '/features': typeof FeaturesRoute
   '/how-it-works': typeof HowItWorksRoute
   '/privacy': typeof PrivacyRoute
+  '/terms': typeof TermsRoute
   '/api/beta/redeem': typeof ApiBetaRedeemRoute
   '/api/license/$action': typeof ApiLicenseActionRoute
 }
@@ -99,6 +108,7 @@ export interface FileRouteTypes {
     | '/features'
     | '/how-it-works'
     | '/privacy'
+    | '/terms'
     | '/api/beta/redeem'
     | '/api/license/$action'
   fileRoutesByTo: FileRoutesByTo
@@ -109,6 +119,7 @@ export interface FileRouteTypes {
     | '/features'
     | '/how-it-works'
     | '/privacy'
+    | '/terms'
     | '/api/beta/redeem'
     | '/api/license/$action'
   id:
@@ -119,6 +130,7 @@ export interface FileRouteTypes {
     | '/features'
     | '/how-it-works'
     | '/privacy'
+    | '/terms'
     | '/api/beta/redeem'
     | '/api/license/$action'
   fileRoutesById: FileRoutesById
@@ -130,6 +142,7 @@ export interface RootRouteChildren {
   FeaturesRoute: typeof FeaturesRoute
   HowItWorksRoute: typeof HowItWorksRoute
   PrivacyRoute: typeof PrivacyRoute
+  TermsRoute: typeof TermsRoute
   ApiBetaRedeemRoute: typeof ApiBetaRedeemRoute
   ApiLicenseActionRoute: typeof ApiLicenseActionRoute
 }
@@ -178,6 +191,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof PrivacyRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/terms': {
+      id: '/terms'
+      path: '/terms'
+      fullPath: '/terms'
+      preLoaderRoute: typeof TermsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/api/beta/redeem': {
       id: '/api/beta/redeem'
       path: '/api/beta/redeem'
@@ -202,6 +222,7 @@ const rootRouteChildren: RootRouteChildren = {
   FeaturesRoute: FeaturesRoute,
   HowItWorksRoute: HowItWorksRoute,
   PrivacyRoute: PrivacyRoute,
+  TermsRoute: TermsRoute,
   ApiBetaRedeemRoute: ApiBetaRedeemRoute,
   ApiLicenseActionRoute: ApiLicenseActionRoute,
 }

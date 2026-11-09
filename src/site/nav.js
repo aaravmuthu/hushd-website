@@ -9,6 +9,7 @@ export const CARDS = {
   "/privacy": ["Privacy", "What it reads, and what it leaves alone."],
   "/download": ["Download", "The beta for Mac."],
   "/beta": ["Beta", "Unlock it with your invite code."],
+  "/terms": ["Terms", "The plain rules of the beta."],
 };
 
 const LINKS = [

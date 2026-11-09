@@ -1,8 +1,11 @@
 import { createFileRoute } from "@tanstack/react-router";
 
 import body from "../site/privacy.body.html?raw";
+import { fillOwner } from "../site/owner";
 import { pageHead } from "../site/head";
 import { usePage } from "../site/use-page";
+
+const html = fillOwner(body);
 
 export const Route = createFileRoute("/privacy")({
   head: () =>
@@ -15,7 +18,7 @@ export const Route = createFileRoute("/privacy")({
 
 function PrivacyPage() {
   // The page's motion is plain DOM code; it runs in the browser once the markup is in, and stops when the page leaves.
-  const ref = usePage("/privacy", body);
+  const ref = usePage("/privacy", html);
 
-  return <div ref={ref} className="hushd-site" dangerouslySetInnerHTML={{ __html: body }} />;
+  return <div ref={ref} className="hushd-site" dangerouslySetInnerHTML={{ __html: html }} />;
 }

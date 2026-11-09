@@ -176,6 +176,25 @@
   </div>
 </section>
 
+<!-- What our server keeps ------------------------------------------------------------------------------------- -->
+<section class="legal paper" id="data" data-tone="paper">
+  <div class="wrap wrap--narrow">
+    <h2>What reaches hushd.store, and what we keep</h2>
+    <p>Hushd runs on your Mac, and only a few small things ever reach us. This is the whole list.</p>
+    <ul>
+      <li><b>Your beta key, checked.</b> When Hushd opens and about once a day, it sends your key, a code for this Mac (a one-way hash of its hardware ID, not the ID itself) and the app version. We keep the key as a one-way hash with its last four characters, which Mac codes are attached to it, the app version, and when each was first and last seen. We do not keep your Mac’s name, and we do not know who you are.</li>
+      <li><b>Getting a key.</b> The invite code you type on the beta page is checked on our server. If a code is wrong, we keep a one-way hash of your network address for one day so we can slow down guessing. Nothing else is kept about the attempt.</li>
+      <li><b>The daily look for an update.</b> Hushd asks hushd.store for the list of builds. That request carries no key and no work.</li>
+      <li><b>Network addresses.</b> Like any website, our host (Lovable) and Cloudflare see the network address and browser details of everyone who visits or checks in, and keep them in their own short-lived logs. We do not use them to track you, we run no analytics or ads of our own, and the site loads nothing from any other company: not fonts, not scripts, not trackers.</li>
+      <li><b>Cookies.</b> We set none for tracking. Our host adds two small ones to keep the site working: <code>__dpl</code>, which keeps you on one version of the site while it updates, and <code>__cf_bm</code>, Cloudflare’s short-lived bot check. Neither says who you are, so there is no banner to click. The host may also count page loads and basic page speed for its own service; this site’s code cannot turn that off, and it never sees anything from the app.</li>
+    </ul>
+    <h3>Never sent</h3>
+    <p>Your task, your project notes, what is on your screen, window titles, your sessions and anything you type into Hushd stay on your Mac. Two optional features use your own iCloud and are off until you turn them on.</p>
+    <h3>Leaving, and deleting</h3>
+    <p>Deactivate this Mac, in Hushd’s Settings, deletes that Mac’s record from your key straight away. To have a whole key and its records removed<!--if:email-->, write to <a href="mailto:{{email}}">{{email}}</a> from the address you got it with<!--/if-->, and we will do it<!--if:retention-->. Records of an ended key are kept for {{retention}}, then deleted<!--/if-->.</p>
+  </div>
+</section>
+
 <section class="outro outro--drift paper" data-tone="paper">
   <canvas class="drift" aria-hidden="true"></canvas>
   <div class="wrap wrap--narrow">
@@ -200,22 +219,23 @@
       <a class="btn btn--white btn--sm" href="/download">Download for macOS</a>
     </div>
     <nav class="footer__col" aria-label="Pages">
-      <h3>Hushd</h3>
+      <h2>Hushd</h2>
       <a href="/">Home</a>
       <a href="/how-it-works">How it works</a>
       <a href="/features">Features</a>
       <a href="/privacy">Privacy</a>
+      <a href="/terms">Terms</a>
       <a href="/download">Download</a>
     </nav>
     <nav class="footer__col" aria-label="Beta">
-      <h3>Beta</h3>
+      <h2>Beta</h2>
       <a href="/beta">Unlock the beta</a>
       <a href="https://github.com/Aryan61056/focus-app/blob/main/docs/beta/TESTER-GUIDE.md">Tester guide</a>
       <a href="https://github.com/Aryan61056/focus-app/issues/new/choose">Send feedback</a>
       <a href="/download#faq">Questions</a>
     </nav>
     <div class="footer__col footer__credits">
-      <h3>Art</h3>
+      <h2>Art</h2>
       <p>Auguste Rodin, <i>The Thinker</i>. Photo by AndrewHorne, public domain, via Wikimedia Commons.</p>
       <p>Albrecht Dürer, <i>Saint Jerome in His Study</i>, 1514. National Gallery of Art, CC0.</p>
       <p>Caspar David Friedrich, <i>Wanderer above the Sea of Fog</i>, about 1818. Public domain.</p>

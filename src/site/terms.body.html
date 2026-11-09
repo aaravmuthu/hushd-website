@@ -1,0 +1,86 @@
+<main id="main">
+<section class="subhero sky" data-tone="sky">
+  <div class="sky__fog" data-loop aria-hidden="true"><i></i><i></i><i></i></div>
+  <div class="subhero__inner">
+    <div class="subhero__copy">
+      <h1 class="reveal reveal--title" data-reveal-load style="--d:140ms">The plain rules <span class="soft">of the beta.</span></h1>
+      <p class="reveal" data-reveal-load style="--d:300ms">Hushd for Mac is free while it is in beta. Last updated 8 November 2026.</p>
+    </div>
+  </div>
+</section>
+
+<section class="legal paper" data-tone="paper">
+  <div class="wrap wrap--narrow">
+    <h2>Who this is with</h2>
+    <p>Hushd is a Mac app that helps you stay on a task. These terms are between you and <!--if:name-->{{name}}<!--/if--><!--if:name-->, who run<!--/if--> Hushd, called “we” here. Using the app or the website means you accept them. If you do not, do not use them.</p>
+    <!--if:address--><p>Our address for legal notices: {{address}}.</p><!--/if-->
+    <!--if:email--><p>You can write to us about anything on this page at <a href="mailto:{{email}}">{{email}}</a>.</p><!--/if-->
+
+    <h2>The beta is free</h2>
+    <p>We do not take payment for the beta, and nothing on this site charges you. A beta key lets you run the app until the date shown in the app. The beta may change, break, or end, and we may stop it at any time. Please keep anything important backed up.</p>
+
+    <h2>Your key</h2>
+    <ul>
+      <li>A key is for you. One key works on up to two of your Macs. Please do not post or sell it.</li>
+      <li>You can free a Mac any time with Deactivate this Mac in Settings, which removes that Mac from the key.</li>
+      <li>We can turn a key off if it is shared widely or used to harm the service or other people.</li>
+    </ul>
+
+    <h2>What you may do</h2>
+    <p>You may install and use Hushd on your own Macs for your own work and study. You may not copy it to sell, take it apart to remove the key check, or use it to break the law or to watch someone else without their knowledge. Hushd shows that it is running, and is meant to be used on your own computer.</p>
+
+    <h2>Your work stays yours</h2>
+    <p>What you type and the sessions Hushd records stay on your Mac. We do not receive them and we do not own them. What we do receive is listed on the <a href="/privacy#data">privacy page</a>.</p>
+
+    <h2>No promises about results</h2>
+    <p>Hushd uses an on-device model, and it can be wrong. It is a gentle helper, not a guarantee that you will finish a task, pass a class, or meet a deadline. The beta is provided as it is, without warranties of any kind, to the extent the law allows. To the same extent, we are not liable for lost work or indirect loss that comes from using it. Nothing here limits rights you have by law that cannot be limited.</p>
+
+    <h2>Age</h2>
+    <!--if:minAge--><p>You must be at least {{minAge}} years old to get a key. If you are younger, ask a parent or guardian to read these terms and the privacy page with you first.</p><!--/if-->
+    <p>The beta does not ask for your name, your email or your date of birth, and it has no account.</p>
+
+    <h2>Open-source parts</h2>
+    <p>Hushd uses Sparkle, an MIT-licensed updater. Its notice is inside the app, under Settings, Privacy, Open-source notices. The art on this site is public domain or CC0, credited in the footer.</p>
+
+    <h2>Changes and leaving</h2>
+    <p>We may update these terms. The date at the top changes when we do, and a change that matters will be said on the download page. You can stop at any time by deactivating your Macs and deleting the app.</p>
+
+    <!--if:law--><h2>Which law applies</h2><p>These terms follow the law of {{law}}.</p><!--/if-->
+  </div>
+</section>
+
+</main>
+
+<footer class="footer" data-tone="sky">
+  <canvas class="footer__art" aria-hidden="true"></canvas>
+  <div class="footer__inner wrap">
+    <div class="footer__brand">
+      <a class="footer__logo" href="/"><img decoding="async" src="/media/app/icon.png" alt="" width="44" height="44"><span>Hushd</span></a>
+      <p class="footer__line">A calm colleague for focused work.</p>
+      <p class="footer__blurb">Projects, gentle nudges and a ring in the notch. The judging runs on your Mac.</p>
+      <a class="btn btn--white btn--sm" href="/download">Download for macOS</a>
+    </div>
+    <nav class="footer__col" aria-label="Pages">
+      <h2>Hushd</h2>
+      <a href="/">Home</a>
+      <a href="/how-it-works">How it works</a>
+      <a href="/features">Features</a>
+      <a href="/privacy">Privacy</a>
+      <a href="/terms">Terms</a>
+      <a href="/download">Download</a>
+    </nav>
+    <nav class="footer__col" aria-label="Beta">
+      <h2>Beta</h2>
+      <a href="/beta">Unlock the beta</a>
+      <a href="https://github.com/Aryan61056/focus-app/blob/main/docs/beta/TESTER-GUIDE.md">Tester guide</a>
+      <a href="https://github.com/Aryan61056/focus-app/issues/new/choose">Send feedback</a>
+      <a href="/download#faq">Questions</a>
+    </nav>
+    <div class="footer__col footer__credits">
+      <h2>Art</h2>
+      <p>Auguste Rodin, <i>The Thinker</i>. Photo by AndrewHorne, public domain, via Wikimedia Commons.</p>
+      <p>Albrecht Dürer, <i>Saint Jerome in His Study</i>, 1514. National Gallery of Art, CC0.</p>
+      <p>Caspar David Friedrich, <i>Wanderer above the Sea of Fog</i>, about 1818. Public domain.</p>
+    </div>
+  </div>
+</footer>

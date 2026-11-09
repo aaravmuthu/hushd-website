@@ -43,10 +43,12 @@
 }
 
 *, *::before, *::after { box-sizing: border-box; }
-html { -webkit-text-size-adjust: 100%; scroll-behavior: smooth; scroll-padding-top: 84px; }
+/* The area behind a phone's status bar, and what shows when the page is pulled past its top, takes the page's own background. Every page opens on
+   a sky section and ends on the sky footer, so that is the sky, not the near-white paper (owner, 2026-11-08: a white bar at the top on mobile). */
+html { -webkit-text-size-adjust: 100%; scroll-behavior: smooth; scroll-padding-top: 84px; background: linear-gradient(180deg, var(--sky) 50%, var(--sky-deep) 50%); }
 body {
   margin: 0;
-  background: var(--paper);
+  background: transparent;
   color: var(--ink);
   font-family: var(--font);
   font-size: 17px;
@@ -688,8 +690,10 @@ kbd {
 .wordscroll__icon { width: 92px; height: 92px; filter: drop-shadow(0 18px 30px rgb(10 30 20 / 0.22)); }
 .wordscroll__text { font-family: var(--font-display); font-weight: 600; font-size: clamp(1.9rem, 4.4vw, 3.6rem); letter-spacing: -0.035em; line-height: 1.12; max-width: 20ch; text-wrap: balance; }
 .wordscroll__ask { font-family: var(--font-display); font-weight: 600; font-size: clamp(1.3rem, 2.4vw, 2rem); letter-spacing: -0.025em; color: var(--accent); }
-.ws-word { display: inline-block; opacity: var(--o, 0.16); filter: blur(calc((1 - var(--o, 0.16)) * 3px)); transition: opacity 120ms linear; }
+.ws-word { display: inline-block; opacity: var(--o, 0.55); filter: blur(calc((1 - var(--o, 0.55)) * 3px)); transition: opacity 120ms linear; }
 .no-js .ws-word, .ws-static .ws-word { --o: 1; }
+/* The accent-colored line needs a higher floor than the ink one to stay at 3:1 on the paper. */
+.wordscroll__ask .ws-word { opacity: max(var(--o, 0.8), 0.8); }
 
 /* Get it */
 .get { padding: clamp(40px, 6vw, 80px) 0 clamp(100px, 12vw, 160px); }
@@ -747,7 +751,7 @@ kbd {
 .footer__logo { display: inline-flex; align-items: center; gap: 12px; text-decoration: none; font-weight: 650; font-size: 22px; letter-spacing: -0.02em; }
 .footer__line { margin-top: 18px; font-family: var(--font-display); font-weight: 600; font-size: 24px; letter-spacing: -0.025em; line-height: 1.15; }
 .footer__blurb { margin: 10px 0 22px; opacity: 0.78; max-width: 34ch; }
-.footer__col h3 { font-size: 15px; font-weight: 650; margin-bottom: 14px; }
+.footer__col h2, .footer__col h3 { font-size: 15px; font-weight: 650; margin-bottom: 14px; }
 .footer__col a { display: block; width: fit-content; padding: 5px 0; color: rgb(255 255 255 / 0.78); text-decoration: none; transition: color 200ms ease; }
 .footer__col a:hover { color: #fff; }
 .footer__credits p { font-size: 14px; opacity: 0.74; margin-bottom: 10px; max-width: 40ch; }

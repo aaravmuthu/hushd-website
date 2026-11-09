@@ -73,7 +73,7 @@ export function pageHead({ title, description }: { title: string; description: s
     meta: [
       { title },
       { name: "description", content: description },
-      { name: "theme-color", content: "#000000" },
+      { name: "theme-color", content: "#135e3d" },
       { property: "og:title", content: title },
       { property: "og:description", content: description },
       { property: "og:type", content: "website" },
@@ -83,9 +83,7 @@ export function pageHead({ title, description }: { title: string; description: s
     ],
     links: [
       { rel: "icon", href: "/media/app/icon.png" },
-      { rel: "preconnect", href: "https://fonts.googleapis.com" },
-      { rel: "preconnect", href: "https://fonts.gstatic.com", crossOrigin: "anonymous" as const },
-      { rel: "stylesheet", href: "https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" },
+      // No web fonts: the site uses the visitor's own system fonts, so no request goes to Google.
       { rel: "stylesheet", href: hushdCss },
       { rel: "stylesheet", href: pagesCss },
       { rel: "stylesheet", href: mobileCss },
