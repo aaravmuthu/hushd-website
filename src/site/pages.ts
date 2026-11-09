@@ -7,4 +7,5 @@ export const PAGES: Record<string, () => Promise<PageModule>> = {
   "/privacy": () => import("./privacy.js"),
   "/download": () => import("./download.js"),
   "/beta": () => import("./beta.js"),
+  "/terms": () => import("./terms.js"),
 };
