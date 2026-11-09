@@ -4,12 +4,12 @@
         <title>Hushd</title>
         <item>
             <title>0.1.0</title>
-            <pubDate>Sun, 08 Nov 2026 21:49:41 -0600</pubDate>
-            <sparkle:version>3</sparkle:version>
+            <pubDate>Sun, 08 Nov 2026 22:43:09 -0600</pubDate>
+            <sparkle:version>4</sparkle:version>
             <sparkle:shortVersionString>0.1.0</sparkle:shortVersionString>
             <sparkle:minimumSystemVersion>14.0</sparkle:minimumSystemVersion>
             <sparkle:hardwareRequirements>arm64</sparkle:hardwareRequirements>
-            <enclosure url="https://hushd.store/updates/Hushd-0.1.0-beta.3.dmg" length="7940474" type="application/octet-stream" sparkle:edSignature="Vgmoxe9/5kdguQMxR1VvGSVF+FSUwlPOXjy4kaqPyiqjSP3JmN0OpvxhhIuHq8R2u6dG6irAdXH+oJAE6Z9ZAw=="/>
+            <enclosure url="https://hushd.store/updates/Hushd-0.1.0-beta.4.dmg" length="7939949" type="application/octet-stream" sparkle:edSignature="5H/YXuwqKafxHTo6jxTjoxMeCba2RITjC+KcuqErdZ9cj+x+eVT4ArOkQ/giqZzwvDUVNLfUUEAhE5UUNpViBg=="/>
         </item>
     </channel>
 </rss>
