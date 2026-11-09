@@ -80,6 +80,28 @@ export function watchVisible(el, cb, threshold = 0.25) {
 // Pages swap in place under the nav. A route calls mountPage once its markup is in the document: the shared parts
 // (reveals, art, explanations) and the page's own script start in a fresh scope, and all of it stops when the page
 // leaves. The returned function is the route's effect cleanup.
+/* Anchors. The sections below the first keep a guessed height (900px) until they have been drawn, so a jump to one of them landed
+   wherever the guess put it, usually past the heading. Draw them all once, then measure and go. */
+function jumpToHash(hash, smooth) {
+  const target = hash && document.getElementById(decodeURIComponent(hash));
+  if (!target) return false;
+  root.classList.add("measured");
+  requestAnimationFrame(() => {
+    const top = target.getBoundingClientRect().top + window.scrollY - 84;
+    window.scrollTo({ top: Math.max(0, Math.round(top)), behavior: smooth ? "smooth" : "instant" });
+  });
+  return true;
+}
+
+// The halftone art draws through one WebGL context, built the first time a page needs it, and building it blocks for a few hundred ms.
+// Build it once, in the quiet after the first page has settled, so the first page-to-page swap does not hitch on it.
+let warmed = false;
+function warmArt() {
+  if (warmed || reduceMotion) return;
+  warmed = true;
+  setTimeout(() => (window.requestIdleCallback || setTimeout)(() => import("./halftone.js").then((m) => m.dots.ok).catch(quiet)), 1500);
+}
+
 export function mountPage(load, el, html) {
   const s = new Scope();
   if (root.classList.contains("spa")) el.classList.add("page-in");
@@ -89,6 +111,13 @@ export function mountPage(load, el, html) {
     mountShared(el, s);
     m.mount?.(s);
     arrived?.(location.pathname);
+    warmArt();
+    // Arriving on /page#section: go to the section once the page has its real height.
+    if (location.hash) {
+      const h = location.hash.slice(1);
+      s.api.requestAnimationFrame(() => s.api.requestAnimationFrame(() => jumpToHash(h, false)));
+      s.api.setTimeout(() => jumpToHash(h, false), 450);
+    }
   }).catch(quiet);
   return () => {
     s.dispose();
@@ -304,6 +333,17 @@ if (pill) {
     go(u);
   });
   addEventListener("pointercancel", () => { if (press) { press = null; stay(); } });
+  // A link to a place on this same page (the FAQ in the menu, "Questions" in the footer).
+  document.addEventListener("click", (e) => {
+    const a = !e.defaultPrevented && e.button === 0 && !(e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) && e.target.closest?.("a[href]");
+    if (!a || a.target === "_blank") return;
+    const url = new URL(a.href, location.href);
+    if (url.origin !== location.origin || url.pathname !== location.pathname || !url.hash) return;
+    if (!document.getElementById(decodeURIComponent(url.hash.slice(1)))) return;
+    e.preventDefault();
+    jumpToHash(url.hash.slice(1), !reduceMotion);
+    history.pushState(null, "", url.pathname + url.hash);
+  });
   document.addEventListener("click", (e) => {
     // The click that follows a press already handled above.
     if (performance.now() - swallow < 600) { if (e.target.closest?.("a[href]")) e.preventDefault(); return; }
@@ -316,10 +356,20 @@ if (pill) {
 
   // The page swaps in place: the router renders the next page under the open notch, then the notch tucks. Without
   // the router (it failed to start) it is an ordinary page load, which arrives out of the notch the old way.
+  // The old page eases out first (it used to be cut away at once, then the new one faded in: fast, but not smooth), and the
+  // smooth-scroll the page normally has is off while the router puts the next page at the top.
   const go = (u) => {
     if (!window.__hushdGo) { note(); location.assign(u.href); return; }
     root.classList.add("spa", "from-site");
-    window.__hushdGo(u.pathname, u.hash.slice(1));
+    const swap = () => {
+      root.style.scrollBehavior = "auto";
+      root.classList.remove("page-leaving");
+      window.__hushdGo(u.pathname, u.hash.slice(1));
+      setTimeout(() => root.style.removeProperty("scroll-behavior"), 1000);
+    };
+    if (reduceMotion) { swap(); return; }
+    root.classList.add("page-leaving");
+    setTimeout(swap, 200);
   };
   const setCurrent = (path) => {
     for (const a of [...links, $(".btn--nav", pill)]) {
